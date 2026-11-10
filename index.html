@@ -15,6 +15,9 @@
     <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- imgly Background Removal Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5/dist/umd/index.js"></script>
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -42,17 +45,7 @@
     </header>
 
     <!-- ========================================== -->
-    <!-- 3. GOOGLE ADSENSE BANNER TOP SPACE         -->
-    <!-- ========================================== -->
-    <!-- (Future AdSense code can be pasted inside this div) -->
-    <div class="max-w-4xl mx-auto my-4 px-4">
-        <div class="w-full h-20 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400 text-xs border border-dashed border-gray-300">
-            [ Google AdSense Top Banner Space ]
-        </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- 4. HERO SECTION & INTRO                    -->
+    <!-- 3. HERO SECTION & INTRO                    -->
     <!-- ========================================== -->
     <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full">
         <div class="text-center mb-10">
@@ -65,7 +58,7 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- 5. MAIN BACKGROUND REMOVER TOOL SECTION    -->
+        <!-- 4. MAIN BACKGROUND REMOVER TOOL SECTION    -->
         <!-- ========================================== -->
         <section id="tool" class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100 mb-12">
             <!-- Upload Box (Drag & Drop + Click) -->
@@ -83,12 +76,20 @@
 
             <!-- Preview & Processing Area (Hidden by default) -->
             <div id="previewArea" class="hidden mt-6 text-center">
-                <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                         <p class="text-sm font-semibold text-gray-500 mb-2">Original Image</p>
-                        <img id="originalImage" class="max-h-64 rounded-lg shadow border" alt="Original">
+                        <img id="originalImage" class="max-h-64 mx-auto rounded-lg shadow border" alt="Original">
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-gray-500 mb-2">Processed Result (No Background)</p>
+                        <div id="resultContainer" class="min-h-[160px] flex items-center justify-center bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                            <span id="loadingText" class="text-gray-400 text-sm hidden">Processing background... Please wait ⏳</span>
+                            <img id="resultImage" class="max-h-64 mx-auto rounded-lg shadow hidden" alt="Result">
+                        </div>
                     </div>
                 </div>
+
                 <!-- Action Button -->
                 <button id="processBtn" class="bg-[#10B981] hover:bg-[#059669] text-white font-bold px-8 py-3 rounded-xl shadow-lg transition text-lg">
                     ✨ Remove Background Now
@@ -97,16 +98,7 @@
         </section>
 
         <!-- ========================================== -->
-        <!-- 6. GOOGLE ADSENSE CONTENT/MIDDLE SPACE     -->
-        <!-- ========================================== -->
-        <div class="my-8">
-            <div class="w-full h-32 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400 text-xs border border-dashed border-gray-300">
-                [ Google AdSense Middle Sidebar/Content Ad Space ]
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- 7. ABOUT & INFO SECTION                    -->
+        <!-- 5. ABOUT & INFO SECTION                    -->
         <!-- ========================================== -->
         <section id="about" class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
             <h2 class="text-xl font-bold text-[#1E293B] mb-3">About PixiePic</h2>
@@ -117,7 +109,7 @@
     </main>
 
     <!-- ========================================== -->
-    <!-- 8. FOOTER & LEGAL LINKS SECTION            -->
+    <!-- 6. FOOTER & LEGAL LINKS SECTION            -->
     <!-- ========================================== -->
     <footer class="bg-white border-t border-gray-100 py-6 mt-12">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
@@ -131,18 +123,24 @@
     </footer>
 
     <!-- ========================================== -->
-    <!-- 9. JAVASCRIPT LOGIC SECTION                -->
+    <!-- 7. JAVASCRIPT BACKGROUND REMOVAL LOGIC     -->
     <!-- ========================================== -->
     <script>
         const fileInput = document.getElementById('fileInput');
         const dropZone = document.getElementById('dropZone');
         const previewArea = document.getElementById('previewArea');
         const originalImage = document.getElementById('originalImage');
+        const processBtn = document.getElementById('processBtn');
+        const resultImage = document.getElementById('resultImage');
+        const loadingText = document.getElementById('loadingText');
+
+        let selectedFile = null;
 
         // Handle file selection via browse
         fileInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
+                selectedFile = file;
                 displayPreview(file);
             }
         });
@@ -153,9 +151,38 @@
             reader.onload = function(e) {
                 originalImage.src = e.target.result;
                 previewArea.classList.remove('hidden');
+                resultImage.classList.add('hidden');
+                loadingText.classList.add('hidden');
             }
             reader.readAsDataURL(file);
         }
+
+        // Process Background Removal using imgly library
+        processBtn.addEventListener('click', async function() {
+            if (!selectedFile) return;
+
+            loadingText.classList.remove('hidden');
+            resultImage.classList.add('hidden');
+            processBtn.disabled = true;
+            processBtn.innerText = "Processing... ✨";
+
+            try {
+                // Call background removal AI model in browser
+                const imageBlob = await imglyRemoveBackground(selectedFile);
+                const url = URL.createObjectURL(imageBlob);
+                
+                resultImage.src = url;
+                resultImage.classList.remove('hidden');
+                loadingText.classList.add('hidden');
+            } catch (error) {
+                console.error(error);
+                alert("Something went wrong while removing the background. Please try another image.");
+                loadingText.innerText = "Error processing image.";
+            } finally {
+                processBtn.disabled = false;
+                processBtn.innerText = "✨ Remove Background Now";
+            }
+        });
     </script>
 </body>
 </html>
