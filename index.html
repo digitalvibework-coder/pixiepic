@@ -34,8 +34,8 @@
 
             <!-- Navigation Links -->
             <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
-                <a href="#tool" class="hover:text-[#7C3AED] transition">Background Remover</a>
-                <a href="#compressor" class="hover:text-[#7C3AED] transition font-semibold text-[#7C3AED]">Image Compressor</a>
+        <!-- <a href="#tool" class="hover:text-[#7C3AED] transition">Background Remover</a> -->
+                <!-- a href="#compressor" class="hover:text-[#7C3AED] transition font-semibold text-[#7C3AED]">Image Compressor</a> -->
                 <a href="#about" class="hover:text-[#7C3AED] transition">About Us</a>
                 <a href="#privacy" class="hover:text-[#7C3AED] transition">Privacy Policy</a>
                 <a href="#contact" class="hover:text-[#7C3AED] transition">Contact</a>
@@ -46,137 +46,69 @@
     <!-- SECTION 3: HERO INTRO SECTION                            -->
     <!-- ======================================================== -->
    
-    <!-- ======================================================================== -->
-<!-- SECTION 3: MAIN DASHBOARD LAYOUT WRAPPER (CONTAINER)                     -->
 <!-- ======================================================================== -->
-<div class="max-w-7xl mx-auto px-4 py-6">
+<!-- SECTION 3: REVISED CLEAN DASHBOARD LAYOUT                                -->
+<!-- ======================================================================== -->
+<div class="max-w-[1400px] mx-auto px-4 py-6">
     
-    <!-- DASHBOARD GRID SYSTEM (3 Columns: Left Sidebar | Main Content | Right Sidebar) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- MAIN 3-COLUMN GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
-        <!-- ==================================================================== -->
-        <!-- SUB-SECTION 3A: LEFT SIDEBAR NAVIGATION (TOOLS LIST)                -->
-        <!-- ==================================================================== -->
-        <aside class="lg:col-span-3 space-y-4">
-            
-            <!-- SIDEBAR CARD CONTAINER -->
+        <!-- ================================================================ -->
+        <!-- LEFT SIDEBAR: TOOLS NAVIGATION                                   -->
+        <!-- ================================================================ -->
+        <aside class="lg:col-span-3">
             <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm sticky top-24">
-                
-                <!-- SIDEBAR HEADER / TITLE -->
-                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 px-2">
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-2">
                     Image Tools
                 </h3>
-
-                <!-- NAVIGATION BUTTONS / LINKS LIST -->
-                <nav class="space-y-2">
-                    
-                    <!-- TOOL LINK 1: BACKGROUND REMOVER (ACTIVE) -->
-                    <a href="#tool" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-[#7C3AED]/10 text-[#7C3AED] font-medium transition hover:bg-[#7C3AED]/20">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                        </svg>
+                <nav class="space-y-1.5">
+                    <!-- Background Remover Link -->
+                    <a href="#tool" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-[#7C3AED]/10 text-[#7C3AED] font-medium transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                         <span class="text-sm">Background Remover</span>
                     </a>
-
-                    <!-- TOOL LINK 2: IMAGE COMPRESSOR -->
+                    <!-- Image Compressor Link -->
                     <a href="#compressor" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-[#7C3AED] font-medium transition">
-                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         <span class="text-sm">Image Compressor</span>
                     </a>
-
-                    <!-- TOOL LINK 3: IMAGE RESIZER (COMING SOON) -->
-                    <a href="#" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-gray-400 hover:bg-gray-50 font-medium transition cursor-not-allowed">
-                        <div class="flex items-center gap-3">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-2V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
-                            </svg>
-                            <span class="text-sm">Image Resizer</span>
-                        </div>
-                        <span class="text-[10px] font-semibold bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">Soon</span>
-                    </a>
-
-                    <!-- TOOL LINK 4: FORMAT CONVERTER (COMING SOON) -->
-                    <a href="#" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-gray-400 hover:bg-gray-50 font-medium transition cursor-not-allowed">
-                        <div class="flex items-center gap-3">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
-                            </svg>
-                            <span class="text-sm">Format Converter</span>
-                        </div>
-                        <span class="text-[10px] font-semibold bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">Soon</span>
-                    </a>
-
                 </nav>
-
-                <!-- SIDEBAR DIVIDER LINE -->
                 <hr class="my-4 border-gray-100">
-
-                <!-- SIDEBAR QUICK INFO / CREDITS BOX -->
                 <div class="p-3 bg-purple-50 rounded-xl border border-purple-100 text-center">
                     <p class="text-xs font-semibold text-[#7C3AED]">100% Free Tools</p>
-                    <p class="text-[11px] text-gray-500 mt-0.5">No login required for local utilities.</p>
+                    <p class="text-[11px] text-gray-500 mt-0.5">No login required.</p>
                 </div>
-
             </div>
         </aside>
 
-
-        <!-- ==================================================================== -->
-        <!-- SUB-SECTION 3B: CENTER MAIN CONTENT AREA (YOUR EXISTING TOOLS GO HERE)-->
-        <!-- ==================================================================== -->
+        <!-- ================================================================ -->
+        <!-- CENTER MAIN CONTENT AREA (YOUR TOOLS & HERO)                      -->
+        <!-- ================================================================ -->
         <main class="lg:col-span-6 space-y-6">
             
-            <!-- NOTE: మీ పాత Background Remover మరియు Image Compressor కోడ్ మొత్తం ఇక్కడే ముందటిలాగే సేఫ్‌గా ఉంటుంది -->
-            
-            <!-- TOP AD BANNER PLACEHOLDER (FUTURE ADSENSE INTEGRATION) -->
-            <!-- గూగుల్ యాడ్సెన్స్ అప్రూవల్ వచ్చాక ఈ కింద స్పేస్‌లో యాడ్ కోడ్ పెడతాం -->
-            <!-- <div id="top-ad-zone" class="w-full h-24 bg-gray-50 rounded-2xl border border-dashed border-gray-200"></div> -->
+            <!-- ఇక్కడే మీ పాత Background Remover మరియు Image Compressor కోడ్ ఉంటుంది -->
 
-        <!-- ==================================================================== -->
-        <!-- CENTER MAIN CONTENT AREA CLOSING TAG                                 -->
-        <!-- ==================================================================== -->
         </main>
 
-
-        <!-- ==================================================================== -->
-        <!-- SUB-SECTION 3C: RIGHT SIDEBAR (FUTURE ADSENSE & SIDE WIDGETS)       -->
-        <!-- ==================================================================== -->
-        <aside class="lg:col-span-3 space-y-4">
-            
-            <!-- RIGHT SIDEBAR CONTAINER -->
+        <!-- ================================================================ -->
+        <!-- RIGHT SIDEBAR: STATS & FUTURE ADS                                -->
+        <!-- ================================================================ -->
+        <aside class="lg:col-span-3">
             <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm sticky top-24 space-y-4">
-                
-                <!-- WIDGET 1: PLATFORM STATS / ADVANTAGES -->
                 <div class="p-4 bg-gray-50 rounded-xl border border-gray-100">
                     <h4 class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Why PixiePic?</h4>
                     <ul class="text-xs text-gray-600 space-y-2">
-                        <li class="flex items-center gap-2">
-                            <span class="text-[#7C3AED]">✓</span> Fast & Browser Based
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-[#7C3AED]">✓</span> High Privacy Guaranteed
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-[#7C3AED]">✓</span> AI Powered Accuracy
-                        </li>
+                        <li class="flex items-center gap-2"><span class="text-[#7C3AED]">✓</span> Fast & Browser Based</li>
+                        <li class="flex items-center gap-2"><span class="text-[#7C3AED]">✓</span> High Privacy</li>
+                        <li class="flex items-center gap-2"><span class="text-[#7C3AED]">✓</span> AI Powered</li>
                     </ul>
                 </div>
-
-                <!-- WIDGET 2: FUTURE VERTICAL ADSENSE AD UNIT CONTAINER -->
-                <!-- గూగుల్ యాడ్సెన్స్ అప్రూవ్ అయ్యాక వర్టికల్ యాడ్ కోసం reserved స్పేస్ -->
-                <!-- <div id="right-sidebar-ad-zone"></div> -->
-
             </div>
         </aside>
 
     </div>
-</div>
-<!-- ======================================================================== -->
-<!-- END OF MAIN DASHBOARD LAYOUT WRAPPER                                     -->
-<!-- ======================================================================== -->
-    
+</div>    
     
     
     
