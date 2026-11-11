@@ -378,4 +378,21 @@
         });
     </script>
 </body>
+    <script>
+function switchTool(toolId) {
+    // 1. అన్ని టూల్ సెక్షన్లని హైడ్ చేయి
+    const sections = document.querySelectorAll('.tool-section');
+    sections.forEach(sec => {
+        sec.classList.add('hidden');
+        sec.classList.remove('block');
+    });
+    
+    // 2. మనం క్లిక్ చేసిన టూల్ సెక్షన్ మాత్రమే చూపించు
+    const activeSection = document.getElementById('tool-' + toolId);
+    if (activeSection) {
+        activeSection.classList.remove('hidden');
+        activeSection.classList.add('block');
+    }
+}
+</script>
 </html>
