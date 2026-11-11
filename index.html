@@ -460,7 +460,7 @@
             }
         });
     </script>
-    <script>
+   <script>
 function switchTool(toolId) {
     const sections = document.querySelectorAll('.tool-section');
     sections.forEach(sec => {
@@ -474,6 +474,30 @@ function switchTool(toolId) {
         activeSection.classList.add('block');
     }
 }
+
+// ఇమేజ్ సెలెక్ట్ చేయగానే ప్రివ్యూ చూపించడానికి ఈ కోడ్ హెల్ప్ చేస్తుంది
+document.addEventListener('change', function(e) {
+    if (e.target && e.target.type === 'file' && e.target.files.length > 0) {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = function(event) {
+            // ఏ టూల్ లో అయితే ఫైల్ సెలెక్ట్ అయిందో ఆ టూల్ బాక్స్ లోని కంటెంట్ ని ప్రివ్యూ తో మారుస్తుంది
+            const uploadBox = e.target.closest('.border-dashed');
+            if (uploadBox) {
+                uploadBox.innerHTML = `
+                    <div class="space-y-4">
+                        <img src="${event.target.result}" alt="Uploaded Preview" class="max-h-48 mx-auto rounded-xl shadow-md object-contain">
+                        <p class="text-xs font-semibold text-gray-700">${file.name}</p>
+                        <button type="button" onclick="location.reload()" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-xs font-semibold rounded-xl shadow-sm transition">Remove / Change Image</button>
+                    </div>
+                `;
+            }
+        };
+        
+        reader.readAsDataURL(file);
+    }
+});
 </script>
 </body>
 </html>
