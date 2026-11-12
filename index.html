@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+**<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- ======================================================== -->
@@ -157,7 +157,7 @@
                 </p>
             </div>
 
-            <!-- Hidden File Input (Shared for both Browse & Change Image) -->
+            <!-- Hidden File Input -->
             <input type="file" id="fileInput" accept="image/*" class="hidden">
 
             <!-- Upload DropZone (Shown when no image is selected) -->
@@ -189,13 +189,12 @@
 
                 <!-- Action Buttons right below the image -->
                 <div class="flex items-center justify-between gap-4">
-                    <!-- Directly opens file picker to select a new image -->
                     <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-5 py-3.5 rounded-xl text-xs transition flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                         Change Image
                     </button>
                     <div id="mainActionContainer" class="flex-grow">
-                        <!-- Dynamic Button injected here based on tool -->
+                        <!-- Dynamic Button injected here -->
                     </div>
                 </div>
 
@@ -203,30 +202,14 @@
         </main>
 
         <!-- ==================================================== -->
-        <!-- COLUMN 3 (RIGHT SIDEBAR): TOOL-SPECIFIC CONTROL PANEL-->
+        <!-- COLUMN 3 (RIGHT SIDEBAR): ALWAYS VISIBLE TOOL SETTINGS-->
         <!-- ==================================================== -->
         <aside class="lg:col-span-3 flex flex-col gap-6 sticky top-24">
             
-            <!-- Default Info Box (When no image is uploaded) -->
-            <div id="rightDefaultPanel" class="bg-white rounded-2xl shadow-md border border-gray-200 p-5">
-                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Why PixiePic?</h3>
-                <ul class="text-xs text-gray-600 space-y-2.5 mb-6">
-                    <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Fast & Browser Based</li>
-                    <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> High Privacy Guaranteed</li>
-                    <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> AI Powered Accuracy</li>
-                </ul>
-                
-                <!-- AdSense / Banner Space -->
-                <div class="w-full h-56 bg-gray-50 rounded-xl border border-dashed border-gray-300 flex flex-col items-center justify-center text-center p-4">
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Sponsored Ad</span>
-                    <span class="text-xs text-gray-400 mt-1">[ Google AdSense Space ]</span>
-                </div>
-            </div>
-
-            <!-- DYNAMIC TOOL SETTINGS PANEL (Appears when image is loaded) -->
-            <div id="rightSettingsPanel" class="hidden bg-white rounded-2xl shadow-md border border-purple-200 p-5">
-                <h3 id="panelTitle" class="text-sm font-bold text-[#7C3AED] border-b border-gray-100 pb-2 mb-4 flex items-center gap-2">
-                    Tool Settings & Output
+            <div class="bg-white rounded-2xl shadow-md border border-purple-200 p-5">
+                <h3 id="panelTitle" class="text-sm font-bold text-[#7C3AED] border-b border-gray-100 pb-2 mb-4 flex items-center justify-between">
+                    <span>Tool Settings</span>
+                    <span id="activeToolBadge" class="text-[10px] bg-purple-100 text-[#7C3AED] px-2 py-0.5 rounded font-bold uppercase">Background Remover</span>
                 </h3>
 
                 <!-- Settings for: Background Remover -->
@@ -235,22 +218,38 @@
                     <div class="p-3 bg-purple-50 rounded-xl text-[#7C3AED] font-medium">Output Format: Transparent PNG</div>
                 </div>
 
-                <!-- Settings for: Image Compressor -->
+                <!-- Settings for: Image Compressor (With Quick Presets) -->
                 <div id="settings-compressor" class="tool-settings-group hidden space-y-4 text-xs">
                     <div>
-                        <div class="flex justify-between font-semibold text-gray-700 mb-2">
-                            <span>Quality Level:</span>
-                            <span id="qualityVal" class="text-[#7C3AED]">75%</span>
+                        <label class="block font-semibold text-gray-600 mb-2">Quick Quality Presets</label>
+                        <div class="grid grid-cols-3 gap-1.5" id="compressorPresets">
+                            <button type="button" onclick="setCompressorPreset(40, this)" class="preset-btn py-2 px-1 rounded-lg border border-gray-200 font-medium text-center transition hover:border-[#7C3AED]">Low (40%)</button>
+                            <button type="button" onclick="setCompressorPreset(70, this)" class="preset-btn active-preset py-2 px-1 rounded-lg border border-[#7C3AED] bg-purple-50 text-[#7C3AED] font-bold text-center transition">Balanced</button>
+                            <button type="button" onclick="setCompressorPreset(90, this)" class="preset-btn py-2 px-1 rounded-lg border border-gray-200 font-medium text-center transition hover:border-[#7C3AED]">High (90%)</button>
                         </div>
-                        <input type="range" id="qualitySlider" min="10" max="95" value="75" oninput="document.getElementById('qualityVal').innerText = this.value + '%'" class="w-full accent-[#7C3AED]">
                     </div>
-                    <div class="text-gray-400 text-[11px]">Lower percentage reduces file size (KB) further.</div>
+                    <div>
+                        <div class="flex justify-between font-semibold text-gray-700 mb-1">
+                            <span>Custom Quality:</span>
+                            <span id="qualityVal" class="text-[#7C3AED]">70%</span>
+                        </div>
+                        <input type="range" id="qualitySlider" min="10" max="95" value="70" oninput="updateSliderQuality(this.value)" class="w-full accent-[#7C3AED]">
+                    </div>
                 </div>
 
-                <!-- Settings for: Image Resizer -->
+                <!-- Settings for: Image Resizer (With Scale Ratios & Vertical Presets) -->
                 <div id="settings-resizer" class="tool-settings-group hidden space-y-4 text-xs">
                     <div>
-                        <label class="block font-semibold text-gray-600 mb-1">Dimensions (Pixels)</label>
+                        <label class="block font-semibold text-gray-600 mb-1.5">Scale Ratio</label>
+                        <div class="grid grid-cols-4 gap-1">
+                            <button type="button" onclick="applyScaleRatio(0.25)" class="py-1.5 bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] rounded font-semibold transition">25%</button>
+                            <button type="button" onclick="applyScaleRatio(0.50)" class="py-1.5 bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] rounded font-semibold transition">50%</button>
+                            <button type="button" onclick="applyScaleRatio(0.75)" class="py-1.5 bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] rounded font-semibold transition">75%</button>
+                            <button type="button" onclick="applyScaleRatio(1.00)" class="py-1.5 bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] rounded font-semibold transition">100%</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-600 mb-1">Custom Dimensions (px)</label>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
                                 <span class="text-[10px] text-gray-400">Width</span>
@@ -263,12 +262,20 @@
                         </div>
                     </div>
                     <div>
-                        <label class="block font-semibold text-gray-600 mb-1">Social Presets</label>
-                        <div class="grid grid-cols-2 gap-1.5">
-                            <button type="button" onclick="applyPreset(1200, 630)" class="bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] py-1.5 px-2 rounded font-medium text-left transition">FB Post (1200x630)</button>
-                            <button type="button" onclick="applyPreset(1080, 1080)" class="bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] py-1.5 px-2 rounded font-medium text-left transition">Insta Square (1080)</button>
-                            <button type="button" onclick="applyPreset(1280, 720)" class="bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] py-1.5 px-2 rounded font-medium text-left transition">YT Thumbnail</button>
-                            <button type="button" onclick="applyPreset(800, 800)" class="bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] py-1.5 px-2 rounded font-medium text-left transition">Square (800x800)</button>
+                        <label class="block font-semibold text-gray-600 mb-1.5">Social Media Presets</label>
+                        <div class="flex flex-col gap-1.5">
+                            <button type="button" onclick="applyPreset(1080, 1080, this)" class="social-preset-btn w-full bg-gray-50 hover:bg-purple-50 hover:text-[#7C3AED] border border-gray-200 py-2 px-3 rounded-lg font-medium text-left transition flex justify-between items-center">
+                                <span>Instagram Square</span> <span class="text-[10px] text-gray-400">1080 x 1080</span>
+                            </button>
+                            <button type="button" onclick="applyPreset(1080, 1920, this)" class="social-preset-btn w-full bg-gray-50 hover:bg-purple-50 hover:text-[#7C3AED] border border-gray-200 py-2 px-3 rounded-lg font-medium text-left transition flex justify-between items-center">
+                                <span>Story / Reel / TikTok</span> <span class="text-[10px] text-gray-400">1080 x 1920</span>
+                            </button>
+                            <button type="button" onclick="applyPreset(1280, 720, this)" class="social-preset-btn w-full bg-gray-50 hover:bg-purple-50 hover:text-[#7C3AED] border border-gray-200 py-2 px-3 rounded-lg font-medium text-left transition flex justify-between items-center">
+                                <span>YouTube Thumbnail</span> <span class="text-[10px] text-gray-400">1280 x 720</span>
+                            </button>
+                            <button type="button" onclick="applyPreset(1500, 500, this)" class="social-preset-btn w-full bg-gray-50 hover:bg-purple-50 hover:text-[#7C3AED] border border-gray-200 py-2 px-3 rounded-lg font-medium text-left transition flex justify-between items-center">
+                                <span>Twitter / X Header</span> <span class="text-[10px] text-gray-400">1500 x 500</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -281,9 +288,6 @@
                             <option value="image/png">PNG (Lossless & Transparent)</option>
                             <option value="image/jpeg">JPG / JPEG (Standard Photo)</option>
                             <option value="image/webp">WEBP (Next-Gen Web Optimized)</option>
-                            <option value="image/avif">AVIF (Ultra-Compressed Modern)</option>
-                            <option value="image/bmp">BMP (Bitmap Uncompressed)</option>
-                            <option value="image/x-icon">ICO (Website Favicon Format)</option>
                         </select>
                     </div>
                 </div>
@@ -291,16 +295,13 @@
                 <!-- Settings for: Watermark Remover -->
                 <div id="settings-watermark" class="tool-settings-group hidden space-y-4 text-xs">
                     <p class="text-gray-500">Applies smart contrast & pixel smoothing to clean light overlays and enhance clarity.</p>
-                    <div class="p-2.5 bg-amber-50 border border-amber-200 rounded-lg text-amber-700 text-[11px]">
-                        Note: Deep AI object removal API will be connected in the upcoming Pro update.
-                    </div>
                 </div>
 
                 <!-- Output File Info Summary -->
                 <div class="mt-6 pt-4 border-t border-gray-100 space-y-2 text-xs">
                     <div class="flex justify-between">
                         <span class="text-gray-400">Source File:</span>
-                        <span id="infoFileName" class="font-bold text-gray-700 truncate max-w-[120px]">-</span>
+                        <span id="infoFileName" class="font-bold text-gray-700 truncate max-w-[120px]">No image yet</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-400">Original Size:</span>
@@ -312,13 +313,21 @@
                     </div>
                 </div>
 
-                <!-- Always Visible Download Button (Disabled until processed, Green when ready) -->
+                <!-- Download Button Area (Appears in Right Sidebar as requested) -->
                 <div class="mt-5">
                     <a id="downloadBtn" class="block w-full text-center bg-gray-300 text-gray-500 pointer-events-none font-bold py-3 rounded-xl transition text-xs uppercase tracking-wider">
                         Download Result
                     </a>
                 </div>
 
+            </div>
+
+            <!-- AdSense / Banner Space -->
+            <div class="bg-white rounded-2xl shadow-md border border-gray-200 p-5">
+                <div class="w-full h-44 bg-gray-50 rounded-xl border border-dashed border-gray-300 flex flex-col items-center justify-center text-center p-4">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Sponsored Ad</span>
+                    <span class="text-xs text-gray-400 mt-1">[ Google AdSense Space ]</span>
+                </div>
             </div>
 
         </aside>
@@ -370,10 +379,9 @@
     </footer>
 
     <!-- ======================================================== -->
-    <!-- SECTION 6: JAVASCRIPT LOGIC & CLEAN STATE MANAGEMENT     -->
+    <!-- SECTION 6: JAVASCRIPT LOGIC                              -->
     <!-- ======================================================== -->
     <script>
-        // Enter your Remove.bg API Key here
         const API_KEY = "YOUR_REMOVE_BG_API_KEY";
 
         let currentTool = 'bg-remover';
@@ -381,33 +389,15 @@
         let originalImgObj = new Image();
 
         const toolMetadata = {
-            'bg-remover': {
-                title: 'Remove Image Background in <span class="text-[#7C3AED]">Seconds</span>',
-                desc: '100% Automatic AI Background Removal. Upload your image below.'
-            },
-            'compressor': {
-                title: 'Compress Image Size <span class="text-[#7C3AED]">Without Quality Loss</span>',
-                desc: 'Reduce file weight instantly right inside your browser.'
-            },
-            'resizer': {
-                title: 'Resize Image <span class="text-[#7C3AED]">Dimensions</span>',
-                desc: 'Change width and height accurately with social presets.'
-            },
-            'converter': {
-                title: 'Convert Image <span class="text-[#7C3AED]">Format</span>',
-                desc: 'Seamlessly switch between PNG, JPG, WEBP, AVIF, BMP, and ICO.'
-            },
-            'watermark': {
-                title: 'Smart <span class="text-[#7C3AED]">Watermark Remover</span>',
-                desc: 'Clean light overlays and enhance photo clarity.'
-            }
+            'bg-remover': { title: 'Remove Image Background in <span class="text-[#7C3AED]">Seconds</span>', desc: '100% Automatic AI Background Removal. Upload your image below.' },
+            'compressor': { title: 'Compress Image Size <span class="text-[#7C3AED]">Without Quality Loss</span>', desc: 'Reduce file weight instantly right inside your browser.' },
+            'resizer':    { title: 'Resize Image <span class="text-[#7C3AED]">Dimensions</span>', desc: 'Change width and height accurately with social presets.' },
+            'converter':  { title: 'Convert Image <span class="text-[#7C3AED]">Format</span>', desc: 'Seamlessly switch between PNG, JPG, and WEBP formats.' },
+            'watermark':  { title: 'Smart <span class="text-[#7C3AED]">Watermark Remover</span>', desc: 'Clean light overlays and enhance photo clarity.' }
         };
 
-        // Switch active tool & completely reset previous image state
         function switchTool(toolId) {
             currentTool = toolId;
-
-            // Reset file and UI completely so old images don't stick across tools
             activeFile = null;
             originalImgObj = new Image();
             document.getElementById('fileInput').value = '';
@@ -423,20 +413,18 @@
             const activeIconBox = activeBtn.querySelector('div > div');
             if (activeIconBox) activeIconBox.className = "p-2 rounded-lg bg-white/15 text-white";
 
-            // Update Header Title & Subtitle
+            // Update Header & Badge
             document.getElementById('toolTitle').innerHTML = toolMetadata[toolId].title;
             document.getElementById('toolDesc').innerText = toolMetadata[toolId].desc;
+            document.getElementById('activeToolBadge').innerText = activeBtn.querySelector('.text-left > div').innerText;
 
-            // Switch Settings Group in Right Sidebar
+            // Switch Settings Group in Right Sidebar (Always Visible now)
             document.querySelectorAll('.tool-settings-group').forEach(group => group.classList.add('hidden'));
             document.getElementById('settings-' + toolId).classList.remove('hidden');
 
-            // Reset Workspace to fresh Upload DropZone
+            // Reset Workspace DropZone
             document.getElementById('dropZone').classList.remove('hidden');
             document.getElementById('workspaceArea').classList.add('hidden');
-            document.getElementById('rightDefaultPanel').classList.remove('hidden');
-            document.getElementById('rightSettingsPanel').classList.add('hidden');
-
             resetDownloadButton();
         }
 
@@ -445,9 +433,10 @@
             dlBtn.className = "block w-full text-center bg-gray-300 text-gray-500 pointer-events-none font-bold py-3 rounded-xl transition text-xs uppercase tracking-wider";
             dlBtn.removeAttribute('href');
             document.getElementById('infoOutSize').innerText = "Pending...";
+            document.getElementById('infoFileName').innerText = "No image yet";
+            document.getElementById('infoOrigSize').innerText = "-";
         }
 
-        // Render tool-specific action button under image
         function renderActionButton() {
             const container = document.getElementById('mainActionContainer');
             if (currentTool === 'bg-remover') {
@@ -463,22 +452,12 @@
             }
         }
 
-        // File handling (Works for both DropZone and Change Image button)
         const fileInput = document.getElementById('fileInput');
         const dropZone = document.getElementById('dropZone');
 
-        fileInput.addEventListener('change', (e) => { 
-            if (e.target.files && e.target.files[0]) {
-                handleFile(e.target.files[0]); 
-            }
-        });
+        fileInput.addEventListener('change', (e) => { if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]); });
         dropZone.addEventListener('dragover', (e) => e.preventDefault());
-        dropZone.addEventListener('drop', (e) => { 
-            e.preventDefault(); 
-            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                handleFile(e.dataTransfer.files[0]); 
-            }
-        });
+        dropZone.addEventListener('drop', (e) => { e.preventDefault(); if (e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
 
         function handleFile(file) {
             activeFile = file;
@@ -493,12 +472,9 @@
                         document.getElementById('resizeHeight').value = originalImgObj.height;
                     }
 
-                    // Show Workspace & Right Settings Panel
                     document.getElementById('previewImage').src = e.target.result;
                     document.getElementById('dropZone').classList.add('hidden');
                     document.getElementById('workspaceArea').classList.remove('hidden');
-                    document.getElementById('rightDefaultPanel').classList.add('hidden');
-                    document.getElementById('rightSettingsPanel').classList.remove('hidden');
 
                     document.getElementById('infoFileName').innerText = file.name;
                     document.getElementById('infoOrigSize').innerText = formatBytes(file.size);
@@ -525,20 +501,47 @@
             const dlBtn = document.getElementById('downloadBtn');
             dlBtn.href = url;
             dlBtn.download = filename;
-            // Activate Download Button in bright green
             dlBtn.className = "block w-full text-center bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3 rounded-xl shadow-lg transition text-xs uppercase tracking-wider cursor-pointer";
         }
 
-        function applyPreset(w, h) {
+        // Compressor Preset & Slider Highlights
+        function setCompressorPreset(val, btn) {
+            document.getElementById('qualitySlider').value = val;
+            document.getElementById('qualityVal').innerText = val + '%';
+            document.querySelectorAll('#compressorPresets .preset-btn').forEach(b => {
+                b.className = "preset-btn py-2 px-1 rounded-lg border border-gray-200 font-medium text-center transition hover:border-[#7C3AED]";
+            });
+            btn.className = "preset-btn active-preset py-2 px-1 rounded-lg border border-[#7C3AED] bg-purple-50 text-[#7C3AED] font-bold text-center transition";
+        }
+
+        function updateSliderQuality(val) {
+            document.getElementById('qualityVal').innerText = val + '%';
+            document.querySelectorAll('#compressorPresets .preset-btn').forEach(b => {
+                b.className = "preset-btn py-2 px-1 rounded-lg border border-gray-200 font-medium text-center transition hover:border-[#7C3AED]";
+            });
+        }
+
+        // Resizer Ratio & Preset Highlights
+        function applyScaleRatio(ratio) {
+            if (!originalImgObj.width) return alert("Please upload an image first!");
+            document.getElementById('resizeWidth').value = Math.round(originalImgObj.width * ratio);
+            document.getElementById('resizeHeight').value = Math.round(originalImgObj.height * ratio);
+        }
+
+        function applyPreset(w, h, btn) {
             document.getElementById('resizeWidth').value = w;
             document.getElementById('resizeHeight').value = h;
+            document.querySelectorAll('.social-preset-btn').forEach(b => {
+                b.className = "social-preset-btn w-full bg-gray-50 hover:bg-purple-50 hover:text-[#7C3AED] border border-gray-200 py-2 px-3 rounded-lg font-medium text-left transition flex justify-between items-center";
+            });
+            btn.className = "social-preset-btn w-full bg-purple-50 text-[#7C3AED] border border-[#7C3AED] py-2 px-3 rounded-lg font-bold text-left transition flex justify-between items-center";
         }
 
         // 1. Background Remover API execution
         async function processBgRemover() {
-            if (!activeFile) return;
+            if (!activeFile) return alert("Please upload an image first!");
             if (API_KEY === "YOUR_REMOVE_BG_API_KEY" || !API_KEY.trim()) {
-                alert("దయచేసి కోడ్‌లో మీ Remove.bg API Key ని ఎంటర్ చేయండి!");
+                alert("దయచేసి కోడింగ్ లో మీ Remove.bg API Key ని ఎంటర్ చేయండి!");
                 return;
             }
 
@@ -570,7 +573,7 @@
 
         // 2. Compressor execution
         function processCompressor() {
-            if (!activeFile) return;
+            if (!activeFile) return alert("Please upload an image first!");
             const quality = document.getElementById('qualitySlider').value / 100;
             const canvas = document.createElement('canvas');
             canvas.width = originalImgObj.width;
@@ -582,7 +585,7 @@
 
         // 3. Resizer execution
         function processResizer() {
-            if (!activeFile) return;
+            if (!activeFile) return alert("Please upload an image first!");
             const w = parseInt(document.getElementById('resizeWidth').value);
             const h = parseInt(document.getElementById('resizeHeight').value);
             if (!w || !h) return alert("Enter valid dimensions.");
@@ -595,39 +598,22 @@
 
         // 4. Converter execution
         function processConverter() {
-            if (!activeFile) return;
+            if (!activeFile) return alert("Please upload an image first!");
             const format = document.getElementById('targetFormat').value;
-            const extMap = {
-                'image/png': 'png',
-                'image/jpeg': 'jpg',
-                'image/webp': 'webp',
-                'image/avif': 'avif',
-                'image/bmp': 'bmp',
-                'image/x-icon': 'ico'
-            };
+            const extMap = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp' };
             const ext = extMap[format] || 'png';
             const canvas = document.createElement('canvas');
             canvas.width = originalImgObj.width;
             canvas.height = originalImgObj.height;
             const ctx = canvas.getContext('2d');
-            if (format === 'image/jpeg' || format === 'image/bmp') { 
-                ctx.fillStyle = '#FFFFFF'; 
-                ctx.fillRect(0, 0, canvas.width, canvas.height); 
-            }
+            if (format === 'image/jpeg') { ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, canvas.width, canvas.height); }
             ctx.drawImage(originalImgObj, 0, 0);
-            canvas.toBlob((blob) => {
-                if (!blob) {
-                    // Fallback to PNG if browser doesn't support AVIF/ICO encoding natively
-                    canvas.toBlob((fallbackBlob) => finalizeOutput(fallbackBlob, `pixiepic-converted.${ext}`), 'image/png');
-                } else {
-                    finalizeOutput(blob, `pixiepic-converted.${ext}`);
-                }
-            }, format, 0.92);
+            canvas.toBlob((blob) => finalizeOutput(blob, `pixiepic-converted.${ext}`), format, 0.92);
         }
 
         // 5. Watermark Remover execution
         function processWatermark() {
-            if (!activeFile) return;
+            if (!activeFile) return alert("Please upload an image first!");
             const canvas = document.createElement('canvas');
             canvas.width = originalImgObj.width;
             canvas.height = originalImgObj.height;
