@@ -24,21 +24,21 @@
 <body class="min-h-screen flex flex-col justify-between selection:bg-purple-600 selection:text-white">
 
     <!-- ======================================================== -->
-    <!-- SECTION 2: TOP HEADER (Pro SaaS Header - Logo Only Fix)  -->
+    <!-- SECTION 2: TOP HEADER (Pro SaaS Header)                  -->
     <!-- ======================================================== -->
     <header class="w-full bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
         <div class="max-w-[1440px] mx-auto px-6 py-3.5 flex justify-between items-center">
-            <!-- Brand Logo (Clean, Larger, No Repeated Text) -->
+            <!-- Brand Logo -->
             <a href="#" class="flex items-center">
                 <img src="logo.png" alt="PixiePic Logo" style="height: 52px; width: auto;" class="object-contain" onerror="this.style.display='none'">
             </a>
 
             <!-- Navigation Links -->
             <nav class="flex gap-6 text-sm font-semibold text-gray-600">
-                <a href="#about" class="hover:text-[#7C3AED] transition">About Us</a>
-                <a href="#privacy" class="hover:text-[#7C3AED] transition">Privacy Policy</a>
-                <a href="#disclaimer" class="hover:text-[#7C3AED] transition">Disclaimer</a>
-                <a href="#contact" class="hover:text-[#7C3AED] transition">Contact</a>
+                <a href="#about" class="hover:text-[#6D28D9] transition">About Us</a>
+                <a href="#privacy" class="hover:text-[#6D28D9] transition">Privacy Policy</a>
+                <a href="#disclaimer" class="hover:text-[#6D28D9] transition">Disclaimer</a>
+                <a href="#contact" class="hover:text-[#6D28D9] transition">Contact</a>
             </nav>
         </div>
     </header>
@@ -236,7 +236,7 @@
                     </div>
                 </div>
 
-                <!-- Settings for: Image Resizer (Default non-empty numbers) -->
+                <!-- Settings for: Image Resizer -->
                 <div id="settings-resizer" class="tool-settings-group hidden space-y-4 text-xs">
                     <div>
                         <label class="block font-semibold text-gray-600 mb-1.5">Scale Ratio</label>
@@ -296,7 +296,7 @@
                     <p class="text-gray-500">Applies smart contrast & pixel smoothing to clean light overlays and enhance clarity.</p>
                 </div>
 
-                <!-- Output File Info Summary (With Compression Stats) -->
+                <!-- Output File Info Summary -->
                 <div class="mt-6 pt-4 border-t border-gray-100 space-y-2 text-xs">
                     <div class="flex justify-between">
                         <span class="text-gray-400">Source File:</span>
@@ -308,7 +308,7 @@
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-400">Compressed Size:</span>
-                        <span id="infoCompSize" class="font-bold text-purple-600">-</span>
+                        <span id="infoCompSize" class="font-bold text-[#7C3AED]">-</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-400">Output Size:</span>
@@ -325,8 +325,8 @@
 
             </div>
 
-            <!-- AdSense / Banner Space -->
-            <div class="bg-white rounded-2xl shadow-md border border-gray-200 p-5">
+            <!-- AdSense / Banner Space (Hidden from UI, code kept active) -->
+            <div class="hidden">
                 <div class="w-full h-44 bg-gray-50 rounded-xl border border-dashed border-gray-300 flex flex-col items-center justify-center text-center p-4">
                     <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Sponsored Ad</span>
                     <span class="text-xs text-gray-400 mt-1">[ Google AdSense Space ]</span>
@@ -373,10 +373,10 @@
         <div class="max-w-[1440px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
             <p>&copy; 2026 PixiePic. All rights reserved.</p>
             <div class="flex gap-6 mt-3 md:mt-0 font-medium">
-                <a href="#about" class="hover:text-[#7C3AED]">About</a>
-                <a href="#privacy" class="hover:text-[#7C3AED]">Privacy Policy</a>
-                <a href="#disclaimer" class="hover:text-[#7C3AED]">Disclaimer</a>
-                <a href="#contact" class="hover:text-[#7C3AED]">Contact</a>
+                <a href="#about" class="hover:text-[#6D28D9]">About</a>
+                <a href="#privacy" class="hover:text-[#6D28D9]">Privacy Policy</a>
+                <a href="#disclaimer" class="hover:text-[#6D28D9]">Disclaimer</a>
+                <a href="#contact" class="hover:text-[#6D28D9]">Contact</a>
             </div>
         </div>
     </footer>
@@ -444,15 +444,15 @@
         function renderActionButton() {
             const container = document.getElementById('mainActionContainer');
             if (currentTool === 'bg-remover') {
-                container.innerHTML = `<button type="button" onclick="processBgRemover()" id="btnProcessBg" class="w-full bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">✨ Remove Background Now</button>`;
+                container.innerHTML = `<button type="button" onclick="processBgRemover()" id="btnProcessBg" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">✨ Remove Background Now</button>`;
             } else if (currentTool === 'compressor') {
-                container.innerHTML = `<button type="button" onclick="processCompressor()" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">Compress Image Now</button>`;
+                container.innerHTML = `<button type="button" onclick="processCompressor()" id="btnProcessComp" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">🗜️ Compress Image Now</button>`;
             } else if (currentTool === 'resizer') {
-                container.innerHTML = `<button type="button" onclick="processResizer()" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">Resize Image Now</button>`;
+                container.innerHTML = `<button type="button" onclick="processResizer()" id="btnProcessResize" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">📐 Resize Image Now</button>`;
             } else if (currentTool === 'converter') {
-                container.innerHTML = `<button type="button" onclick="processConverter()" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">Convert Format Now</button>`;
+                container.innerHTML = `<button type="button" onclick="processConverter()" id="btnProcessConv" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">🔄 Convert Format Now</button>`;
             } else if (currentTool === 'watermark') {
-                container.innerHTML = `<button type="button" onclick="processWatermark()" class="w-full bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">Clean Watermark Now</button>`;
+                container.innerHTML = `<button type="button" onclick="processWatermark()" id="btnProcessWatermark" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">🧼 Clean Watermark Now</button>`;
             }
         }
 
@@ -482,11 +482,6 @@
 
                     document.getElementById('infoFileName').innerText = file.name;
                     document.getElementById('infoOrigSize').innerText = formatBytes(file.size);
-
-                    // Auto run compressor calculation to show live stats
-                    if (currentTool === 'compressor') {
-                        processCompressor();
-                    }
 
                     renderActionButton();
                 };
@@ -527,7 +522,6 @@
                 b.className = "preset-btn py-2 px-1 rounded-lg border border-gray-200 font-medium text-center transition hover:border-[#7C3AED]";
             });
             btn.className = "preset-btn active-preset py-2 px-1 rounded-lg border border-[#7C3AED] bg-purple-50 text-[#7C3AED] font-bold text-center transition";
-            if (activeFile) processCompressor();
         }
 
         function updateSliderQuality(val) {
@@ -535,7 +529,6 @@
             document.querySelectorAll('#compressorPresets .preset-btn').forEach(b => {
                 b.className = "preset-btn py-2 px-1 rounded-lg border border-gray-200 font-medium text-center transition hover:border-[#7C3AED]";
             });
-            if (activeFile) processCompressor();
         }
 
         // Resizer Ratio & Preset Highlights
@@ -588,9 +581,9 @@
             }
         }
 
-        // 2. Compressor execution
+        // 2. Compressor execution (Only runs when button clicked)
         function processCompressor() {
-            if (!activeFile) return;
+            if (!activeFile) return alert("Please upload an image first!");
             const quality = document.getElementById('qualitySlider').value / 100;
             const canvas = document.createElement('canvas');
             canvas.width = originalImgObj.width;
