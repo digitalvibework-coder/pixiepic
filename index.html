@@ -1,20 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ======================================================== -->
-    <!-- SECTION 1: SEO, META TAGS & PROFESSIONAL STYLING         -->
-    <!-- ======================================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PixiePic - Free AI Background Remover & Image Utilities</title>
     <meta name="description" content="Professional AI image processing suite: Background removal, compression, resizing, rotation, cropping, and watermarking.">
-    
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: #0F172A; }
         ::-webkit-scrollbar { width: 6px; }
@@ -23,9 +15,7 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-purple-600 selection:text-white">
 
-    <!-- ======================================================== -->
-    <!-- SECTION 2: TOP HEADER                                    -->
-    <!-- ======================================================== -->
+    <!-- TOP HEADER -->
     <header class="w-full bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
         <div class="max-w-[1440px] mx-auto px-6 py-3.5 flex justify-between items-center">
             <a href="#" class="flex items-center">
@@ -40,14 +30,10 @@
         </div>
     </header>
 
-    <!-- ======================================================== -->
-    <!-- SECTION 3: WIDE 3-COLUMN PROFESSIONAL LAYOUT             -->
-    <!-- ======================================================== -->
+    <!-- MAIN WORKSPACE -->
     <div class="max-w-[1440px] mx-auto px-6 py-8 w-full flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-        <!-- ==================================================== -->
-        <!-- COLUMN 1 (LEFT SIDEBAR): UTILITY TOOLS MENU          -->
-        <!-- ==================================================== -->
+        <!-- LEFT SIDEBAR: ORGANIZED UTILITY TOOLS MENU -->
         <aside class="lg:col-span-3 bg-white rounded-2xl shadow-md border border-gray-200 p-5 sticky top-24">
             <div class="flex items-center justify-between mb-4 px-2">
                 <h2 class="text-xs font-bold uppercase tracking-wider text-gray-400">Utility Tools</h2>
@@ -55,78 +41,50 @@
             </div>
             
             <div class="flex flex-col gap-2" id="sidebarMenu">
-                <!-- Original 5 Tools -->
                 <button onclick="switchTool('bg-remover')" id="btn-bg-remover" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-semibold text-sm bg-[#7C3AED] text-white shadow-md transition">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2 rounded-lg bg-white/15">🪄</div>
-                        <div class="text-left"><div>Background Remover</div><div class="text-[10px] opacity-80 font-normal">Instant Subject Cutout</div></div>
-                    </div>
+                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-white/15">🪄</div><div class="text-left"><div>Background Remover</div><div class="text-[10px] opacity-80 font-normal">Instant Subject Cutout</div></div></div>
                     <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded font-bold">Popular</span>
                 </button>
 
                 <button onclick="switchTool('compressor')" id="btn-compressor" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🗜️</div>
-                        <div class="text-left"><div>Image Compressor</div><div class="text-[10px] text-gray-400 font-normal">Reduce File Size</div></div>
-                    </div>
+                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🗜️</div><div class="text-left"><div>Image Compressor</div><div class="text-[10px] text-gray-400 font-normal">Reduce File Size</div></div></div>
                 </button>
 
                 <button onclick="switchTool('resizer')" id="btn-resizer" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">📐</div>
-                        <div class="text-left"><div>Image Resizer</div><div class="text-[10px] text-gray-400 font-normal">Dimensions & Presets</div></div>
-                    </div>
+                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">📐</div><div class="text-left"><div>Image Resizer</div><div class="text-[10px] text-gray-400 font-normal">Dimensions & Presets</div></div></div>
                 </button>
 
                 <button onclick="switchTool('converter')" id="btn-converter" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🔄</div>
-                        <div class="text-left"><div>Format Converter</div><div class="text-[10px] text-gray-400 font-normal">PNG, JPG, WEBP</div></div>
-                    </div>
+                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🔄</div><div class="text-left"><div>Format Converter</div><div class="text-[10px] text-gray-400 font-normal">PNG, JPG, WEBP</div></div></div>
                 </button>
 
-                <!-- Newly Added 4 Tools -->
-                <button onclick="switchTool('rotator')" id="btn-rotator" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🔃</div>
-                        <div class="text-left"><div>Rotator & Flipper</div><div class="text-[10px] text-gray-400 font-normal">Rotate 90° & Flip Axis</div></div>
-                    </div>
+                <!-- Text Watermark placed here (separated from Watermark Remover) -->
+                <button onclick="switchTool('textwatermark')" id="btn-textwatermark" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
+                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">✍️</div><div class="text-left"><div>Text Watermark</div><div class="text-[10px] text-gray-400 font-normal">Add Custom Text & Opacity</div></div></div>
                 </button>
 
                 <button onclick="switchTool('cropper')" id="btn-cropper" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">✂️</div>
-                        <div class="text-left"><div>Image Cropper</div><div class="text-[10px] text-gray-400 font-normal">Trim & Cut Image</div></div>
-                    </div>
+                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">✂️</div><div class="text-left"><div>Image Cropper</div><div class="text-[10px] text-gray-400 font-normal">Trim & Cut Image</div></div></div>
                 </button>
 
                 <button onclick="switchTool('grayscale')" id="btn-grayscale" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">⚫</div>
-                        <div class="text-left"><div>Black & White</div><div class="text-[10px] text-gray-400 font-normal">Grayscale Effect</div></div>
-                    </div>
+                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🎨</div><div class="text-left"><div>Color Filters & B&W</div><div class="text-[10px] text-gray-400 font-normal">Monochrome & Sepia</div></div></div>
                 </button>
 
-                <button onclick="switchTool('textwatermark')" id="btn-textwatermark" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">✍️</div>
-                        <div class="text-left"><div>Text Watermark</div><div class="text-[10px] text-gray-400 font-normal">Add Custom Text</div></div>
-                    </div>
+                <!-- Rotator placed lower down -->
+                <button onclick="switchTool('rotator')" id="btn-rotator" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
+                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🔃</div><div class="text-left"><div>Rotator & Flipper</div><div class="text-[10px] text-gray-400 font-normal">Rotate 90° & Flip</div></div></div>
                 </button>
 
+                <!-- Watermark Remover placed at the bottom -->
                 <button onclick="switchTool('watermark')" id="btn-watermark" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🧼</div>
-                        <div class="text-left"><div>Watermark Remover</div><div class="text-[10px] text-gray-400 font-normal">Smart Clean</div></div>
-                    </div>
+                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🧼</div><div class="text-left"><div>Watermark Remover</div><div class="text-[10px] text-gray-400 font-normal">Smart Clean</div></div></div>
                     <span class="text-[10px] bg-purple-100 text-[#7C3AED] px-2 py-0.5 rounded font-bold">Beta</span>
                 </button>
             </div>
         </aside>
 
-        <!-- ==================================================== -->
-        <!-- COLUMN 2 (CENTER): PRO WORKSPACE                     -->
-        <!-- ==================================================== -->
+        <!-- CENTER WORKSPACE -->
         <main class="lg:col-span-6 bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
             <div class="text-center mb-8">
                 <h1 id="toolTitle" class="text-3xl font-extrabold text-[#0F172A] mb-2 tracking-tight">
@@ -163,9 +121,7 @@
             </div>
         </main>
 
-        <!-- ==================================================== -->
-        <!-- COLUMN 3 (RIGHT SIDEBAR): TOOL SETTINGS & CONTROLS   -->
-        <!-- ==================================================== -->
+        <!-- RIGHT SIDEBAR: TOOL SETTINGS & CONTROLS -->
         <aside class="lg:col-span-3 flex flex-col gap-6 sticky top-24">
             <div class="bg-white rounded-2xl shadow-md border border-purple-200 p-5">
                 <h3 id="panelTitle" class="text-sm font-bold text-[#7C3AED] border-b border-gray-100 pb-2 mb-4 flex items-center justify-between">
@@ -173,7 +129,6 @@
                     <span id="activeToolBadge" class="text-[10px] bg-purple-100 text-[#7C3AED] px-2 py-0.5 rounded font-bold uppercase">Background Remover</span>
                 </h3>
 
-                <!-- Tool Settings Groups -->
                 <div id="settings-bg-remover" class="tool-settings-group space-y-4 text-xs">
                     <p class="text-gray-500">AI automatically detects the main subject and removes the background cleanly.</p>
                 </div>
@@ -221,22 +176,33 @@
                     </select>
                 </div>
 
-                <!-- New Tools Settings Panels -->
-                <div id="settings-rotator" class="tool-settings-group hidden space-y-3 text-xs">
-                    <p class="text-gray-500">Rotate image clockwise or flip across axes instantly.</p>
+                <!-- Text Watermark Live Settings with Opacity Slider -->
+                <div id="settings-textwatermark" class="tool-settings-group hidden space-y-3 text-xs">
+                    <div>
+                        <label class="block font-semibold text-gray-600 mb-1">Watermark Text</label>
+                        <input type="text" id="watermarkText" value="© PixiePic" oninput="liveUpdateTextWatermark()" class="w-full border border-gray-300 rounded-lg px-3 py-2 font-semibold text-gray-800">
+                    </div>
+                    <div>
+                        <div class="flex justify-between font-semibold text-gray-600 mb-1"><span>Opacity / Darkness:</span><span id="opacityVal" class="text-[#7C3AED]">70%</span></div>
+                        <input type="range" id="opacitySlider" min="10" max="100" value="70" oninput="updateWatermarkOpacity(this.value)" class="w-full accent-[#7C3AED]">
+                    </div>
                 </div>
 
                 <div id="settings-cropper" class="tool-settings-group hidden space-y-3 text-xs">
-                    <p class="text-gray-500">Crop image boundaries easily.</p>
+                    <p class="text-gray-500">Trims image borders evenly from center.</p>
                 </div>
 
                 <div id="settings-grayscale" class="tool-settings-group hidden space-y-3 text-xs">
-                    <p class="text-gray-500">Convert color photo into professional black & white.</p>
+                    <label class="block font-semibold text-gray-600 mb-1">Filter Effect</label>
+                    <select id="filterType" onchange="liveUpdateGrayscale()" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800">
+                        <option value="grayscale(100%)">Classic Black & White</option>
+                        <option value="sepia(100%)">Vintage Sepia</option>
+                        <option value="invert(100%)">Inverted Colors</option>
+                    </select>
                 </div>
 
-                <div id="settings-textwatermark" class="tool-settings-group hidden space-y-3 text-xs">
-                    <label class="block font-semibold text-gray-600 mb-1">Watermark Text</label>
-                    <input type="text" id="watermarkText" value="© PixiePic" class="w-full border border-gray-300 rounded-lg px-3 py-2 font-semibold text-gray-800">
+                <div id="settings-rotator" class="tool-settings-group hidden space-y-3 text-xs">
+                    <p class="text-gray-500">Rotate image clockwise or flip orientation.</p>
                 </div>
 
                 <div id="settings-watermark" class="tool-settings-group hidden space-y-4 text-xs">
@@ -259,18 +225,14 @@
 
     </div>
 
-    <!-- ======================================================== -->
-    <!-- SECTION 4 & 5: FOOTER & LEGAL                            -->
-    <!-- ======================================================== -->
+    <!-- FOOTER -->
     <footer class="bg-white border-t border-gray-200 py-5 mt-8">
         <div class="max-w-[1440px] mx-auto px-6 flex justify-between items-center text-xs text-gray-500">
             <p>&copy; 2026 PixiePic. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- ======================================================== -->
-    <!-- SECTION 6: JAVASCRIPT LOGIC                              -->
-    <!-- ======================================================== -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         const API_KEY = "YOUR_REMOVE_BG_API_KEY";
         let currentTool = 'bg-remover';
@@ -282,10 +244,10 @@
             'compressor': { title: 'Compress Image <span class="text-[#7C3AED]">Size</span>', desc: 'Reduce file weight instantly in your browser.' },
             'resizer':    { title: 'Resize Image <span class="text-[#7C3AED]">Dimensions</span>', desc: 'Change width and height accurately.' },
             'converter':  { title: 'Convert Image <span class="text-[#7C3AED]">Format</span>', desc: 'Seamlessly switch between PNG, JPG, and WEBP.' },
-            'rotator':    { title: 'Rotate & Flip <span class="text-[#7C3AED]">Image</span>', desc: 'Rotate 90 degrees or flip orientation.' },
+            'textwatermark': { title: 'Add Custom <span class="text-[#7C3AED]">Text Watermark</span>', desc: 'Stamp brand text with live preview & opacity.' },
             'cropper':    { title: 'Crop Image <span class="text-[#7C3AED]">Precision</span>', desc: 'Trim and frame your pictures cleanly.' },
-            'grayscale':  { title: 'Black & White <span class="text-[#7C3AED]">Grayscale</span>', desc: 'Transform colored images to classic monochrome.' },
-            'textwatermark': { title: 'Add Custom <span class="text-[#7C3AED]">Text Watermark</span>', desc: 'Stamp your brand name or copyright text.' },
+            'grayscale':  { title: 'Color Filters & <span class="text-[#7C3AED]">B&W</span>', desc: 'Transform colored images to monochrome or sepia.' },
+            'rotator':    { title: 'Rotate & Flip <span class="text-[#7C3AED]">Image</span>', desc: 'Rotate 90 degrees or flip orientation.' },
             'watermark':  { title: 'Smart <span class="text-[#7C3AED]">Watermark Remover</span>', desc: 'Clean light overlays and enhance clarity.' }
         };
 
@@ -333,10 +295,10 @@
             else if(currentTool === 'compressor') { btnText = "🗜️ Compress Image Now"; }
             else if(currentTool === 'resizer') { btnText = "📐 Resize Image Now"; }
             else if(currentTool === 'converter') { btnText = "🔄 Convert Format Now"; }
+            else if(currentTool === 'textwatermark') { btnText = "✍️ Apply Text Watermark"; }
+            else if(currentTool === 'cropper') { btnText = "✂️ Crop Image Now"; }
+            else if(currentTool === 'grayscale') { btnText = "🎨 Apply Color Filter"; }
             else if(currentTool === 'rotator') { btnText = "🔃 Rotate 90° Now"; }
-            else if(currentTool === 'cropper') { btnText = "✂️ Crop Center Now"; }
-            else if(currentTool === 'grayscale') { btnText = "⚫ Convert to Grayscale"; }
-            else if(currentTool === 'textwatermark') { btnText = "✍️ Add Text Watermark"; }
             else if(currentTool === 'watermark') { btnText = "🧼 Clean Watermark Now"; }
 
             container.innerHTML = `<button type="button" onclick="${actionFunc}" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">${btnText}</button>`;
@@ -367,6 +329,10 @@
                     document.getElementById('infoFileName').innerText = file.name;
                     document.getElementById('infoOrigSize').innerText = formatBytes(file.size);
 
+                    // If text watermark or grayscale, show live preview instantly
+                    if(currentTool === 'textwatermark') { liveUpdateTextWatermark(); }
+                    else if(currentTool === 'grayscale') { liveUpdateGrayscale(); }
+
                     renderActionButton();
                 };
                 originalImgObj.src = e.target.result;
@@ -394,16 +360,72 @@
 
         function processCurrentTool() {
             if (!activeFile) return alert("Please upload an image first!");
-            
             if(currentTool === 'bg-remover') { processBgRemover(); }
             else if(currentTool === 'compressor') { processCompressor(); }
             else if(currentTool === 'resizer') { processResizer(); }
             else if(currentTool === 'converter') { processConverter(); }
-            else if(currentTool === 'rotator') { processRotator(); }
+            else if(currentTool === 'textwatermark') { processTextWatermark(); }
             else if(currentTool === 'cropper') { processCropper(); }
             else if(currentTool === 'grayscale') { processGrayscale(); }
-            else if(currentTool === 'textwatermark') { processTextWatermark(); }
+            else if(currentTool === 'rotator') { processRotator(); }
             else if(currentTool === 'watermark') { processWatermark(); }
+        }
+
+        // Live Preview for Text Watermark as user types or changes opacity
+        function liveUpdateTextWatermark() {
+            if (!activeFile) return;
+            const text = document.getElementById('watermarkText').value || 'PixiePic';
+            const opacity = document.getElementById('opacitySlider').value / 100;
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = originalImgObj.width; canvas.height = originalImgObj.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(originalImgObj, 0, 0);
+            
+            ctx.font = 'bold 36px Inter, sans-serif';
+            ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+            ctx.textAlign = 'right';
+            ctx.fillText(text, canvas.width - 40, canvas.height - 40);
+            
+            const dataUrl = canvas.toDataURL('image/png');
+            document.getElementById('previewImage').src = dataUrl;
+            
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const dlBtn = document.getElementById('downloadBtn');
+                dlBtn.href = url;
+                dlBtn.download = 'pixiepic-watermarked.png';
+                dlBtn.className = "block w-full text-center bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3 rounded-xl shadow-lg transition text-xs uppercase tracking-wider cursor-pointer";
+                document.getElementById('infoOutSize').innerText = formatBytes(blob.size);
+            }, 'image/png');
+        }
+
+        function updateWatermarkOpacity(val) {
+            document.getElementById('opacityVal').innerText = val + '%';
+            liveUpdateTextWatermark();
+        }
+
+        // Live Preview for Grayscale / Filters
+        function liveUpdateGrayscale() {
+            if (!activeFile) return;
+            const filterVal = document.getElementById('filterType').value;
+            const canvas = document.createElement('canvas');
+            canvas.width = originalImgObj.width; canvas.height = originalImgObj.height;
+            const ctx = canvas.getContext('2d');
+            ctx.filter = filterVal;
+            ctx.drawImage(originalImgObj, 0, 0);
+            
+            const dataUrl = canvas.toDataURL('image/png');
+            document.getElementById('previewImage').src = dataUrl;
+
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const dlBtn = document.getElementById('downloadBtn');
+                dlBtn.href = url;
+                dlBtn.download = 'pixiepic-filtered.png';
+                dlBtn.className = "block w-full text-center bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3 rounded-xl shadow-lg transition text-xs uppercase tracking-wider cursor-pointer";
+                document.getElementById('infoOutSize').innerText = formatBytes(blob.size);
+            }, 'image/png');
         }
 
         async function processBgRemover() {
@@ -458,15 +480,8 @@
             canvas.toBlob((blob) => finalizeOutput(blob, `pixiepic-converted.${ext}`), format, 0.92);
         }
 
-        function processRotator() {
-            const canvas = document.createElement('canvas');
-            canvas.width = originalImgObj.height; canvas.height = originalImgObj.width;
-            const ctx = canvas.getContext('2d');
-            ctx.translate(canvas.width / 2, canvas.height / 2);
-            ctx.rotate(90 * Math.PI / 180);
-            ctx.drawImage(originalImgObj, -originalImgObj.width / 2, -originalImgObj.height / 2);
-            canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-rotated.png'), 'image/png');
-        }
+        function processTextWatermark() { liveUpdateTextWatermark(); }
+        function processGrayscale() { liveUpdateGrayscale(); }
 
         function processCropper() {
             const canvas = document.createElement('canvas');
@@ -478,26 +493,14 @@
             canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-cropped.png'), 'image/png');
         }
 
-        function processGrayscale() {
+        function processRotator() {
             const canvas = document.createElement('canvas');
-            canvas.width = originalImgObj.width; canvas.height = originalImgObj.height;
+            canvas.width = originalImgObj.height; canvas.height = originalImgObj.width;
             const ctx = canvas.getContext('2d');
-            ctx.filter = 'grayscale(100%)';
-            ctx.drawImage(originalImgObj, 0, 0);
-            canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-grayscale.png'), 'image/png');
-        }
-
-        function processTextWatermark() {
-            const text = document.getElementById('watermarkText').value || 'PixiePic';
-            const canvas = document.createElement('canvas');
-            canvas.width = originalImgObj.width; canvas.height = originalImgObj.height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(originalImgObj, 0, 0);
-            ctx.font = 'bold 32px Inter, sans-serif';
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-            ctx.textAlign = 'right';
-            ctx.fillText(text, canvas.width - 30, canvas.height - 30);
-            canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-watermarked.png'), 'image/png');
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate(90 * Math.PI / 180);
+            ctx.drawImage(originalImgObj, -originalImgObj.width / 2, -originalImgObj.height / 2);
+            canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-rotated.png'), 'image/png');
         }
 
         function processWatermark() {
