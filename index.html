@@ -27,11 +27,11 @@
     <!-- SECTION 2: TOP HEADER (Pro SaaS Header)                  -->
     <!-- ======================================================== -->
     <header class="w-full bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
-        <div class="max-w-[1400px] mx-auto px-6 py-3.5 flex justify-between items-center">
+        <div class="max-w-[1440px] mx-auto px-6 py-3.5 flex justify-between items-center">
             <!-- Brand Logo -->
             <a href="#" class="flex items-center gap-2.5">
-                <img src="logo.png" alt="PixiePic Logo" style="height: 42px; width: auto;" class="object-contain" onerror="this.style.display='none'">
-                <span class="text-2xl font-extrabold tracking-tight text-[#7C3AED]">✨ PixiePic</span>
+                <img src="logo.png" alt="PixiePic Logo" style="height: 44px; width: auto;" class="object-contain" onerror="this.style.display='none'">
+                <span class="text-2xl font-extrabold tracking-tight text-[#7C3AED]">PixiePic</span>
             </a>
 
             <!-- Navigation Links -->
@@ -47,10 +47,10 @@
     <!-- ======================================================== -->
     <!-- SECTION 3: WIDE 3-COLUMN PROFESSIONAL LAYOUT             -->
     <!-- ======================================================== -->
-    <div class="max-w-[1400px] mx-auto px-6 py-8 w-full flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <div class="max-w-[1440px] mx-auto px-6 py-8 w-full flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
         <!-- ==================================================== -->
-        <!-- COLUMN 1 (LEFT SIDEBAR): UTILITY TOOLS MENU          -->
+        <!-- COLUMN 1 (LEFT SIDEBAR): PRO SVG UTILITY TOOLS MENU  -->
         <!-- ==================================================== -->
         <aside class="lg:col-span-3 bg-white rounded-2xl shadow-md border border-gray-200 p-5 sticky top-24">
             <div class="flex items-center justify-between mb-4 px-2">
@@ -62,10 +62,12 @@
                 <!-- Tool 1: Background Remover -->
                 <button onclick="switchTool('bg-remover')" id="btn-bg-remover" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-semibold text-sm bg-[#7C3AED] text-white shadow-md transition">
                     <div class="flex items-center gap-3">
-                        <span class="text-base">🪄</span> 
+                        <div class="p-2 rounded-lg bg-white/15">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        </div>
                         <div class="text-left">
                             <div>Background Remover</div>
-                            <div class="text-[10px] text-purple-200 font-normal">Instant Subject Cutout</div>
+                            <div class="text-[10px] opacity-80 font-normal">Instant Subject Cutout</div>
                         </div>
                     </div>
                     <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded font-bold">Popular</span>
@@ -74,7 +76,9 @@
                 <!-- Tool 2: Image Compressor -->
                 <button onclick="switchTool('compressor')" id="btn-compressor" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
                     <div class="flex items-center gap-3">
-                        <span class="text-base">🗜️</span>
+                        <div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        </div>
                         <div class="text-left">
                             <div>Image Compressor</div>
                             <div class="text-[10px] text-gray-400 font-normal">Reduce File Size (KB/MB)</div>
@@ -86,7 +90,9 @@
                 <!-- Tool 3: Image Resizer -->
                 <button onclick="switchTool('resizer')" id="btn-resizer" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
                     <div class="flex items-center gap-3">
-                        <span class="text-base">📐</span>
+                        <div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                        </div>
                         <div class="text-left">
                             <div>Image Resizer</div>
                             <div class="text-[10px] text-gray-400 font-normal">Dimensions & Aspect Ratio</div>
@@ -98,32 +104,42 @@
                 <!-- Tool 4: Format Converter -->
                 <button onclick="switchTool('converter')" id="btn-converter" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
                     <div class="flex items-center gap-3">
-                        <span class="text-base">🔄</span>
+                        <div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        </div>
                         <div class="text-left">
                             <div>Format Converter</div>
-                            <div class="text-[10px] text-gray-400 font-normal">WEBP, PNG, JPG, AVIF</div>
+                            <div class="text-[10px] text-gray-400 font-normal">PNG, JPG, WEBP, AVIF</div>
                         </div>
                     </div>
-                    <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-bold">Multi-Format</span>
+                    <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-bold">6 Formats</span>
                 </button>
 
                 <!-- Tool 5: Watermark Remover -->
                 <button onclick="switchTool('watermark')" id="btn-watermark" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
                     <div class="flex items-center gap-3">
-                        <span class="text-base">🧼</span>
+                        <div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
                         <div class="text-left">
                             <div>Watermark Remover</div>
-                            <div class="text-[10px] text-gray-400 font-normal">Smart Inpainting Brush</div>
+                            <div class="text-[10px] text-gray-400 font-normal">Smart Clean & Enhance</div>
                         </div>
                     </div>
-                    <span class="text-[10px] bg-purple-100 text-[#7C3AED] px-2 py-0.5 rounded font-bold">Smart Eraser</span>
+                    <span class="text-[10px] bg-purple-100 text-[#7C3AED] px-2 py-0.5 rounded font-bold">Beta</span>
                 </button>
             </div>
 
             <!-- Trust Badge Box -->
-            <div class="mt-6 pt-4 border-t border-gray-100 text-xs text-gray-500 space-y-1.5">
-                <div class="flex items-center gap-2">🛡️ <span>Zero Server Uploads [100% Secure]</span></div>
-                <div class="flex items-center gap-2">⚡ <span>Client-Side High Speed</span></div>
+            <div class="mt-6 pt-4 border-t border-gray-100 text-xs text-gray-500 space-y-2">
+                <div class="flex items-center gap-2">
+                    <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    <span>Zero Server Uploads (100% Secure)</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg class="w-4 h-4 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span>Client-Side High Speed</span>
+                </div>
             </div>
         </aside>
 
@@ -141,15 +157,17 @@
                 </p>
             </div>
 
-            <!-- Upload DropZone (Shown when no image in current tool) -->
-            <div id="dropZone" class="border-2 border-dashed border-[#7C3AED]/50 hover:border-[#7C3AED] bg-purple-50/30 rounded-2xl p-12 text-center cursor-pointer transition flex flex-col items-center justify-center">
-                <div class="w-16 h-16 bg-purple-100 text-[#7C3AED] rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-sm">
-                    📁
+            <!-- Hidden File Input (Shared for both Browse & Change Image) -->
+            <input type="file" id="fileInput" accept="image/*" class="hidden">
+
+            <!-- Upload DropZone (Shown when no image is selected) -->
+            <div id="dropZone" onclick="document.getElementById('fileInput').click()" class="border-2 border-dashed border-[#7C3AED]/50 hover:border-[#7C3AED] bg-purple-50/30 rounded-2xl p-12 text-center cursor-pointer transition flex flex-col items-center justify-center">
+                <div class="w-16 h-16 bg-purple-100 text-[#7C3AED] rounded-2xl flex items-center justify-center mb-4 shadow-sm">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                 </div>
                 <p class="text-lg font-bold text-gray-800 mb-1">Drag & Drop your image here</p>
-                <p class="text-xs text-gray-400 mb-6">or click to browse from your device (JPG, PNG, WEBP)</p>
-                <input type="file" id="fileInput" accept="image/*" class="hidden">
-                <button onclick="document.getElementById('fileInput').click()" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold px-8 py-3 rounded-xl shadow-md transition text-sm">
+                <p class="text-xs text-gray-400 mb-6">or click to browse from your device (JPG, PNG, WEBP, AVIF)</p>
+                <button type="button" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold px-8 py-3 rounded-xl shadow-md transition text-sm">
                     Browse Image
                 </button>
             </div>
@@ -164,15 +182,17 @@
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        Processing Image... Please wait ⏳
+                        Processing Image... Please wait
                     </span>
                     <img id="previewImage" class="max-h-80 mx-auto rounded-lg shadow-lg object-contain" alt="Preview">
                 </div>
 
                 <!-- Action Buttons right below the image -->
-                <div class="flex items-center justify-between gap-4 mb-6">
-                    <button onclick="resetCurrentToolImage()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-5 py-2.5 rounded-xl text-xs transition flex items-center gap-2">
-                        🔄 Change Image
+                <div class="flex items-center justify-between gap-4">
+                    <!-- Directly opens file picker to select a new image -->
+                    <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-5 py-3.5 rounded-xl text-xs transition flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        Change Image
                     </button>
                     <div id="mainActionContainer" class="flex-grow">
                         <!-- Dynamic Button injected here based on tool -->
@@ -191,9 +211,9 @@
             <div id="rightDefaultPanel" class="bg-white rounded-2xl shadow-md border border-gray-200 p-5">
                 <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Why PixiePic?</h3>
                 <ul class="text-xs text-gray-600 space-y-2.5 mb-6">
-                    <li class="flex items-center gap-2"><span>⚡</span> Fast & Browser Based</li>
-                    <li class="flex items-center gap-2"><span>🔒</span> High Privacy Guaranteed</li>
-                    <li class="flex items-center gap-2"><span>✨</span> AI Powered Accuracy</li>
+                    <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Fast & Browser Based</li>
+                    <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> High Privacy Guaranteed</li>
+                    <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> AI Powered Accuracy</li>
                 </ul>
                 
                 <!-- AdSense / Banner Space -->
@@ -206,13 +226,13 @@
             <!-- DYNAMIC TOOL SETTINGS PANEL (Appears when image is loaded) -->
             <div id="rightSettingsPanel" class="hidden bg-white rounded-2xl shadow-md border border-purple-200 p-5">
                 <h3 id="panelTitle" class="text-sm font-bold text-[#7C3AED] border-b border-gray-100 pb-2 mb-4 flex items-center gap-2">
-                    ⚙️ Tool Settings
+                    Tool Settings & Output
                 </h3>
 
                 <!-- Settings for: Background Remover -->
                 <div id="settings-bg-remover" class="tool-settings-group space-y-4 text-xs">
-                    <p class="text-gray-500">Remove background instantly using advanced AI cloud integration.</p>
-                    <div class="p-3 bg-purple-50 rounded-xl text-[#7C3AED] font-medium">Status: Ready to process</div>
+                    <p class="text-gray-500">AI automatically detects the main subject and removes the background cleanly.</p>
+                    <div class="p-3 bg-purple-50 rounded-xl text-[#7C3AED] font-medium">Output Format: Transparent PNG</div>
                 </div>
 
                 <!-- Settings for: Image Compressor -->
@@ -224,7 +244,7 @@
                         </div>
                         <input type="range" id="qualitySlider" min="10" max="95" value="75" oninput="document.getElementById('qualityVal').innerText = this.value + '%'" class="w-full accent-[#7C3AED]">
                     </div>
-                    <div class="text-gray-400 text-[11px]">Lower quality equals smaller file size.</div>
+                    <div class="text-gray-400 text-[11px]">Lower percentage reduces file size (KB) further.</div>
                 </div>
 
                 <!-- Settings for: Image Resizer -->
@@ -245,10 +265,10 @@
                     <div>
                         <label class="block font-semibold text-gray-600 mb-1">Social Presets</label>
                         <div class="grid grid-cols-2 gap-1.5">
-                            <button onclick="applyPreset(1200, 630)" class="bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] py-1.5 px-2 rounded font-medium text-left transition">FB Post (1200x630)</button>
-                            <button onclick="applyPreset(1080, 1080)" class="bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] py-1.5 px-2 rounded font-medium text-left transition">Insta Square (1080)</button>
-                            <button onclick="applyPreset(1280, 720)" class="bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] py-1.5 px-2 rounded font-medium text-left transition">YT Thumbnail</button>
-                            <button onclick="applyPreset(800, 800)" class="bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] py-1.5 px-2 rounded font-medium text-left transition">Square (800x800)</button>
+                            <button type="button" onclick="applyPreset(1200, 630)" class="bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] py-1.5 px-2 rounded font-medium text-left transition">FB Post (1200x630)</button>
+                            <button type="button" onclick="applyPreset(1080, 1080)" class="bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] py-1.5 px-2 rounded font-medium text-left transition">Insta Square (1080)</button>
+                            <button type="button" onclick="applyPreset(1280, 720)" class="bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] py-1.5 px-2 rounded font-medium text-left transition">YT Thumbnail</button>
+                            <button type="button" onclick="applyPreset(800, 800)" class="bg-gray-100 hover:bg-purple-100 hover:text-[#7C3AED] py-1.5 px-2 rounded font-medium text-left transition">Square (800x800)</button>
                         </div>
                     </div>
                 </div>
@@ -258,22 +278,28 @@
                     <div>
                         <label class="block font-semibold text-gray-600 mb-1">Target Format</label>
                         <select id="targetFormat" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800 focus:outline-none focus:border-[#7C3AED]">
-                            <option value="image/png">PNG (Lossless)</option>
-                            <option value="image/jpeg">JPG (Standard)</option>
-                            <option value="image/webp">WEBP (Optimized)</option>
+                            <option value="image/png">PNG (Lossless & Transparent)</option>
+                            <option value="image/jpeg">JPG / JPEG (Standard Photo)</option>
+                            <option value="image/webp">WEBP (Next-Gen Web Optimized)</option>
+                            <option value="image/avif">AVIF (Ultra-Compressed Modern)</option>
+                            <option value="image/bmp">BMP (Bitmap Uncompressed)</option>
+                            <option value="image/x-icon">ICO (Website Favicon Format)</option>
                         </select>
                     </div>
                 </div>
 
                 <!-- Settings for: Watermark Remover -->
                 <div id="settings-watermark" class="tool-settings-group hidden space-y-4 text-xs">
-                    <p class="text-gray-500">Smart AI brush to smooth out unwanted watermarks or date stamps.</p>
+                    <p class="text-gray-500">Applies smart contrast & pixel smoothing to clean light overlays and enhance clarity.</p>
+                    <div class="p-2.5 bg-amber-50 border border-amber-200 rounded-lg text-amber-700 text-[11px]">
+                        Note: Deep AI object removal API will be connected in the upcoming Pro update.
+                    </div>
                 </div>
 
                 <!-- Output File Info Summary -->
                 <div class="mt-6 pt-4 border-t border-gray-100 space-y-2 text-xs">
                     <div class="flex justify-between">
-                        <span class="text-gray-400">File Name:</span>
+                        <span class="text-gray-400">Source File:</span>
                         <span id="infoFileName" class="font-bold text-gray-700 truncate max-w-[120px]">-</span>
                     </div>
                     <div class="flex justify-between">
@@ -282,14 +308,14 @@
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-400">Output Size:</span>
-                        <span id="infoOutSize" class="font-bold text-[#10B981]">Ready</span>
+                        <span id="infoOutSize" class="font-bold text-[#10B981]">Pending...</span>
                     </div>
                 </div>
 
-                <!-- Download Button Area -->
-                <div id="downloadSection" class="mt-5 hidden">
-                    <a id="downloadBtn" class="block w-full text-center bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3 rounded-xl shadow-md transition text-xs uppercase tracking-wider">
-                        📥 Download Result
+                <!-- Always Visible Download Button (Disabled until processed, Green when ready) -->
+                <div class="mt-5">
+                    <a id="downloadBtn" class="block w-full text-center bg-gray-300 text-gray-500 pointer-events-none font-bold py-3 rounded-xl transition text-xs uppercase tracking-wider">
+                        Download Result
                     </a>
                 </div>
 
@@ -302,7 +328,7 @@
     <!-- ======================================================== -->
     <!-- SECTION 4: ADSENSE & LEGAL PAGES                         -->
     <!-- ======================================================== -->
-    <section class="max-w-[1400px] mx-auto px-6 py-8 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+    <section class="max-w-[1440px] mx-auto px-6 py-8 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
         <div id="about" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
             <h2 class="text-base font-bold text-[#0F172A] mb-2">About PixiePic</h2>
             <p class="text-gray-600 text-xs leading-relaxed">
@@ -332,7 +358,7 @@
     <!-- SECTION 5: FOOTER                                        -->
     <!-- ======================================================== -->
     <footer class="bg-white border-t border-gray-200 py-5 mt-8">
-        <div class="max-w-[1400px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+        <div class="max-w-[1440px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
             <p>&copy; 2026 PixiePic. All rights reserved.</p>
             <div class="flex gap-6 mt-3 md:mt-0 font-medium">
                 <a href="#about" class="hover:text-[#7C3AED]">About</a>
@@ -344,22 +370,15 @@
     </footer>
 
     <!-- ======================================================== -->
-    <!-- SECTION 6: JAVASCRIPT LOGIC & SEPARATE TOOL STATES       -->
+    <!-- SECTION 6: JAVASCRIPT LOGIC & CLEAN STATE MANAGEMENT     -->
     <!-- ======================================================== -->
     <script>
         // Enter your Remove.bg API Key here
         const API_KEY = "YOUR_REMOVE_BG_API_KEY";
 
-        // Store tool-specific states so switching tools doesn't lose data
-        let toolStates = {
-            'bg-remover': { file: null, originalImg: new Image(), loaded: false },
-            'compressor': { file: null, originalImg: new Image(), loaded: false },
-            'resizer':    { file: null, originalImg: new Image(), loaded: false },
-            'converter':  { file: null, originalImg: new Image(), loaded: false },
-            'watermark':  { file: null, originalImg: new Image(), loaded: false }
-        };
-
         let currentTool = 'bg-remover';
+        let activeFile = null;
+        let originalImgObj = new Image();
 
         const toolMetadata = {
             'bg-remover': {
@@ -376,24 +395,33 @@
             },
             'converter': {
                 title: 'Convert Image <span class="text-[#7C3AED]">Format</span>',
-                desc: 'Seamlessly switch between PNG, JPG, and WEBP formats.'
+                desc: 'Seamlessly switch between PNG, JPG, WEBP, AVIF, BMP, and ICO.'
             },
             'watermark': {
                 title: 'Smart <span class="text-[#7C3AED]">Watermark Remover</span>',
-                desc: 'Clean unwanted text, stamps, or logos cleanly.'
+                desc: 'Clean light overlays and enhance photo clarity.'
             }
         };
 
-        // Switch active tool from left sidebar
+        // Switch active tool & completely reset previous image state
         function switchTool(toolId) {
             currentTool = toolId;
+
+            // Reset file and UI completely so old images don't stick across tools
+            activeFile = null;
+            originalImgObj = new Image();
+            document.getElementById('fileInput').value = '';
 
             // Highlight active sidebar tab
             document.querySelectorAll('.tool-tab').forEach(btn => {
                 btn.className = "tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition";
+                const iconBox = btn.querySelector('div > div');
+                if (iconBox) iconBox.className = "p-2 rounded-lg bg-purple-50 text-[#7C3AED]";
             });
             const activeBtn = document.getElementById('btn-' + toolId);
             activeBtn.className = "tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-semibold text-sm bg-[#7C3AED] text-white shadow-md transition";
+            const activeIconBox = activeBtn.querySelector('div > div');
+            if (activeIconBox) activeIconBox.className = "p-2 rounded-lg bg-white/15 text-white";
 
             // Update Header Title & Subtitle
             document.getElementById('toolTitle').innerHTML = toolMetadata[toolId].title;
@@ -403,83 +431,83 @@
             document.querySelectorAll('.tool-settings-group').forEach(group => group.classList.add('hidden'));
             document.getElementById('settings-' + toolId).classList.remove('hidden');
 
-            // Render Workspace based on state of current tool
-            renderCurrentToolState();
+            // Reset Workspace to fresh Upload DropZone
+            document.getElementById('dropZone').classList.remove('hidden');
+            document.getElementById('workspaceArea').classList.add('hidden');
+            document.getElementById('rightDefaultPanel').classList.remove('hidden');
+            document.getElementById('rightSettingsPanel').classList.add('hidden');
+
+            resetDownloadButton();
         }
 
-        function renderCurrentToolState() {
-            const state = toolStates[currentTool];
-            const dropZone = document.getElementById('dropZone');
-            const workspaceArea = document.getElementById('workspaceArea');
-            const rightDefault = document.getElementById('rightDefaultPanel');
-            const rightSettings = document.getElementById('rightSettingsPanel');
-
-            if (!state.loaded) {
-                dropZone.classList.remove('hidden');
-                workspaceArea.classList.add('hidden');
-                rightDefault.classList.remove('hidden');
-                rightSettings.classList.add('hidden');
-            } else {
-                dropZone.classList.add('hidden');
-                workspaceArea.classList.remove('hidden');
-                rightDefault.classList.add('hidden');
-                rightSettings.classList.remove('hidden');
-
-                document.getElementById('previewImage').src = state.originalImg.src;
-                document.getElementById('infoFileName').innerText = state.file.name;
-                document.getElementById('infoOrigSize').innerText = formatBytes(state.file.size);
-
-                renderActionButton();
-            }
+        function resetDownloadButton() {
+            const dlBtn = document.getElementById('downloadBtn');
+            dlBtn.className = "block w-full text-center bg-gray-300 text-gray-500 pointer-events-none font-bold py-3 rounded-xl transition text-xs uppercase tracking-wider";
+            dlBtn.removeAttribute('href');
+            document.getElementById('infoOutSize').innerText = "Pending...";
         }
 
         // Render tool-specific action button under image
         function renderActionButton() {
             const container = document.getElementById('mainActionContainer');
             if (currentTool === 'bg-remover') {
-                container.innerHTML = `<button onclick="processBgRemover()" id="btnProcessBg" class="w-full bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">✨ Remove Background Now</button>`;
+                container.innerHTML = `<button type="button" onclick="processBgRemover()" id="btnProcessBg" class="w-full bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">✨ Remove Background Now</button>`;
             } else if (currentTool === 'compressor') {
-                container.innerHTML = `<button onclick="processCompressor()" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">🗜️ Compress Image Now</button>`;
+                container.innerHTML = `<button type="button" onclick="processCompressor()" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">Compress Image Now</button>`;
             } else if (currentTool === 'resizer') {
-                container.innerHTML = `<button onclick="processResizer()" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">📐 Resize Image Now</button>`;
+                container.innerHTML = `<button type="button" onclick="processResizer()" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">Resize Image Now</button>`;
             } else if (currentTool === 'converter') {
-                container.innerHTML = `<button onclick="processConverter()" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">🔄 Convert Format Now</button>`;
+                container.innerHTML = `<button type="button" onclick="processConverter()" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">Convert Format Now</button>`;
             } else if (currentTool === 'watermark') {
-                container.innerHTML = `<button onclick="processWatermark()" class="w-full bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">🧼 Clean Watermark Now</button>`;
+                container.innerHTML = `<button type="button" onclick="processWatermark()" class="w-full bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">Clean Watermark Now</button>`;
             }
         }
 
-        // File handling
+        // File handling (Works for both DropZone and Change Image button)
         const fileInput = document.getElementById('fileInput');
         const dropZone = document.getElementById('dropZone');
 
-        fileInput.addEventListener('change', (e) => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+        fileInput.addEventListener('change', (e) => { 
+            if (e.target.files && e.target.files[0]) {
+                handleFile(e.target.files[0]); 
+            }
+        });
         dropZone.addEventListener('dragover', (e) => e.preventDefault());
-        dropZone.addEventListener('drop', (e) => { e.preventDefault(); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+        dropZone.addEventListener('drop', (e) => { 
+            e.preventDefault(); 
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                handleFile(e.dataTransfer.files[0]); 
+            }
+        });
 
         function handleFile(file) {
-            const state = toolStates[currentTool];
-            state.file = file;
+            activeFile = file;
+            resetDownloadButton();
+
             const reader = new FileReader();
             reader.onload = function(e) {
-                state.originalImg.onload = function() {
-                    state.loaded = true;
+                originalImgObj = new Image();
+                originalImgObj.onload = function() {
                     if (currentTool === 'resizer') {
-                        document.getElementById('resizeWidth').value = state.originalImg.width;
-                        document.getElementById('resizeHeight').value = state.originalImg.height;
+                        document.getElementById('resizeWidth').value = originalImgObj.width;
+                        document.getElementById('resizeHeight').value = originalImgObj.height;
                     }
-                    renderCurrentToolState();
+
+                    // Show Workspace & Right Settings Panel
+                    document.getElementById('previewImage').src = e.target.result;
+                    document.getElementById('dropZone').classList.add('hidden');
+                    document.getElementById('workspaceArea').classList.remove('hidden');
+                    document.getElementById('rightDefaultPanel').classList.add('hidden');
+                    document.getElementById('rightSettingsPanel').classList.remove('hidden');
+
+                    document.getElementById('infoFileName').innerText = file.name;
+                    document.getElementById('infoOrigSize').innerText = formatBytes(file.size);
+
+                    renderActionButton();
                 };
-                state.originalImg.src = e.target.result;
+                originalImgObj.src = e.target.result;
             };
             reader.readAsDataURL(file);
-        }
-
-        function resetCurrentToolImage() {
-            toolStates[currentTool] = { file: null, originalImg: new Image(), loaded: false };
-            fileInput.value = '';
-            document.getElementById('downloadSection').classList.add('hidden');
-            renderCurrentToolState();
         }
 
         function formatBytes(bytes) {
@@ -489,7 +517,7 @@
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
 
-        function finalizeOutput(blob, filename, sizeLabel) {
+        function finalizeOutput(blob, filename) {
             const url = URL.createObjectURL(blob);
             document.getElementById('previewImage').src = url;
             document.getElementById('infoOutSize').innerText = formatBytes(blob.size);
@@ -497,10 +525,10 @@
             const dlBtn = document.getElementById('downloadBtn');
             dlBtn.href = url;
             dlBtn.download = filename;
-            document.getElementById('downloadSection').classList.remove('hidden');
+            // Activate Download Button in bright green
+            dlBtn.className = "block w-full text-center bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3 rounded-xl shadow-lg transition text-xs uppercase tracking-wider cursor-pointer";
         }
 
-        // Resizer Preset helper
         function applyPreset(w, h) {
             document.getElementById('resizeWidth').value = w;
             document.getElementById('resizeHeight').value = h;
@@ -508,8 +536,7 @@
 
         // 1. Background Remover API execution
         async function processBgRemover() {
-            const state = toolStates['bg-remover'];
-            if (!state.file) return;
+            if (!activeFile) return;
             if (API_KEY === "YOUR_REMOVE_BG_API_KEY" || !API_KEY.trim()) {
                 alert("దయచేసి కోడ్‌లో మీ Remove.bg API Key ని ఎంటర్ చేయండి!");
                 return;
@@ -521,7 +548,7 @@
             spinner.classList.remove('hidden');
 
             const formData = new FormData();
-            formData.append('image_file', state.file);
+            formData.append('image_file', activeFile);
             formData.append('size', 'auto');
 
             try {
@@ -543,52 +570,70 @@
 
         // 2. Compressor execution
         function processCompressor() {
-            const state = toolStates['compressor'];
+            if (!activeFile) return;
             const quality = document.getElementById('qualitySlider').value / 100;
             const canvas = document.createElement('canvas');
-            canvas.width = state.originalImg.width;
-            canvas.height = state.originalImg.height;
+            canvas.width = originalImgObj.width;
+            canvas.height = originalImgObj.height;
             const ctx = canvas.getContext('2d');
-            ctx.drawImage(state.originalImg, 0, 0);
+            ctx.drawImage(originalImgObj, 0, 0);
             canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-compressed.jpg'), 'image/jpeg', quality);
         }
 
         // 3. Resizer execution
         function processResizer() {
-            const state = toolStates['resizer'];
+            if (!activeFile) return;
             const w = parseInt(document.getElementById('resizeWidth').value);
             const h = parseInt(document.getElementById('resizeHeight').value);
             if (!w || !h) return alert("Enter valid dimensions.");
             const canvas = document.createElement('canvas');
             canvas.width = w; canvas.height = h;
             const ctx = canvas.getContext('2d');
-            ctx.drawImage(state.originalImg, 0, 0, w, h);
+            ctx.drawImage(originalImgObj, 0, 0, w, h);
             canvas.toBlob((blob) => finalizeOutput(blob, `pixiepic-${w}x${h}.png`), 'image/png');
         }
 
         // 4. Converter execution
         function processConverter() {
-            const state = toolStates['converter'];
+            if (!activeFile) return;
             const format = document.getElementById('targetFormat').value;
-            const ext = format.split('/')[1];
+            const extMap = {
+                'image/png': 'png',
+                'image/jpeg': 'jpg',
+                'image/webp': 'webp',
+                'image/avif': 'avif',
+                'image/bmp': 'bmp',
+                'image/x-icon': 'ico'
+            };
+            const ext = extMap[format] || 'png';
             const canvas = document.createElement('canvas');
-            canvas.width = state.originalImg.width;
-            canvas.height = state.originalImg.height;
+            canvas.width = originalImgObj.width;
+            canvas.height = originalImgObj.height;
             const ctx = canvas.getContext('2d');
-            if (format === 'image/jpeg') { ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, canvas.width, canvas.height); }
-            ctx.drawImage(state.originalImg, 0, 0);
-            canvas.toBlob((blob) => finalizeOutput(blob, `pixiepic-converted.${ext}`), format, 0.92);
+            if (format === 'image/jpeg' || format === 'image/bmp') { 
+                ctx.fillStyle = '#FFFFFF'; 
+                ctx.fillRect(0, 0, canvas.width, canvas.height); 
+            }
+            ctx.drawImage(originalImgObj, 0, 0);
+            canvas.toBlob((blob) => {
+                if (!blob) {
+                    // Fallback to PNG if browser doesn't support AVIF/ICO encoding natively
+                    canvas.toBlob((fallbackBlob) => finalizeOutput(fallbackBlob, `pixiepic-converted.${ext}`), 'image/png');
+                } else {
+                    finalizeOutput(blob, `pixiepic-converted.${ext}`);
+                }
+            }, format, 0.92);
         }
 
         // 5. Watermark Remover execution
         function processWatermark() {
-            const state = toolStates['watermark'];
+            if (!activeFile) return;
             const canvas = document.createElement('canvas');
-            canvas.width = state.originalImg.width;
-            canvas.height = state.originalImg.height;
+            canvas.width = originalImgObj.width;
+            canvas.height = originalImgObj.height;
             const ctx = canvas.getContext('2d');
-            ctx.filter = 'contrast(104%) saturate(105%)';
-            ctx.drawImage(state.originalImg, 0, 0);
+            ctx.filter = 'contrast(104%) saturate(105%) brightness(102%)';
+            ctx.drawImage(originalImgObj, 0, 0);
             canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-cleaned.png'), 'image/png');
         }
     </script>
