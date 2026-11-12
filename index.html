@@ -3,184 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- ========================================================== -->
-    <!-- 📌 SEO & META TAGS SECTION (SEARCH ENGINE OPTIMIZATION) -->
-    <!-- ========================================================== -->
     <title>PixiePic - Professional AI Image Utility & SaaS Platform</title>
-    <meta name="description" content="Free browser-based image processing tools: Compress, Resize, Remove Background, Convert Formats, and Add Watermarks instantly with zero server latency.">
-    <meta name="keywords" content="image compressor, background remover, image resizer, format converter, watermark adder, free online tools, PixiePic">
-    <meta name="author" content="PixiePic Studio">
-
-    <!-- Tailwind CSS CDN -->
+    <meta name="description" content="Free browser-based image processing tools: Compress, Resize, Remove Background, Convert Formats, and Add Watermarks instantly.">
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- ========================================================== -->
-    <!-- 📌 CUSTOM STYLING & PADDING CONFIGURATION SECTION            -->
-    <!-- ========================================================== -->
     <style>
-        /* 
-           🎨 Brand Primary Color: #7C3AED (Purple)
-           📦 Utility Box Padding Standards: p-4 to p-6 (Balanced Spacing)
-           📐 Border Radius: rounded-2xl for main cards, rounded-xl for buttons
-        */
         body {
-            background-color: #F9FAFB;
-            color: #1F2937;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+            font-family: system-ui, -apple-system, sans-serif;
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
-    <!-- ========================================================== -->
-    <!-- 📌 GOOGLE ADSENSE & HEADER SECTION                         -->
-    <!-- ========================================================== -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-[#7C3AED] rounded-xl flex items-center justify-center text-white font-bold text-sm">P</div>
-                <span class="text-base font-extrabold tracking-tight text-gray-900">PixiePic</span>
+    <!-- HEADER SECTION -->
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 bg-[#7C3AED] rounded-xl flex items-center justify-center text-white font-bold text-base shadow-md">P</div>
+                <span class="text-lg font-extrabold tracking-tight text-gray-900">PixiePic</span>
             </div>
-            <!-- AdSense Top Banner Header Slot (অপ্রూవల్ అయాక ఇక్కడ కోడ్ పెట్టుకోవచ్చు) -->
-            <div class="hidden md:block text-[11px] text-gray-400 bg-gray-50 px-3 py-1 rounded-lg border border-dashed border-gray-200">
-                <!-- START: GOOGLE ADSENSE HEADER BANNER SLOT -->
-                AdSpace: 728x90 Header Banner
-                <!-- END: GOOGLE ADSENSE HEADER BANNER SLOT -->
-            </div>
+            <nav class="flex items-center gap-6 text-xs font-semibold text-gray-600">
+                <a href="#" class="hover:text-[#7C3AED] transition">About Us</a>
+                <a href="#" class="hover:text-[#7C3AED] transition">Privacy Policy</a>
+                <a href="#" class="hover:text-[#7C3AED] transition">Contact</a>
+            </nav>
         </div>
     </header>
 
-    <!-- ========================================================== -->
-    <!-- 📌 MAIN 3-COLUMN WORKSPACE SECTION                         -->
-    <!-- ========================================================== -->
-    <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
+    <!-- MAIN 3-COLUMN WORKSPACE -->
+    <main class="max-w-7xl mx-auto px-6 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 w-full items-start">
         
-        <!-- ------------------------------------------------------ -->
-        <!-- 1. LEFT SIDEBAR: UTILITY TOOLS (Cols-3 with left padding) -->
-        <!-- ------------------------------------------------------ -->
-        <div class="lg:col-span-3 bg-white p-4 rounded-2xl border border-gray-200 shadow-sm space-y-3 pl-5">
-            <h2 class="text-xs font-extrabold text-gray-500 uppercase tracking-wider mb-2">Utility Tools</h2>
+        <!-- 1. LEFT SIDEBAR: UTILITY TOOLS (Cols-3) -->
+        <div class="lg:col-span-3 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm space-y-2.5">
+            <h2 class="text-xs font-extrabold text-gray-400 uppercase tracking-wider px-1 mb-2">Utility Tools</h2>
             
             <!-- START: NEW TOOLS SECTION -->
-            <button id="btn-background" onclick="switchTool('background')" class="utility-tool-btn w-full text-left p-3 rounded-xl border border-purple-500 bg-purple-100 transition flex items-center justify-between">
+            <button id="btn-background" onclick="switchTool('background')" class="utility-tool-btn w-full text-left p-3 rounded-xl border border-purple-500 bg-purple-50/80 transition flex items-center justify-between shadow-sm">
                 <div>
-                    <p class="text-xs font-bold text-gray-800">Background Remover</p>
+                    <p class="text-xs font-bold text-gray-900">Background Remover</p>
                     <p class="text-[10px] text-gray-500">Instant Subject Cutout</p>
                 </div>
-                <span class="text-[10px] bg-purple-200 text-purple-700 font-bold px-2 py-0.5 rounded">Popular</span>
+                <span class="text-[10px] bg-purple-200 text-purple-700 font-bold px-2 py-0.5 rounded-full">Popular</span>
             </button>
 
-            <button id="btn-compressor" onclick="switchTool('compressor')" class="utility-tool-btn w-full text-left p-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition flex items-center justify-between">
+            <button id="btn-compressor" onclick="switchTool('compressor')" class="utility-tool-btn w-full text-left p-3 rounded-xl border border-gray-100 bg-white hover:bg-gray-50 transition flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-bold text-gray-800">Image Compressor</p>
+                    <p class="text-xs font-bold text-gray-900">Image Compressor</p>
                     <p class="text-[10px] text-gray-500">Reduce File Size (KB/MB)</p>
                 </div>
-                <span class="text-[10px] bg-green-100 text-green-700 font-bold px-2 py-0.5 rounded">Save 80%</span>
+                <span class="text-[10px] bg-green-100 text-green-700 font-bold px-2 py-0.5 rounded-full">Save 80%</span>
             </button>
 
-            <button id="btn-resizer" onclick="switchTool('resizer')" class="utility-tool-btn w-full text-left p-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition flex items-center justify-between">
+            <button id="btn-resizer" onclick="switchTool('resizer')" class="utility-tool-btn w-full text-left p-3 rounded-xl border border-gray-100 bg-white hover:bg-gray-50 transition flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-bold text-gray-800">Image Resizer</p>
+                    <p class="text-xs font-bold text-gray-900">Image Resizer</p>
                     <p class="text-[10px] text-gray-500">Dimensions & Aspect Ratio</p>
                 </div>
-                <span class="text-[10px] bg-blue-100 text-blue-700 font-bold px-2 py-0.5 rounded">Presets</span>
+                <span class="text-[10px] bg-blue-100 text-blue-700 font-bold px-2 py-0.5 rounded-full">Presets</span>
             </button>
 
-            <button id="btn-converter" onclick="switchTool('converter')" class="utility-tool-btn w-full text-left p-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition flex items-center justify-between">
+            <button id="btn-converter" onclick="switchTool('converter')" class="utility-tool-btn w-full text-left p-3 rounded-xl border border-gray-100 bg-white hover:bg-gray-50 transition flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-bold text-gray-800">Format Converter</p>
+                    <p class="text-xs font-bold text-gray-900">Format Converter</p>
                     <p class="text-[10px] text-gray-500">WebP, PNG, JPG, AVIF</p>
                 </div>
-                <span class="text-[10px] bg-orange-100 text-orange-700 font-bold px-2 py-0.5 rounded">Multi-Format</span>
+                <span class="text-[10px] bg-orange-100 text-orange-700 font-bold px-2 py-0.5 rounded-full">Multi-Format</span>
             </button>
 
-            <button id="btn-watermark" onclick="switchTool('watermark')" class="utility-tool-btn w-full text-left p-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition flex items-center justify-between">
+            <button id="btn-watermark" onclick="switchTool('watermark')" class="utility-tool-btn w-full text-left p-3 rounded-xl border border-gray-100 bg-white hover:bg-gray-50 transition flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-bold text-gray-800">Watermark Remover</p>
+                    <p class="text-xs font-bold text-gray-900">Watermark Remover</p>
                     <p class="text-[10px] text-gray-500">Smart Inpainting Brush</p>
                 </div>
-                <span class="text-[10px] bg-indigo-100 text-indigo-700 font-bold px-2 py-0.5 rounded">Smart AI</span>
+                <span class="text-[10px] bg-indigo-100 text-indigo-700 font-bold px-2 py-0.5 rounded-full">Smart AI</span>
             </button>
             <!-- END: NEW TOOLS SECTION -->
-            <!-- 👉 న్యు టూల్స్ ఏమైనా యాడ్ చేసుకోవాలంటే పైన ఉన్న "END: NEW TOOLS SECTION" కి పైన యాడ్ చేసుకో! -->
         </div>
 
-        <!-- ------------------------------------------------------ -->
-        <!-- 2. CENTER BODY: ORIGINAL UPLOAD & DROP ZONES (Cols-6)    -->
-        <!-- ------------------------------------------------------ -->
-        <div class="lg:col-span-6 space-y-6">
+        <!-- 2. CENTER BODY: UPLOAD & DROP ZONES (Cols-6) -->
+        <div class="lg:col-span-6 space-y-4">
             
             <!-- Tool 1: Background Remover -->
-            <div id="tool-background" class="tool-section block bg-white p-6 rounded-2xl border border-gray-200 shadow-sm text-center">
-                <h3 class="text-base font-extrabold text-gray-900 mb-1">Remove Image Background in Seconds[cite: 7]</h3>
-                <p class="text-xs text-gray-500 mb-6">100% Automatic and Professional. Drop your image below and watch the AI magic happen instantly.[cite: 7]</p>
-                <div class="tool-drop-zone border-2 border-dashed border-gray-300 rounded-2xl p-8 cursor-pointer hover:border-[#7C3AED] transition">
-                    <div class="upload-prompt space-y-2">
-                        <svg class="w-10 h-10 mx-auto text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <p class="text-xs font-bold text-gray-700">Drag & Drop your image here[cite: 7]</p>
-                        <p class="text-[11px] text-gray-400">or click to browse from your device[cite: 7]</p>
-                        <button type="button" class="px-5 py-2.5 bg-[#7C3AED] text-white text-xs font-bold rounded-xl shadow-sm">Browse Image[cite: 7]</button>
+            <div id="tool-background" class="tool-section block bg-white p-6 rounded-2xl border border-gray-100 shadow-sm text-center">
+                <h3 class="text-xl font-extrabold text-gray-900 mb-1.5">Remove Image Background in <span class="text-[#7C3AED]">Seconds</span></h3>
+                <p class="text-xs text-gray-500 mb-6 font-medium">100% Automatic and Professional. Drop your image below and watch the AI magic happen instantly.</p>
+                <div class="tool-drop-zone border-2 border-dashed border-gray-200 rounded-2xl p-10 cursor-pointer hover:border-[#7C3AED] bg-gray-50/50 transition">
+                    <div class="upload-prompt space-y-3">
+                        <div class="w-12 h-12 bg-purple-100 text-[#7C3AED] rounded-full flex items-center justify-center mx-auto shadow-inner">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        </div>
+                        <p class="text-xs font-bold text-gray-800">Drag & Drop your image here</p>
+                        <p class="text-[11px] text-gray-400">or click to browse from your device</p>
+                        <button type="button" class="px-5 py-2.5 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-bold rounded-xl shadow-md transition">Browse Image</button>
                     </div>
                     <input type="file" class="file-input hidden" accept="image/*" data-tool="background">
                 </div>
             </div>
 
             <!-- Tool 2: Image Compressor -->
-            <div id="tool-compressor" class="tool-section hidden bg-white p-6 rounded-2xl border border-gray-200 shadow-sm text-center">
-                <h3 class="text-base font-extrabold text-gray-900 mb-1">Compress Image Size in Seconds</h3>
-                <p class="text-xs text-gray-500 mb-6">Reduce file weight significantly without losing visual clarity.</p>
-                <div class="tool-drop-zone border-2 border-dashed border-gray-300 rounded-2xl p-8 cursor-pointer hover:border-[#7C3AED] transition">
-                    <div class="upload-prompt space-y-2">
-                        <svg class="w-10 h-10 mx-auto text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <p class="text-xs font-bold text-gray-700">Drag & Drop your image here</p>
+            <div id="tool-compressor" class="tool-section hidden bg-white p-6 rounded-2xl border border-gray-100 shadow-sm text-center">
+                <h3 class="text-xl font-extrabold text-gray-900 mb-1.5">Compress Image Size in <span class="text-[#7C3AED]">Seconds</span></h3>
+                <p class="text-xs text-gray-500 mb-6 font-medium">Reduce file weight significantly without losing visual clarity.</p>
+                <div class="tool-drop-zone border-2 border-dashed border-gray-200 rounded-2xl p-10 cursor-pointer hover:border-[#7C3AED] bg-gray-50/50 transition">
+                    <div class="upload-prompt space-y-3">
+                        <div class="w-12 h-12 bg-purple-100 text-[#7C3AED] rounded-full flex items-center justify-center mx-auto shadow-inner">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        </div>
+                        <p class="text-xs font-bold text-gray-800">Drag & Drop your image here</p>
                         <p class="text-[11px] text-gray-400">or click to browse from your device</p>
-                        <button type="button" class="px-5 py-2.5 bg-[#7C3AED] text-white text-xs font-bold rounded-xl shadow-sm">Browse Image</button>
+                        <button type="button" class="px-5 py-2.5 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-bold rounded-xl shadow-md transition">Browse Image</button>
                     </div>
                     <input type="file" class="file-input hidden" accept="image/*" data-tool="compressor">
                 </div>
             </div>
 
             <!-- Tool 3: Image Resizer -->
-            <div id="tool-resizer" class="tool-section hidden bg-white p-6 rounded-2xl border border-gray-200 shadow-sm text-center">
-                <h3 class="text-base font-extrabold text-gray-900 mb-1">Resize Image Dimensions Online</h3>
-                <p class="text-xs text-gray-500 mb-6">Specify custom pixels or use social presets instantly.</p>
-                <div class="tool-drop-zone border-2 border-dashed border-gray-300 rounded-2xl p-8 cursor-pointer hover:border-[#7C3AED] transition">
-                    <div class="upload-prompt space-y-2">
-                        <svg class="w-10 h-10 mx-auto text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <p class="text-xs font-bold text-gray-700">Drag & Drop your image here</p>
+            <div id="tool-resizer" class="tool-section hidden bg-white p-6 rounded-2xl border border-gray-100 shadow-sm text-center">
+                <h3 class="text-xl font-extrabold text-gray-900 mb-1.5">Resize Image Dimensions <span class="text-[#7C3AED]">Online</span></h3>
+                <p class="text-xs text-gray-500 mb-6 font-medium">Specify custom pixels or use social presets instantly.</p>
+                <div class="tool-drop-zone border-2 border-dashed border-gray-200 rounded-2xl p-10 cursor-pointer hover:border-[#7C3AED] bg-gray-50/50 transition">
+                    <div class="upload-prompt space-y-3">
+                        <div class="w-12 h-12 bg-purple-100 text-[#7C3AED] rounded-full flex items-center justify-center mx-auto shadow-inner">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        </div>
+                        <p class="text-xs font-bold text-gray-800">Drag & Drop your image here</p>
                         <p class="text-[11px] text-gray-400">or click to browse from your device</p>
-                        <button type="button" class="px-5 py-2.5 bg-[#7C3AED] text-white text-xs font-bold rounded-xl shadow-sm">Browse Image</button>
+                        <button type="button" class="px-5 py-2.5 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-bold rounded-xl shadow-md transition">Browse Image</button>
                     </div>
                     <input type="file" class="file-input hidden" accept="image/*" data-tool="resizer">
                 </div>
             </div>
 
             <!-- Tool 4: Format Converter -->
-            <div id="tool-converter" class="tool-section hidden bg-white p-6 rounded-2xl border border-gray-200 shadow-sm text-center">
-                <h3 class="text-base font-extrabold text-gray-900 mb-1">Convert Image Format Instantly</h3>
-                <p class="text-xs text-gray-500 mb-6">Transform JPEG, PNG, and WebP files smoothly.</p>
-                <div class="tool-drop-zone border-2 border-dashed border-gray-300 rounded-2xl p-8 cursor-pointer hover:border-[#7C3AED] transition">
-                    <div class="upload-prompt space-y-2">
-                        <svg class="w-10 h-10 mx-auto text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <p class="text-xs font-bold text-gray-700">Drag & Drop your image here</p>
+            <div id="tool-converter" class="tool-section hidden bg-white p-6 rounded-2xl border border-gray-100 shadow-sm text-center">
+                <h3 class="text-xl font-extrabold text-gray-900 mb-1.5">Convert Image Format <span class="text-[#7C3AED]">Instantly</span></h3>
+                <p class="text-xs text-gray-500 mb-6 font-medium">Transform JPEG, PNG, and WebP files smoothly.</p>
+                <div class="tool-drop-zone border-2 border-dashed border-gray-200 rounded-2xl p-10 cursor-pointer hover:border-[#7C3AED] bg-gray-50/50 transition">
+                    <div class="upload-prompt space-y-3">
+                        <div class="w-12 h-12 bg-purple-100 text-[#7C3AED] rounded-full flex items-center justify-center mx-auto shadow-inner">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        </div>
+                        <p class="text-xs font-bold text-gray-800">Drag & Drop your image here</p>
                         <p class="text-[11px] text-gray-400">or click to browse from your device</p>
-                        <button type="button" class="px-5 py-2.5 bg-[#7C3AED] text-white text-xs font-bold rounded-xl shadow-sm">Browse Image</button>
+                        <button type="button" class="px-5 py-2.5 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-bold rounded-xl shadow-md transition">Browse Image</button>
                     </div>
                     <input type="file" class="file-input hidden" accept="image/*" data-tool="converter">
                 </div>
             </div>
 
             <!-- Tool 5: Watermark Utility -->
-            <div id="tool-watermark" class="tool-section hidden bg-white p-6 rounded-2xl border border-gray-200 shadow-sm text-center">
-                <h3 class="text-base font-extrabold text-gray-900 mb-1">Watermark Utility & AI Remover</h3>
-                <p class="text-xs text-gray-500 mb-6">Add text protection or clean up watermarks effortlessly.</p>
-                <div class="tool-drop-zone border-2 border-dashed border-gray-300 rounded-2xl p-8 cursor-pointer hover:border-[#7C3AED] transition">
-                    <div class="upload-prompt space-y-2">
-                        <svg class="w-10 h-10 mx-auto text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <p class="text-xs font-bold text-gray-700">Drag & Drop your image here</p>
+            <div id="tool-watermark" class="tool-section hidden bg-white p-6 rounded-2xl border border-gray-100 shadow-sm text-center">
+                <h3 class="text-xl font-extrabold text-gray-900 mb-1.5">Watermark Utility & <span class="text-[#7C3AED]">AI Remover</span></h3>
+                <p class="text-xs text-gray-500 mb-6 font-medium">Add text protection or clean up watermarks effortlessly.</p>
+                <div class="tool-drop-zone border-2 border-dashed border-gray-200 rounded-2xl p-10 cursor-pointer hover:border-[#7C3AED] bg-gray-50/50 transition">
+                    <div class="upload-prompt space-y-3">
+                        <div class="w-12 h-12 bg-purple-100 text-[#7C3AED] rounded-full flex items-center justify-center mx-auto shadow-inner">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        </div>
+                        <p class="text-xs font-bold text-gray-800">Drag & Drop your image here</p>
                         <p class="text-[11px] text-gray-400">or click to browse from your device</p>
-                        <button type="button" class="px-5 py-2.5 bg-[#7C3AED] text-white text-xs font-bold rounded-xl shadow-sm">Browse Image</button>
+                        <button type="button" class="px-5 py-2.5 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-bold rounded-xl shadow-md transition">Browse Image</button>
                     </div>
                     <input type="file" class="file-input hidden" accept="image/*" data-tool="watermark">
                 </div>
@@ -188,21 +171,19 @@
 
         </div>
 
-        <!-- ------------------------------------------------------ -->
         <!-- 3. RIGHT SIDEBAR: DYNAMIC CONTROLS & ADSENSE SLOT (Cols-3) -->
-        <!-- ------------------------------------------------------ -->
         <aside class="lg:col-span-3 space-y-4">
-            <div id="right-sidebar-panel" class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm text-center">
-                <div id="sidebar-placeholder" class="py-4 space-y-3">
-                    <h4 class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Why PixiePic?[cite: 7]</h4>
-                    <ul class="text-xs text-gray-600 space-y-2 text-left">
-                        <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Fast & Browser Based[cite: 7]</li>
-                        <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> High Privacy Guaranteed[cite: 7]</li>
-                        <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> AI Powered Accuracy[cite: 7]</li>
+            <div id="right-sidebar-panel" class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm text-center">
+                <div id="sidebar-placeholder" class="py-2 space-y-3">
+                    <h4 class="text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Why PixiePic?</h4>
+                    <ul class="text-xs text-gray-600 space-y-2 text-left font-medium">
+                        <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Fast & Browser Based</li>
+                        <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> High Privacy Guaranteed</li>
+                        <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> AI Powered Accuracy</li>
                     </ul>
                     
                     <!-- START: GOOGLE ADSENSE SIDEBAR SLOT -->
-                    <div class="mt-4 pt-4 border-t border-gray-100 text-[10px] text-gray-400 bg-gray-50 p-2 rounded-lg border border-dashed border-gray-200">
+                    <div class="mt-4 pt-4 border-t border-gray-100 text-[10px] text-gray-400 bg-gray-50 p-3 rounded-xl border border-dashed border-gray-200">
                         AdSpace: 300x250 Sidebar Banner
                     </div>
                     <!-- END: GOOGLE ADSENSE SIDEBAR SLOT -->
@@ -212,20 +193,13 @@
 
     </main>
 
-    <!-- ========================================================== -->
-    <!-- 📌 FOOTER SECTION                                          -->
-    <!-- ========================================================== -->
-    <footer class="bg-white border-t border-gray-200 py-4 text-center text-xs text-gray-500">
+    <!-- FOOTER SECTION -->
+    <footer class="bg-white border-t border-gray-100 py-4 text-center text-xs text-gray-500 font-medium">
         <p>&copy; 2026 PixiePic. All rights reserved.</p>
     </footer>
 
-    <!-- ========================================================== -->
-    <!-- 📌 JAVASCRIPT PROCESSING & DYNAMIC RENDERING LOGIC        -->
-    <!-- ========================================================== -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-    /* ==========================================================
-       1. TOOL SWITCHING & LEFT SIDEBAR HIGHLIGHTING LOGIC
-       ========================================================== */
     function switchTool(toolId) {
         const sections = document.querySelectorAll('.tool-section');
         sections.forEach(sec => {
@@ -239,17 +213,16 @@
             activeSection.classList.add('block');
         }
 
-        // Left sidebar button highlight toggle
         const toolButtons = document.querySelectorAll('.utility-tool-btn');
         toolButtons.forEach(btn => {
-            btn.classList.remove('bg-purple-100', 'border-purple-500', 'shadow-sm');
-            btn.classList.add('bg-white', 'border-gray-200');
+            btn.classList.remove('bg-purple-50/80', 'border-purple-500', 'shadow-sm');
+            btn.classList.add('bg-white', 'border-gray-100');
         });
 
         const activeBtn = document.getElementById('btn-' + toolId);
         if (activeBtn) {
-            activeBtn.classList.remove('bg-white', 'border-gray-200');
-            activeBtn.classList.add('bg-purple-100', 'border-purple-500', 'shadow-sm');
+            activeBtn.classList.remove('bg-white', 'border-gray-100');
+            activeBtn.classList.add('bg-purple-50/80', 'border-purple-500', 'shadow-sm');
         }
 
         resetRightSidebar();
@@ -259,14 +232,14 @@
         const sidebar = document.getElementById('right-sidebar-panel');
         if(sidebar) {
             sidebar.innerHTML = `
-                <div id="sidebar-placeholder" class="py-4 space-y-3">
-                    <h4 class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Why PixiePic?</h4>
-                    <ul class="text-xs text-gray-600 space-y-2 text-left">
+                <div id="sidebar-placeholder" class="py-2 space-y-3">
+                    <h4 class="text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Why PixiePic?</h4>
+                    <ul class="text-xs text-gray-600 space-y-2 text-left font-medium">
                         <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Fast & Browser Based</li>
                         <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> High Privacy Guaranteed</li>
                         <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> AI Powered Accuracy</li>
                     </ul>
-                    <div class="mt-4 pt-4 border-t border-gray-100 text-[10px] text-gray-400 bg-gray-50 p-2 rounded-lg border border-dashed border-gray-200">
+                    <div class="mt-4 pt-4 border-t border-gray-100 text-[10px] text-gray-400 bg-gray-50 p-3 rounded-xl border border-dashed border-gray-200">
                         AdSpace: 300x250 Sidebar Banner
                     </div>
                 </div>
@@ -274,9 +247,6 @@
         }
     }
 
-    /* ==========================================================
-       2. RIGHT SIDEBAR DYNAMIC CONTROLS & DOWNLOAD BUTTON
-       ========================================================== */
     function renderRightSidebar(toolType, fileName, fileSize, imgSrc) {
         const sidebar = document.getElementById('right-sidebar-panel');
         let controlsHTML = '';
@@ -287,13 +257,13 @@
             controlsHTML = `
                 <div class="space-y-3 text-left">
                     <div class="flex justify-between items-center border-b pb-2">
-                        <span class="text-xs font-extrabold text-gray-700">Export Details</span>
-                        <span class="text-[10px] bg-green-100 text-green-700 font-bold px-2 py-0.5 rounded-full">Ready</span>
+                        <span class="text-xs font-extrabold text-gray-800">Export Details</span>
+                        <span class="text-[10px] bg-green-100 text-green-700 font-bold px-2.5 py-0.5 rounded-full">Ready</span>
                     </div>
-                    <div class="text-xs space-y-1 text-gray-600">
-                        <p><strong class="text-gray-700">Source File:</strong> ${fileName}</p>
-                        <p><strong class="text-gray-700">Output Format:</strong> PNG (Alpha 32-bit)</p>
-                        <p><strong class="text-gray-700">File Weight:</strong> ${fileSize}</p>
+                    <div class="text-xs space-y-1 text-gray-600 font-medium">
+                        <p><strong class="text-gray-800">Source File:</strong> ${fileName}</p>
+                        <p><strong class="text-gray-800">Output Format:</strong> PNG (Alpha 32-bit)</p>
+                        <p><strong class="text-gray-800">File Weight:</strong> ${fileSize}</p>
                     </div>
                     <p class="text-[11px] text-gray-500 italic">✨ Extracted instantly in-browser.</p>
                 </div>
@@ -304,22 +274,22 @@
             controlsHTML = `
                 <div class="space-y-3 text-left">
                     <div class="flex justify-between items-center border-b pb-2">
-                        <span class="text-xs font-extrabold text-gray-700">Compression Settings</span>
+                        <span class="text-xs font-extrabold text-gray-800">Compression Settings</span>
                         <span class="text-xs font-bold text-[#7C3AED]"><span id="quality-val">75</span>% Quality</span>
                     </div>
                     <input type="range" id="compress-quality" min="10" max="95" value="75" class="w-full accent-[#7C3AED]" oninput="document.getElementById('quality-val').innerText = this.value">
                     
-                    <label class="block text-xs font-extrabold text-gray-700">Output Format</label>
+                    <label class="block text-xs font-extrabold text-gray-800">Output Format</label>
                     <div class="format-buttons flex gap-2">
                         <button type="button" data-format="image/jpeg" class="fmt-btn flex-1 py-1.5 bg-[#7C3AED] text-white text-xs font-semibold rounded-lg shadow-sm">JPEG</button>
-                        <button type="button" data-format="image/webp" class="fmt-btn flex-1 py-1.5 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg">WebP</button>
+                        <button type="button" data-format="image/webp" class="fmt-btn flex-1 py-1.5 bg-white border border-gray-200 text-gray-700 text-xs font-semibold rounded-lg">WebP</button>
                     </div>
 
-                    <label class="block text-xs font-extrabold text-gray-700">Quick Presets</label>
+                    <label class="block text-xs font-extrabold text-gray-800">Quick Presets</label>
                     <div class="flex gap-2">
-                        <button type="button" onclick="document.getElementById('compress-quality').value=40; document.getElementById('quality-val').innerText='40';" class="flex-1 py-1 bg-white border border-gray-300 text-gray-600 text-[11px] rounded-md hover:bg-gray-100">Low (40%)</button>
-                        <button type="button" onclick="document.getElementById('compress-quality').value=75; document.getElementById('quality-val').innerText='75';" class="flex-1 py-1 bg-white border border-gray-300 text-gray-600 text-[11px] rounded-md hover:bg-gray-100">Balanced</button>
-                        <button type="button" onclick="document.getElementById('compress-quality').value=90; document.getElementById('quality-val').innerText='90';" class="flex-1 py-1 bg-white border border-gray-300 text-gray-600 text-[11px] rounded-md hover:bg-gray-100">High (90%)</button>
+                        <button type="button" onclick="document.getElementById('compress-quality').value=40; document.getElementById('quality-val').innerText='40';" class="flex-1 py-1 bg-white border border-gray-200 text-gray-600 text-[11px] rounded-md hover:bg-gray-50">Low (40%)</button>
+                        <button type="button" onclick="document.getElementById('compress-quality').value=75; document.getElementById('quality-val').innerText='75';" class="flex-1 py-1 bg-white border border-gray-200 text-gray-600 text-[11px] rounded-md hover:bg-gray-50">Balanced</button>
+                        <button type="button" onclick="document.getElementById('compress-quality').value=90; document.getElementById('quality-val').innerText='90';" class="flex-1 py-1 bg-white border border-gray-200 text-gray-600 text-[11px] rounded-md hover:bg-gray-50">High (90%)</button>
                     </div>
                 </div>
             `;
@@ -329,38 +299,38 @@
             controlsHTML = `
                 <div class="space-y-3 text-left">
                     <div class="flex justify-between items-center border-b pb-2">
-                        <span class="text-xs font-extrabold text-gray-700">Dimensions</span>
+                        <span class="text-xs font-extrabold text-gray-800">Dimensions</span>
                         <span class="text-[10px] text-gray-400">Natural: 800x600</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-3">
+                    <div class="grid grid-cols-2 gap-2.5">
                         <div>
                             <label class="block text-[11px] font-bold text-gray-600 mb-1">Width (px)</label>
-                            <input type="number" id="resize-width" placeholder="800" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:border-[#7C3AED]">
+                            <input type="number" id="resize-width" placeholder="800" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-[#7C3AED]">
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-gray-600 mb-1">Height (px)</label>
-                            <input type="number" id="resize-height" placeholder="600" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:border-[#7C3AED]">
+                            <input type="number" id="resize-height" placeholder="600" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-[#7C3AED]">
                         </div>
                     </div>
 
-                    <label class="block text-xs font-extrabold text-gray-700">Scale Ratio</label>
+                    <label class="block text-xs font-extrabold text-gray-800">Scale Ratio</label>
                     <div class="grid grid-cols-4 gap-1.5 text-center">
-                        <button type="button" class="py-1 bg-white border border-gray-300 text-gray-700 text-[11px] rounded-md hover:bg-gray-100">25%</button>
-                        <button type="button" class="py-1 bg-white border border-gray-300 text-gray-700 text-[11px] rounded-md hover:bg-gray-100">50%</button>
-                        <button type="button" class="py-1 bg-white border border-gray-300 text-gray-700 text-[11px] rounded-md hover:bg-gray-100">75%</button>
-                        <button type="button" class="py-1 bg-white border border-gray-300 text-gray-700 text-[11px] rounded-md hover:bg-gray-100">100%</button>
+                        <button type="button" class="py-1 bg-white border border-gray-200 text-gray-700 text-[11px] rounded-md hover:bg-gray-50">25%</button>
+                        <button type="button" class="py-1 bg-white border border-gray-200 text-gray-700 text-[11px] rounded-md hover:bg-gray-50">50%</button>
+                        <button type="button" class="py-1 bg-white border border-gray-200 text-gray-700 text-[11px] rounded-md hover:bg-gray-50">75%</button>
+                        <button type="button" class="py-1 bg-white border border-gray-200 text-gray-700 text-[11px] rounded-md hover:bg-gray-50">100%</button>
                     </div>
 
-                    <label class="block text-xs font-extrabold text-gray-700">Social Presets</label>
-                    <div class="space-y-1 text-xs text-gray-600">
-                        <div class="flex justify-between bg-white p-1.5 rounded border border-gray-200 cursor-pointer hover:border-[#7C3AED]" onclick="document.getElementById('resize-width').value=1080; document.getElementById('resize-height').value=1080;">
-                            <span>Instagram Square</span> <span class="text-gray-400 text-[10px]">1080 x 1080</span>
+                    <label class="block text-xs font-extrabold text-gray-800">Social Presets</label>
+                    <div class="space-y-1.5 text-xs text-gray-600 font-medium">
+                        <div class="flex justify-between bg-white p-2 rounded-lg border border-gray-200 cursor-pointer hover:border-[#7C3AED]" onclick="document.getElementById('resize-width').value=1080; document.getElementById('resize-height').value=1080;">
+                            <span>Instagram Square</span> <span class="text-gray-400 text-[10px]">1080x1080</span>
                         </div>
-                        <div class="flex justify-between bg-white p-1.5 rounded border border-gray-200 cursor-pointer hover:border-[#7C3AED]" onclick="document.getElementById('resize-width').value=1080; document.getElementById('resize-height').value=1920;">
-                            <span>Story / Reel / TikTok</span> <span class="text-gray-400 text-[10px]">1080 x 1920</span>
+                        <div class="flex justify-between bg-white p-2 rounded-lg border border-gray-200 cursor-pointer hover:border-[#7C3AED]" onclick="document.getElementById('resize-width').value=1080; document.getElementById('resize-height').value=1920;">
+                            <span>Story / Reel</span> <span class="text-gray-400 text-[10px]">1080x1920</span>
                         </div>
-                        <div class="flex justify-between bg-white p-1.5 rounded border border-gray-200 cursor-pointer hover:border-[#7C3AED]" onclick="document.getElementById('resize-width').value=1280; document.getElementById('resize-height').value=720;">
-                            <span>YouTube Thumbnail</span> <span class="text-gray-400 text-[10px]">1280 x 720</span>
+                        <div class="flex justify-between bg-white p-2 rounded-lg border border-gray-200 cursor-pointer hover:border-[#7C3AED]" onclick="document.getElementById('resize-width').value=1280; document.getElementById('resize-height').value=720;">
+                            <span>YouTube Thumb</span> <span class="text-gray-400 text-[10px]">1280x720</span>
                         </div>
                     </div>
                 </div>
@@ -371,18 +341,18 @@
             controlsHTML = `
                 <div class="space-y-3 text-left">
                     <div class="flex justify-between items-center border-b pb-2">
-                        <span class="text-xs font-extrabold text-gray-700">Export Details</span>
-                        <span class="text-[10px] bg-purple-100 text-[#7C3AED] font-bold px-2 py-0.5 rounded-full">Converter</span>
+                        <span class="text-xs font-extrabold text-gray-800">Export Details</span>
+                        <span class="text-[10px] bg-purple-100 text-[#7C3AED] font-bold px-2.5 py-0.5 rounded-full">Converter</span>
                     </div>
-                    <div class="text-xs space-y-1 text-gray-600 pb-2">
-                        <p><strong class="text-gray-700">Source File:</strong> ${fileName}</p>
-                        <p><strong class="text-gray-700">File Weight:</strong> ${fileSize}</p>
+                    <div class="text-xs space-y-1 text-gray-600 font-medium pb-1">
+                        <p><strong class="text-gray-800">Source File:</strong> ${fileName}</p>
+                        <p><strong class="text-gray-800">File Weight:</strong> ${fileSize}</p>
                     </div>
-                    <label class="block text-xs font-extrabold text-gray-700 mb-1">Select Output Format</label>
+                    <label class="block text-xs font-extrabold text-gray-800 mb-1">Select Output Format</label>
                     <div class="format-buttons flex gap-2">
                         <button type="button" data-format="image/jpeg" class="fmt-btn flex-1 py-2 bg-[#7C3AED] text-white text-xs font-semibold rounded-lg shadow-sm">JPG</button>
-                        <button type="button" data-format="image/png" class="fmt-btn flex-1 py-2 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg">PNG</button>
-                        <button type="button" data-format="image/webp" class="fmt-btn flex-1 py-2 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg">WEBP</button>
+                        <button type="button" data-format="image/png" class="fmt-btn flex-1 py-2 bg-white border border-gray-200 text-gray-700 text-xs font-semibold rounded-lg">PNG</button>
+                        <button type="button" data-format="image/webp" class="fmt-btn flex-1 py-2 bg-white border border-gray-200 text-gray-700 text-xs font-semibold rounded-lg">WEBP</button>
                     </div>
                 </div>
             `;
@@ -392,15 +362,15 @@
             controlsHTML = `
                 <div class="space-y-3 text-left">
                     <div class="watermark-tabs flex gap-2 mb-2">
-                        <button type="button" data-mode="add" class="wm-tab flex-1 py-1.5 bg-[#7C3AED] text-white text-xs font-semibold rounded-lg shadow-sm">Add Watermark</button>
-                        <button type="button" data-mode="remove" class="wm-tab flex-1 py-1.5 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg">Remove AI</button>
+                        <button type="button" data-mode="add" class="wm-tab flex-1 py-1.5 bg-[#7C3AED] text-white text-xs font-semibold rounded-lg shadow-sm">Add Text</button>
+                        <button type="button" data-mode="remove" class="wm-tab flex-1 py-1.5 bg-white border border-gray-200 text-gray-700 text-xs font-semibold rounded-lg">Remove AI</button>
                     </div>
                     <div id="watermark-add-section" class="space-y-2">
-                        <label class="block text-xs font-bold text-gray-700">Watermark Text</label>
-                        <input type="text" id="watermark-text" placeholder="Enter copyright text..." class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:border-[#7C3AED]">
+                        <label class="block text-xs font-bold text-gray-800">Watermark Text</label>
+                        <input type="text" id="watermark-text" placeholder="Enter copyright text..." class="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-[#7C3AED]">
                     </div>
                     <div id="watermark-remove-section" class="hidden text-center py-2">
-                        <p class="text-xs text-gray-500">AI will automatically detect and remove watermarks.</p>
+                        <p class="text-xs text-gray-500 font-medium">AI will automatically detect and remove watermarks.</p>
                     </div>
                 </div>
             `;
@@ -409,7 +379,7 @@
         sidebar.innerHTML = `
             <div class="space-y-4" data-img-src="${imgSrc}">
                 ${controlsHTML}
-                <div class="pt-2 border-t">
+                <div class="pt-2 border-t border-gray-100">
                     <button type="button" class="action-btn w-full py-3 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-extrabold rounded-xl shadow-md transition flex items-center justify-center gap-2" data-tool="${toolType}">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                         ${btnText}
@@ -419,9 +389,6 @@
         `;
     }
 
-    /* ==========================================================
-       3. FILE UPLOAD & PREVIEW HANDLER
-       ========================================================== */
     document.addEventListener('change', function(e) {
         if (e.target && e.target.classList.contains('file-input') && e.target.files.length > 0) {
             const file = e.target.files[0];
@@ -446,8 +413,8 @@
                     
                     previewContainer.innerHTML = `
                         <img src="${event.target.result}" alt="Preview" class="max-h-56 mx-auto rounded-xl shadow-md object-contain">
-                        <p class="text-xs font-semibold text-gray-700">${file.name}</p>
-                        <button type="button" class="change-img-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 text-xs font-semibold rounded-xl transition">Change Image</button>
+                        <p class="text-xs font-semibold text-gray-800">${file.name}</p>
+                        <button type="button" class="change-img-btn px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-xl transition">Change Image</button>
                     `;
                     previewContainer.style.display = 'block';
 
@@ -459,9 +426,6 @@
         }
     });
 
-    /* ==========================================================
-       4. CLICK EVENTS & CANVAS PROCESSING LOGIC
-       ========================================================== */
     document.addEventListener('click', function(e) {
         if (e.target.closest('.upload-prompt')) {
             const dropZone = e.target.closest('.tool-drop-zone');
@@ -482,9 +446,9 @@
             const parent = e.target.closest('.format-buttons');
             parent.querySelectorAll('.fmt-btn').forEach(btn => {
                 btn.classList.remove('bg-[#7C3AED]', 'text-white', 'shadow-sm');
-                btn.classList.add('bg-white', 'border', 'border-gray-300', 'text-gray-700');
+                btn.classList.add('bg-white', 'border', 'border-gray-200', 'text-gray-700');
             });
-            e.target.classList.remove('bg-white', 'border', 'border-gray-300', 'text-gray-700');
+            e.target.classList.remove('bg-white', 'border', 'border-gray-200', 'text-gray-700');
             e.target.classList.add('bg-[#7C3AED]', 'text-white', 'shadow-sm');
         }
 
@@ -496,9 +460,9 @@
 
             parent.querySelectorAll('.wm-tab').forEach(tab => {
                 tab.classList.remove('bg-[#7C3AED]', 'text-white', 'shadow-sm');
-                tab.classList.add('bg-white', 'border', 'border-gray-300', 'text-gray-700');
+                tab.classList.add('bg-white', 'border', 'border-gray-200', 'text-gray-700');
             });
-            e.target.classList.remove('bg-white', 'border', 'border-gray-300', 'text-gray-700');
+            e.target.classList.remove('bg-white', 'border', 'border-gray-200', 'text-gray-700');
             e.target.classList.add('bg-[#7C3AED]', 'text-white', 'shadow-sm');
 
             if (mode === 'add') {
@@ -510,7 +474,6 @@
             }
         }
 
-        // MAIN DOWNLOAD & CANVAS PROCESSING
         if (e.target && e.target.classList.contains('action-btn')) {
             const toolType = e.target.getAttribute('data-tool');
             const sidebar = document.getElementById('right-sidebar-panel');
