@@ -169,8 +169,7 @@
         <!-- CENTER MAIN CONTENT AREA: ACTIVE TOOL (6 Columns)                -->
         <!-- ================================================================ -->
    
- 
-    <main class="lg:col-span-6 space-y-6">
+ <main class="lg:col-span-6 space-y-6">
 
     <!-- 1. BACKGROUND REMOVER TOOL -->
     <div id="tool-background" class="tool-section block bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
@@ -288,6 +287,12 @@
     </div>
 
 </main>
+   
+      
+   
+   
+               
+
         <!-- ================================================================ -->
         <!-- RIGHT SIDEBAR: WHY PIXIEPIC & AD SPACE (3 Columns)               -->
         <!-- ================================================================ -->
@@ -496,6 +501,65 @@ function getToolActionButton(toolType) {
     }
 }
 
+// ప్రతి టూల్ కి తగిన అదనపు కంట్రోల్స్ జనరేట్ చేయడానికి
+function getToolSpecificControls(toolType) {
+    switch(toolType) {
+        case 'compressor':
+            return `
+                <div class="bg-gray-50 p-4 rounded-xl text-left space-y-2 border border-gray-100">
+                    <label class="block text-xs font-bold text-gray-700">Compression Quality: <span id="quality-val">80</span>%</label>
+                    <input type="range" min="10" max="100" value="80" class="w-full accent-[#7C3AED]" oninput="document.getElementById('quality-val').innerText = this.value">
+                </div>
+            `;
+        case 'resizer':
+            return `
+                <div class="bg-gray-50 p-4 rounded-xl text-left space-y-3 border border-gray-100">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">Width (px)</label>
+                            <input type="number" placeholder="800" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:border-[#7C3AED]">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">Height (px)</label>
+                            <input type="number" placeholder="600" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:border-[#7C3AED]">
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" id="aspect-ratio" checked class="accent-[#7C3AED]">
+                        <label for="aspect-ratio" class="text-xs text-gray-600 font-medium">Maintain Aspect Ratio</label>
+                    </div>
+                </div>
+            `;
+        case 'converter':
+            return `
+                <div class="bg-gray-50 p-4 rounded-xl text-left space-y-2 border border-gray-100">
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Select Output Format</label>
+                    <div class="flex gap-2">
+                        <button type="button" class="flex-1 py-2 bg-[#7C3AED] text-white text-xs font-semibold rounded-lg shadow-sm">JPG</button>
+                        <button type="button" class="flex-1 py-2 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg hover:bg-gray-100">PNG</button>
+                        <button type="button" class="flex-1 py-2 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg hover:bg-gray-100">WEBP</button>
+                        <button type="button" class="flex-1 py-2 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg hover:bg-gray-100">AVIF</button>
+                    </div>
+                </div>
+            `;
+        case 'watermark':
+            return `
+                <div class="bg-gray-50 p-4 rounded-xl text-left space-y-3 border border-gray-100">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Watermark Text</label>
+                        <input type="text" placeholder="Enter watermark text..." class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:border-[#7C3AED]">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Opacity: <span id="opacity-val">50</span>%</label>
+                        <input type="range" min="10" max="100" value="50" class="w-full accent-[#7C3AED]" oninput="document.getElementById('opacity-val').innerText = this.value">
+                    </div>
+                </div>
+            `;
+        default:
+            return ''; // Background remover కి ప్రత్యేకంగా కంట్రోల్స్ అవసరం లేదు
+    }
+}
+
 document.addEventListener('change', function(e) {
     if (e.target && e.target.classList.contains('file-input') && e.target.files.length > 0) {
         const file = e.target.files[0];
@@ -506,10 +570,10 @@ document.addEventListener('change', function(e) {
             const dropZone = e.target.closest('.tool-drop-zone');
             if (dropZone) {
                 const actionBtnText = getToolActionButton(toolType);
+                const specificControls = getToolSpecificControls(toolType);
                 const promptBox = dropZone.querySelector('.upload-prompt');
                 if (promptBox) promptBox.style.display = 'none';
                 
-                // డ్రాప్ జోన్ కర్సర్ పాయింటర్ తీసేయడం (ఇమేజ్ అప్లోడ్ అయ్యాక)
                 dropZone.classList.remove('cursor-pointer');
                 
                 let previewContainer = dropZone.querySelector('.preview-container');
@@ -520,8 +584,9 @@ document.addEventListener('change', function(e) {
                 }
                 
                 previewContainer.innerHTML = `
-                    <img src="${event.target.result}" alt="Preview" class="max-h-48 mx-auto rounded-xl shadow-md object-contain">
+                    <img src="${event.target.result}" alt="Preview" class="max-h-40 mx-auto rounded-xl shadow-md object-contain">
                     <p class="text-xs font-semibold text-gray-700">${file.name}</p>
+                    ${specificControls}
                     <div class="flex justify-center gap-3 pt-2">
                         <button type="button" class="action-btn px-5 py-2.5 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-semibold rounded-xl shadow-sm transition" data-tool="${toolType}">${actionBtnText}</button>
                         <button type="button" class="change-img-btn px-4 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-700 text-xs font-semibold rounded-xl transition">Change Image</button>
@@ -536,7 +601,6 @@ document.addEventListener('change', function(e) {
 });
 
 document.addEventListener('click', function(e) {
-    // కేవలం మొదట్లో కనిపించే upload-prompt మీద క్లిక్ చేసినప్పుడు మాత్రమే ఫైల్ విండో ఓపెన్ అవుతుంది
     if (e.target.closest('.upload-prompt')) {
         const dropZone = e.target.closest('.tool-drop-zone');
         const fileInput = dropZone.querySelector('.file-input');
@@ -545,7 +609,6 @@ document.addEventListener('click', function(e) {
         }
     }
     
-    // "Change Image" బటన్ క్లిక్ చేసినప్పుడు మాత్రమే మళ్ళీ ఫైల్ విండో ఓపెన్ అవుతుంది
     if (e.target && e.target.classList.contains('change-img-btn')) {
         const dropZone = e.target.closest('.tool-drop-zone');
         const fileInput = dropZone.querySelector('.file-input');
@@ -553,11 +616,6 @@ document.addEventListener('click', function(e) {
             fileInput.value = '';
             fileInput.click();
         }
-    }
-    
-    // యాక్షన్ బటన్ (Remove Background Now, Resize Image Now మొదలైనవి) క్లిక్ చేస్తే ప్రస్తుతానికి ఏమీ జరగదు
-    if (e.target && e.target.classList.contains('action-btn')) {
-        // లాస్ట్ లో API / Processing లాజిక్ ఇక్కడ యాడ్ చేద్దాం
     }
 });
 </script>
