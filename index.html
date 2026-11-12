@@ -1,4 +1,4 @@
-**<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- ======================================================== -->
@@ -16,22 +16,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #F1F5F9; color: #0F172A; }
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: #0F172A; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
+<body class="min-h-screen flex flex-col justify-between selection:bg-purple-600 selection:text-white">
 
     <!-- ======================================================== -->
-    <!-- SECTION 2: TOP HEADER (Pro SaaS Header)                  -->
+    <!-- SECTION 2: TOP HEADER (Pro SaaS Header - Logo Only Fix)  -->
     <!-- ======================================================== -->
     <header class="w-full bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
         <div class="max-w-[1440px] mx-auto px-6 py-3.5 flex justify-between items-center">
-            <!-- Brand Logo -->
-            <a href="#" class="flex items-center gap-2.5">
-                <img src="logo.png" alt="PixiePic Logo" style="height: 44px; width: auto;" class="object-contain" onerror="this.style.display='none'">
-                <span class="text-2xl font-extrabold tracking-tight text-[#7C3AED]">PixiePic</span>
+            <!-- Brand Logo (Clean, Larger, No Repeated Text) -->
+            <a href="#" class="flex items-center">
+                <img src="logo.png" alt="PixiePic Logo" style="height: 52px; width: auto;" class="object-contain" onerror="this.style.display='none'">
             </a>
 
             <!-- Navigation Links -->
@@ -218,7 +217,7 @@
                     <div class="p-3 bg-purple-50 rounded-xl text-[#7C3AED] font-medium">Output Format: Transparent PNG</div>
                 </div>
 
-                <!-- Settings for: Image Compressor (With Quick Presets) -->
+                <!-- Settings for: Image Compressor -->
                 <div id="settings-compressor" class="tool-settings-group hidden space-y-4 text-xs">
                     <div>
                         <label class="block font-semibold text-gray-600 mb-2">Quick Quality Presets</label>
@@ -237,7 +236,7 @@
                     </div>
                 </div>
 
-                <!-- Settings for: Image Resizer (With Scale Ratios & Vertical Presets) -->
+                <!-- Settings for: Image Resizer (Default non-empty numbers) -->
                 <div id="settings-resizer" class="tool-settings-group hidden space-y-4 text-xs">
                     <div>
                         <label class="block font-semibold text-gray-600 mb-1.5">Scale Ratio</label>
@@ -253,11 +252,11 @@
                         <div class="grid grid-cols-2 gap-2">
                             <div>
                                 <span class="text-[10px] text-gray-400">Width</span>
-                                <input type="number" id="resizeWidth" class="w-full border border-gray-300 rounded-lg px-3 py-2 font-semibold text-gray-800 focus:outline-none focus:border-[#7C3AED]">
+                                <input type="number" id="resizeWidth" value="800" class="w-full border border-gray-300 rounded-lg px-3 py-2 font-semibold text-gray-800 focus:outline-none focus:border-[#7C3AED]">
                             </div>
                             <div>
                                 <span class="text-[10px] text-gray-400">Height</span>
-                                <input type="number" id="resizeHeight" class="w-full border border-gray-300 rounded-lg px-3 py-2 font-semibold text-gray-800 focus:outline-none focus:border-[#7C3AED]">
+                                <input type="number" id="resizeHeight" value="800" class="w-full border border-gray-300 rounded-lg px-3 py-2 font-semibold text-gray-800 focus:outline-none focus:border-[#7C3AED]">
                             </div>
                         </div>
                     </div>
@@ -297,7 +296,7 @@
                     <p class="text-gray-500">Applies smart contrast & pixel smoothing to clean light overlays and enhance clarity.</p>
                 </div>
 
-                <!-- Output File Info Summary -->
+                <!-- Output File Info Summary (With Compression Stats) -->
                 <div class="mt-6 pt-4 border-t border-gray-100 space-y-2 text-xs">
                     <div class="flex justify-between">
                         <span class="text-gray-400">Source File:</span>
@@ -308,12 +307,16 @@
                         <span id="infoOrigSize" class="font-bold text-gray-700">-</span>
                     </div>
                     <div class="flex justify-between">
+                        <span class="text-gray-400">Compressed Size:</span>
+                        <span id="infoCompSize" class="font-bold text-purple-600">-</span>
+                    </div>
+                    <div class="flex justify-between">
                         <span class="text-gray-400">Output Size:</span>
                         <span id="infoOutSize" class="font-bold text-[#10B981]">Pending...</span>
                     </div>
                 </div>
 
-                <!-- Download Button Area (Appears in Right Sidebar as requested) -->
+                <!-- Download Button Area -->
                 <div class="mt-5">
                     <a id="downloadBtn" class="block w-full text-center bg-gray-300 text-gray-500 pointer-events-none font-bold py-3 rounded-xl transition text-xs uppercase tracking-wider">
                         Download Result
@@ -418,7 +421,7 @@
             document.getElementById('toolDesc').innerText = toolMetadata[toolId].desc;
             document.getElementById('activeToolBadge').innerText = activeBtn.querySelector('.text-left > div').innerText;
 
-            // Switch Settings Group in Right Sidebar (Always Visible now)
+            // Switch Settings Group in Right Sidebar
             document.querySelectorAll('.tool-settings-group').forEach(group => group.classList.add('hidden'));
             document.getElementById('settings-' + toolId).classList.remove('hidden');
 
@@ -433,6 +436,7 @@
             dlBtn.className = "block w-full text-center bg-gray-300 text-gray-500 pointer-events-none font-bold py-3 rounded-xl transition text-xs uppercase tracking-wider";
             dlBtn.removeAttribute('href');
             document.getElementById('infoOutSize').innerText = "Pending...";
+            document.getElementById('infoCompSize').innerText = "-";
             document.getElementById('infoFileName').innerText = "No image yet";
             document.getElementById('infoOrigSize').innerText = "-";
         }
@@ -479,6 +483,11 @@
                     document.getElementById('infoFileName').innerText = file.name;
                     document.getElementById('infoOrigSize').innerText = formatBytes(file.size);
 
+                    // Auto run compressor calculation to show live stats
+                    if (currentTool === 'compressor') {
+                        processCompressor();
+                    }
+
                     renderActionButton();
                 };
                 originalImgObj.src = e.target.result;
@@ -498,13 +507,19 @@
             document.getElementById('previewImage').src = url;
             document.getElementById('infoOutSize').innerText = formatBytes(blob.size);
             
+            if (currentTool === 'compressor' && activeFile) {
+                const diff = activeFile.size - blob.size;
+                const percent = Math.round((diff / activeFile.size) * 100);
+                document.getElementById('infoCompSize').innerText = formatBytes(blob.size) + (percent > 0 ? ` (-${percent}%)` : '');
+            }
+
             const dlBtn = document.getElementById('downloadBtn');
             dlBtn.href = url;
             dlBtn.download = filename;
             dlBtn.className = "block w-full text-center bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3 rounded-xl shadow-lg transition text-xs uppercase tracking-wider cursor-pointer";
         }
 
-        // Compressor Preset & Slider Highlights
+        // Compressor Quick Presets & Slider Highlights
         function setCompressorPreset(val, btn) {
             document.getElementById('qualitySlider').value = val;
             document.getElementById('qualityVal').innerText = val + '%';
@@ -512,6 +527,7 @@
                 b.className = "preset-btn py-2 px-1 rounded-lg border border-gray-200 font-medium text-center transition hover:border-[#7C3AED]";
             });
             btn.className = "preset-btn active-preset py-2 px-1 rounded-lg border border-[#7C3AED] bg-purple-50 text-[#7C3AED] font-bold text-center transition";
+            if (activeFile) processCompressor();
         }
 
         function updateSliderQuality(val) {
@@ -519,6 +535,7 @@
             document.querySelectorAll('#compressorPresets .preset-btn').forEach(b => {
                 b.className = "preset-btn py-2 px-1 rounded-lg border border-gray-200 font-medium text-center transition hover:border-[#7C3AED]";
             });
+            if (activeFile) processCompressor();
         }
 
         // Resizer Ratio & Preset Highlights
@@ -573,7 +590,7 @@
 
         // 2. Compressor execution
         function processCompressor() {
-            if (!activeFile) return alert("Please upload an image first!");
+            if (!activeFile) return;
             const quality = document.getElementById('qualitySlider').value / 100;
             const canvas = document.createElement('canvas');
             canvas.width = originalImgObj.width;
