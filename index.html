@@ -33,7 +33,7 @@
     <!-- MAIN WORKSPACE -->
     <div class="max-w-[1440px] mx-auto px-6 py-8 w-full flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-        <!-- LEFT SIDEBAR: ORGANIZED UTILITY TOOLS MENU -->
+        <!-- LEFT SIDEBAR: UTILITY TOOLS MENU -->
         <aside class="lg:col-span-3 bg-white rounded-2xl shadow-md border border-gray-200 p-5 sticky top-24">
             <div class="flex items-center justify-between mb-4 px-2">
                 <h2 class="text-xs font-bold uppercase tracking-wider text-gray-400">Utility Tools</h2>
@@ -58,25 +58,22 @@
                     <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🔄</div><div class="text-left"><div>Format Converter</div><div class="text-[10px] text-gray-400 font-normal">PNG, JPG, WEBP</div></div></div>
                 </button>
 
-                <!-- Text Watermark placed here (separated from Watermark Remover) -->
                 <button onclick="switchTool('textwatermark')" id="btn-textwatermark" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
-                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">✍️</div><div class="text-left"><div>Text Watermark</div><div class="text-[10px] text-gray-400 font-normal">Add Custom Text & Opacity</div></div></div>
+                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">✍️</div><div class="text-left"><div>Text Watermark</div><div class="text-[10px] text-gray-400 font-normal">Live Preview & Opacity</div></div></div>
                 </button>
 
                 <button onclick="switchTool('cropper')" id="btn-cropper" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
-                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">✂️</div><div class="text-left"><div>Image Cropper</div><div class="text-[10px] text-gray-400 font-normal">Trim & Cut Image</div></div></div>
+                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">✂️</div><div class="text-left"><div>Image Cropper</div><div class="text-[10px] text-gray-400 font-normal">Aspect Ratios & Trim</div></div></div>
                 </button>
 
                 <button onclick="switchTool('grayscale')" id="btn-grayscale" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
                     <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🎨</div><div class="text-left"><div>Color Filters & B&W</div><div class="text-[10px] text-gray-400 font-normal">Monochrome & Sepia</div></div></div>
                 </button>
 
-                <!-- Rotator placed lower down -->
                 <button onclick="switchTool('rotator')" id="btn-rotator" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
-                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🔃</div><div class="text-left"><div>Rotator & Flipper</div><div class="text-[10px] text-gray-400 font-normal">Rotate 90° & Flip</div></div></div>
+                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🔃</div><div class="text-left"><div>Rotator & Flipper</div><div class="text-[10px] text-gray-400 font-normal">Angles & Axis Flip</div></div></div>
                 </button>
 
-                <!-- Watermark Remover placed at the bottom -->
                 <button onclick="switchTool('watermark')" id="btn-watermark" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
                     <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🧼</div><div class="text-left"><div>Watermark Remover</div><div class="text-[10px] text-gray-400 font-normal">Smart Clean</div></div></div>
                     <span class="text-[10px] bg-purple-100 text-[#7C3AED] px-2 py-0.5 rounded font-bold">Beta</span>
@@ -148,6 +145,7 @@
                     </div>
                 </div>
 
+                <!-- Fully Restored Image Resizer Settings with Scale Ratios & Social Presets -->
                 <div id="settings-resizer" class="tool-settings-group hidden space-y-4 text-xs">
                     <div>
                         <label class="block font-semibold text-gray-600 mb-1.5">Scale Ratio</label>
@@ -163,6 +161,23 @@
                         <div class="grid grid-cols-2 gap-2">
                             <div><span class="text-[10px] text-gray-400">Width</span><input type="number" id="resizeWidth" value="800" class="w-full border border-gray-300 rounded-lg px-3 py-2 font-semibold text-gray-800"></div>
                             <div><span class="text-[10px] text-gray-400">Height</span><input type="number" id="resizeHeight" value="800" class="w-full border border-gray-300 rounded-lg px-3 py-2 font-semibold text-gray-800"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-600 mb-1.5">Social Media Presets</label>
+                        <div class="flex flex-col gap-1.5">
+                            <button type="button" onclick="applyPreset(1080, 1080, this)" class="social-preset-btn w-full bg-gray-50 hover:bg-purple-50 hover:text-[#7C3AED] border border-gray-200 py-2 px-3 rounded-lg font-medium text-left transition flex justify-between items-center">
+                                <span>Instagram Square</span> <span class="text-[10px] text-gray-400">1080 x 1080</span>
+                            </button>
+                            <button type="button" onclick="applyPreset(1080, 1920, this)" class="social-preset-btn w-full bg-gray-50 hover:bg-purple-50 hover:text-[#7C3AED] border border-gray-200 py-2 px-3 rounded-lg font-medium text-left transition flex justify-between items-center">
+                                <span>Story / Reel / TikTok</span> <span class="text-[10px] text-gray-400">1080 x 1920</span>
+                            </button>
+                            <button type="button" onclick="applyPreset(1280, 720, this)" class="social-preset-btn w-full bg-gray-50 hover:bg-purple-50 hover:text-[#7C3AED] border border-gray-200 py-2 px-3 rounded-lg font-medium text-left transition flex justify-between items-center">
+                                <span>YouTube Thumbnail</span> <span class="text-[10px] text-gray-400">1280 x 720</span>
+                            </button>
+                            <button type="button" onclick="applyPreset(1500, 500, this)" class="social-preset-btn w-full bg-gray-50 hover:bg-purple-50 hover:text-[#7C3AED] border border-gray-200 py-2 px-3 rounded-lg font-medium text-left transition flex justify-between items-center">
+                                <span>Twitter / X Header</span> <span class="text-[10px] text-gray-400">1500 x 500</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -188,8 +203,14 @@
                     </div>
                 </div>
 
+                <!-- Interactive Cropper Settings -->
                 <div id="settings-cropper" class="tool-settings-group hidden space-y-3 text-xs">
-                    <p class="text-gray-500">Trims image borders evenly from center.</p>
+                    <label class="block font-semibold text-gray-600 mb-1">Crop Aspect Ratio</label>
+                    <select id="cropRatio" onchange="liveUpdateCropper()" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800">
+                        <option value="0.8">Square (1:1)</option>
+                        <option value="0.6">Standard Box (4:3)</option>
+                        <option value="0.5">Wide Banner (16:9)</option>
+                    </select>
                 </div>
 
                 <div id="settings-grayscale" class="tool-settings-group hidden space-y-3 text-xs">
@@ -201,8 +222,15 @@
                     </select>
                 </div>
 
+                <!-- Advanced Rotator & Flipper Settings -->
                 <div id="settings-rotator" class="tool-settings-group hidden space-y-3 text-xs">
-                    <p class="text-gray-500">Rotate image clockwise or flip orientation.</p>
+                    <label class="block font-semibold text-gray-600 mb-1">Rotation Angle</label>
+                    <select id="rotateAngle" onchange="liveUpdateRotator()" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800">
+                        <option value="0">Normal (0°)</option>
+                        <option value="90">Rotate 90° Clockwise</option>
+                        <option value="180">Rotate 180°</option>
+                        <option value="270">Rotate 270°</option>
+                    </select>
                 </div>
 
                 <div id="settings-watermark" class="tool-settings-group hidden space-y-4 text-xs">
@@ -242,12 +270,12 @@
         const toolMetadata = {
             'bg-remover': { title: 'Remove Image Background in <span class="text-[#7C3AED]">Seconds</span>', desc: '100% Automatic AI Background Removal.' },
             'compressor': { title: 'Compress Image <span class="text-[#7C3AED]">Size</span>', desc: 'Reduce file weight instantly in your browser.' },
-            'resizer':    { title: 'Resize Image <span class="text-[#7C3AED]">Dimensions</span>', desc: 'Change width and height accurately.' },
+            'resizer':    { title: 'Resize Image <span class="text-[#7C3AED]">Dimensions</span>', desc: 'Change width and height accurately with presets.' },
             'converter':  { title: 'Convert Image <span class="text-[#7C3AED]">Format</span>', desc: 'Seamlessly switch between PNG, JPG, and WEBP.' },
             'textwatermark': { title: 'Add Custom <span class="text-[#7C3AED]">Text Watermark</span>', desc: 'Stamp brand text with live preview & opacity.' },
             'cropper':    { title: 'Crop Image <span class="text-[#7C3AED]">Precision</span>', desc: 'Trim and frame your pictures cleanly.' },
             'grayscale':  { title: 'Color Filters & <span class="text-[#7C3AED]">B&W</span>', desc: 'Transform colored images to monochrome or sepia.' },
-            'rotator':    { title: 'Rotate & Flip <span class="text-[#7C3AED]">Image</span>', desc: 'Rotate 90 degrees or flip orientation.' },
+            'rotator':    { title: 'Rotate & Flip <span class="text-[#7C3AED]">Image</span>', desc: 'Rotate angles or flip orientation.' },
             'watermark':  { title: 'Smart <span class="text-[#7C3AED]">Watermark Remover</span>', desc: 'Clean light overlays and enhance clarity.' }
         };
 
@@ -298,7 +326,7 @@
             else if(currentTool === 'textwatermark') { btnText = "✍️ Apply Text Watermark"; }
             else if(currentTool === 'cropper') { btnText = "✂️ Crop Image Now"; }
             else if(currentTool === 'grayscale') { btnText = "🎨 Apply Color Filter"; }
-            else if(currentTool === 'rotator') { btnText = "🔃 Rotate 90° Now"; }
+            else if(currentTool === 'rotator') { btnText = "🔃 Apply Rotation Now"; }
             else if(currentTool === 'watermark') { btnText = "🧼 Clean Watermark Now"; }
 
             container.innerHTML = `<button type="button" onclick="${actionFunc}" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">${btnText}</button>`;
@@ -329,9 +357,10 @@
                     document.getElementById('infoFileName').innerText = file.name;
                     document.getElementById('infoOrigSize').innerText = formatBytes(file.size);
 
-                    // If text watermark or grayscale, show live preview instantly
                     if(currentTool === 'textwatermark') { liveUpdateTextWatermark(); }
                     else if(currentTool === 'grayscale') { liveUpdateGrayscale(); }
+                    else if(currentTool === 'cropper') { liveUpdateCropper(); }
+                    else if(currentTool === 'rotator') { liveUpdateRotator(); }
 
                     renderActionButton();
                 };
@@ -371,7 +400,7 @@
             else if(currentTool === 'watermark') { processWatermark(); }
         }
 
-        // Live Preview for Text Watermark as user types or changes opacity
+        // Live Preview: Text Watermark
         function liveUpdateTextWatermark() {
             if (!activeFile) return;
             const text = document.getElementById('watermarkText').value || 'PixiePic';
@@ -387,25 +416,15 @@
             ctx.textAlign = 'right';
             ctx.fillText(text, canvas.width - 40, canvas.height - 40);
             
-            const dataUrl = canvas.toDataURL('image/png');
-            document.getElementById('previewImage').src = dataUrl;
-            
-            canvas.toBlob((blob) => {
-                const url = URL.createObjectURL(blob);
-                const dlBtn = document.getElementById('downloadBtn');
-                dlBtn.href = url;
-                dlBtn.download = 'pixiepic-watermarked.png';
-                dlBtn.className = "block w-full text-center bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3 rounded-xl shadow-lg transition text-xs uppercase tracking-wider cursor-pointer";
-                document.getElementById('infoOutSize').innerText = formatBytes(blob.size);
-            }, 'image/png');
+            document.getElementById('previewImage').src = canvas.toDataURL('image/png');
+            canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-watermarked.png'), 'image/png');
         }
-
         function updateWatermarkOpacity(val) {
             document.getElementById('opacityVal').innerText = val + '%';
             liveUpdateTextWatermark();
         }
 
-        // Live Preview for Grayscale / Filters
+        // Live Preview: Grayscale & Filters
         function liveUpdateGrayscale() {
             if (!activeFile) return;
             const filterVal = document.getElementById('filterType').value;
@@ -415,17 +434,46 @@
             ctx.filter = filterVal;
             ctx.drawImage(originalImgObj, 0, 0);
             
-            const dataUrl = canvas.toDataURL('image/png');
-            document.getElementById('previewImage').src = dataUrl;
+            document.getElementById('previewImage').src = canvas.toDataURL('image/png');
+            canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-filtered.png'), 'image/png');
+        }
 
-            canvas.toBlob((blob) => {
-                const url = URL.createObjectURL(blob);
-                const dlBtn = document.getElementById('downloadBtn');
-                dlBtn.href = url;
-                dlBtn.download = 'pixiepic-filtered.png';
-                dlBtn.className = "block w-full text-center bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3 rounded-xl shadow-lg transition text-xs uppercase tracking-wider cursor-pointer";
-                document.getElementById('infoOutSize').innerText = formatBytes(blob.size);
-            }, 'image/png');
+        // Live Preview: Interactive Cropper
+        function liveUpdateCropper() {
+            if (!activeFile) return;
+            const factor = parseFloat(document.getElementById('cropRatio').value);
+            const canvas = document.createElement('canvas');
+            const cropW = originalImgObj.width * factor;
+            const cropH = originalImgObj.height * factor;
+            canvas.width = cropW; canvas.height = cropH;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(originalImgObj, (originalImgObj.width - cropW)/2, (originalImgObj.height - cropH)/2, cropW, cropH, 0, 0, cropW, cropH);
+            
+            document.getElementById('previewImage').src = canvas.toDataURL('image/png');
+            canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-cropped.png'), 'image/png');
+        }
+
+        // Live Preview: Advanced Rotator
+        function liveUpdateRotator() {
+            if (!activeFile) return;
+            const angle = parseInt(document.getElementById('rotateAngle').value);
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            if (angle === 90 || angle === 270) {
+                canvas.width = originalImgObj.height;
+                canvas.height = originalImgObj.width;
+            } else {
+                canvas.width = originalImgObj.width;
+                canvas.height = originalImgObj.height;
+            }
+
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate(angle * Math.PI / 180);
+            ctx.drawImage(originalImgObj, -originalImgObj.width / 2, -originalImgObj.height / 2);
+
+            document.getElementById('previewImage').src = canvas.toDataURL('image/png');
+            canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-rotated.png'), 'image/png');
         }
 
         async function processBgRemover() {
@@ -482,26 +530,8 @@
 
         function processTextWatermark() { liveUpdateTextWatermark(); }
         function processGrayscale() { liveUpdateGrayscale(); }
-
-        function processCropper() {
-            const canvas = document.createElement('canvas');
-            const cropW = originalImgObj.width * 0.8;
-            const cropH = originalImgObj.height * 0.8;
-            canvas.width = cropW; canvas.height = cropH;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(originalImgObj, (originalImgObj.width - cropW)/2, (originalImgObj.height - cropH)/2, cropW, cropH, 0, 0, cropW, cropH);
-            canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-cropped.png'), 'image/png');
-        }
-
-        function processRotator() {
-            const canvas = document.createElement('canvas');
-            canvas.width = originalImgObj.height; canvas.height = originalImgObj.width;
-            const ctx = canvas.getContext('2d');
-            ctx.translate(canvas.width / 2, canvas.height / 2);
-            ctx.rotate(90 * Math.PI / 180);
-            ctx.drawImage(originalImgObj, -originalImgObj.width / 2, -originalImgObj.height / 2);
-            canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-rotated.png'), 'image/png');
-        }
+        function processCropper() { liveUpdateCropper(); }
+        function processRotator() { liveUpdateRotator(); }
 
         function processWatermark() {
             const canvas = document.createElement('canvas');
@@ -521,10 +551,20 @@
             btn.className = "preset-btn active-preset py-2 px-1 rounded-lg border border-[#7C3AED] bg-purple-50 text-[#7C3AED] font-bold text-center transition";
         }
         function updateSliderQuality(val) { document.getElementById('qualityVal').innerText = val + '%'; }
+        
         function applyScaleRatio(ratio) {
             if (!originalImgObj.width) return alert("Upload image first!");
             document.getElementById('resizeWidth').value = Math.round(originalImgObj.width * ratio);
             document.getElementById('resizeHeight').value = Math.round(originalImgObj.height * ratio);
+        }
+
+        function applyPreset(w, h, btn) {
+            document.getElementById('resizeWidth').value = w;
+            document.getElementById('resizeHeight').value = h;
+            document.querySelectorAll('.social-preset-btn').forEach(b => {
+                b.className = "social-preset-btn w-full bg-gray-50 hover:bg-purple-50 hover:text-[#7C3AED] border border-gray-200 py-2 px-3 rounded-lg font-medium text-left transition flex justify-between items-center";
+            });
+            btn.className = "social-preset-btn w-full bg-purple-50 text-[#7C3AED] border border-[#7C3AED] py-2 px-3 rounded-lg font-bold text-left transition flex justify-between items-center";
         }
     </script>
 </body>
