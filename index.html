@@ -494,50 +494,96 @@ function switchTool(toolId) {
 }
 
 /* ==========================================================
-   2. DYNAMIC ACTION BUTTON LABELS (యాక్షన్ బటన్ పేర్లు)
+   2. TOOL-SPECIFIC CONTROLS & EXPORT DETAILS (ఇమేజ్ అప్లోడ్ అయ్యాక వచ్చే UI)
    ================================================---------- */
-function getToolActionButton(toolType) {
+function getToolSpecificControls(toolType, fileName, fileSize) {
     switch(toolType) {
-        case 'background': return 'Remove Background Now';
-        case 'compressor': return 'Compress & Download';
-        case 'resizer': return 'Resize & Download';
-        case 'converter': return 'Convert & Download';
-        case 'watermark': return 'Add Watermark Now'; // డిఫాల్ట్ (ట్యాబ్ బట్టి మారుతుంది)
-        default: return 'Process Image';
-    }
-}
-
-/* ==========================================================
-   3. TOOL-SPECIFIC CONTROLS (స్లైడర్స్, ఇన్‌పుట్స్ & బటన్స్)
-   ================================================---------- */
-function getToolSpecificControls(toolType) {
-    switch(toolType) {
+        case 'background':
+            return `
+                <div class="bg-gray-50 p-4 rounded-xl text-left space-y-3 border border-gray-100">
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <span class="text-xs font-extrabold text-gray-700">Export Details</span>
+                        <span class="text-[10px] bg-green-100 text-green-700 font-bold px-2 py-0.5 rounded-full">Ready</span>
+                    </div>
+                    <div class="text-xs space-y-1 text-gray-600">
+                        <p><strong class="text-gray-700">Source File:</strong> ${fileName}</p>
+                        <p><strong class="text-gray-700">Output Format:</strong> PNG (Alpha 32-bit)</p>
+                        <p><strong class="text-gray-700">File Weight:</strong> ${fileSize}</p>
+                    </div>
+                    <p class="text-[11px] text-gray-500 italic">✨ Extracted instantly in-browser. Zero server latency.</p>
+                </div>
+            `;
         case 'compressor':
             return `
-                <div class="bg-gray-50 p-4 rounded-xl text-left space-y-2 border border-gray-100">
-                    <label class="block text-xs font-bold text-gray-700">Compression Quality: <span id="quality-val">80</span>%</label>
-                    <input type="range" id="compress-quality" min="10" max="95" value="80" class="w-full accent-[#7C3AED]" oninput="document.getElementById('quality-val').innerText = this.value">
+                <div class="bg-gray-50 p-4 rounded-xl text-left space-y-3 border border-gray-100">
+                    <label class="block text-xs font-extrabold text-gray-700">Compression Level: <span id="quality-val" class="text-[#7C3AED]">75</span>%</label>
+                    <input type="range" id="compress-quality" min="10" max="95" value="75" class="w-full accent-[#7C3AED]" oninput="document.getElementById('quality-val').innerText = this.value">
+                    
+                    <label class="block text-xs font-extrabold text-gray-700 pt-1">Output Format</label>
+                    <div class="format-buttons flex gap-2">
+                        <button type="button" data-format="image/jpeg" class="fmt-btn flex-1 py-1.5 bg-[#7C3AED] text-white text-xs font-semibold rounded-lg shadow-sm">JPEG</button>
+                        <button type="button" data-format="image/webp" class="fmt-btn flex-1 py-1.5 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg">WebP</button>
+                    </div>
+
+                    <label class="block text-xs font-extrabold text-gray-700 pt-1">Quick Presets</label>
+                    <div class="flex gap-2">
+                        <button type="button" onclick="document.getElementById('compress-quality').value=40; document.getElementById('quality-val').innerText='40';" class="flex-1 py-1 bg-white border border-gray-300 text-gray-600 text-[11px] rounded-md hover:bg-gray-100">Low (40%)</button>
+                        <button type="button" onclick="document.getElementById('compress-quality').value=75; document.getElementById('quality-val').innerText='75';" class="flex-1 py-1 bg-white border border-gray-300 text-gray-600 text-[11px] rounded-md hover:bg-gray-100">Balanced</button>
+                        <button type="button" onclick="document.getElementById('compress-quality').value=90; document.getElementById('quality-val').innerText='90';" class="flex-1 py-1 bg-white border border-gray-300 text-gray-600 text-[11px] rounded-md hover:bg-gray-100">High (90%)</button>
+                    </div>
                 </div>
             `;
         case 'resizer':
             return `
                 <div class="bg-gray-50 p-4 rounded-xl text-left space-y-3 border border-gray-100">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-extrabold text-gray-700">Dimensions</span>
+                    </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Width (px)</label>
+                            <label class="block text-[11px] font-bold text-gray-600 mb-1">Width (px)</label>
                             <input type="number" id="resize-width" placeholder="800" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:border-[#7C3AED]">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Height (px)</label>
+                            <label class="block text-[11px] font-bold text-gray-600 mb-1">Height (px)</label>
                             <input type="number" id="resize-height" placeholder="600" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:border-[#7C3AED]">
+                        </div>
+                    </div>
+
+                    <label class="block text-xs font-extrabold text-gray-700 pt-1">Scale Ratio</label>
+                    <div class="grid grid-cols-4 gap-1.5 text-center">
+                        <button type="button" class="py-1 bg-white border border-gray-300 text-gray-700 text-[11px] rounded-md hover:bg-gray-100">25%</button>
+                        <button type="button" class="py-1 bg-white border border-gray-300 text-gray-700 text-[11px] rounded-md hover:bg-gray-100">50%</button>
+                        <button type="button" class="py-1 bg-white border border-gray-300 text-gray-700 text-[11px] rounded-md hover:bg-gray-100">75%</button>
+                        <button type="button" class="py-1 bg-white border border-gray-300 text-gray-700 text-[11px] rounded-md hover:bg-gray-100">100%</button>
+                    </div>
+
+                    <label class="block text-xs font-extrabold text-gray-700 pt-1">Social Presets</label>
+                    <div class="space-y-1 text-xs text-gray-600">
+                        <div class="flex justify-between bg-white p-1.5 rounded border border-gray-200 cursor-pointer hover:border-[#7C3AED]" onclick="document.getElementById('resize-width').value=1080; document.getElementById('resize-height').value=1080;">
+                            <span>Instagram Square</span> <span class="text-gray-400 text-[10px]">1080 x 1080</span>
+                        </div>
+                        <div class="flex justify-between bg-white p-1.5 rounded border border-gray-200 cursor-pointer hover:border-[#7C3AED]" onclick="document.getElementById('resize-width').value=1080; document.getElementById('resize-height').value=1920;">
+                            <span>Story / Reel / TikTok</span> <span class="text-gray-400 text-[10px]">1080 x 1920</span>
+                        </div>
+                        <div class="flex justify-between bg-white p-1.5 rounded border border-gray-200 cursor-pointer hover:border-[#7C3AED]" onclick="document.getElementById('resize-width').value=1280; document.getElementById('resize-height').value=720;">
+                            <span>YouTube Thumbnail</span> <span class="text-gray-400 text-[10px]">1280 x 720</span>
                         </div>
                     </div>
                 </div>
             `;
         case 'converter':
             return `
-                <div class="bg-gray-50 p-4 rounded-xl text-left space-y-2 border border-gray-100">
-                    <label class="block text-xs font-bold text-gray-700 mb-1">Select Output Format</label>
+                <div class="bg-gray-50 p-4 rounded-xl text-left space-y-3 border border-gray-100">
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <span class="text-xs font-extrabold text-gray-700">Export Details</span>
+                        <span class="text-[10px] bg-purple-100 text-[#7C3AED] font-bold px-2 py-0.5 rounded-full">Converter</span>
+                    </div>
+                    <div class="text-xs space-y-1 text-gray-600 pb-2">
+                        <p><strong class="text-gray-700">Source File:</strong> ${fileName}</p>
+                        <p><strong class="text-gray-700">File Weight:</strong> ${fileSize}</p>
+                    </div>
+                    <label class="block text-xs font-extrabold text-gray-700 mb-1">Select Output Format</label>
                     <div class="format-buttons flex gap-2">
                         <button type="button" data-format="image/jpeg" class="fmt-btn flex-1 py-2 bg-[#7C3AED] text-white text-xs font-semibold rounded-lg shadow-sm">JPG</button>
                         <button type="button" data-format="image/png" class="fmt-btn flex-1 py-2 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg">PNG</button>
@@ -552,14 +598,12 @@ function getToolSpecificControls(toolType) {
                         <button type="button" data-mode="add" class="wm-tab flex-1 py-1.5 bg-[#7C3AED] text-white text-xs font-semibold rounded-lg shadow-sm">Add Watermark</button>
                         <button type="button" data-mode="remove" class="wm-tab flex-1 py-1.5 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg">Remove Watermark (AI)</button>
                     </div>
-                    <div id="watermark-add-section" class="space-y-3">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Watermark Text</label>
-                            <input type="text" id="watermark-text" placeholder="Enter copyright text..." class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:border-[#7C3AED]">
-                        </div>
+                    <div id="watermark-add-section" class="space-y-2">
+                        <label class="block text-xs font-bold text-gray-700">Watermark Text</label>
+                        <input type="text" id="watermark-text" placeholder="Enter copyright text..." class="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:border-[#7C3AED]">
                     </div>
-                    <div id="watermark-remove-section" class="hidden text-center py-3">
-                        <p class="text-xs text-gray-500">Our AI will automatically remove the watermark from your image using API.</p>
+                    <div id="watermark-remove-section" class="hidden text-center py-2">
+                        <p class="text-xs text-gray-500">AI will automatically detect and remove watermarks.</p>
                     </div>
                 </div>
             `;
@@ -569,19 +613,19 @@ function getToolSpecificControls(toolType) {
 }
 
 /* ==========================================================
-   4. FILE UPLOAD & PREVIEW HANDLER (ఇమేజ్ అప్లోడ్ & ప్రివ్యూ)
+   3. FILE UPLOAD & PREVIEW HANDLER
    ================================================---------- */
 document.addEventListener('change', function(e) {
     if (e.target && e.target.classList.contains('file-input') && e.target.files.length > 0) {
         const file = e.target.files[0];
         const toolType = e.target.getAttribute('data-tool');
+        const fileSizeKB = (file.size / 1024).toFixed(1) + ' KB';
         const reader = new FileReader();
         
         reader.onload = function(event) {
             const dropZone = e.target.closest('.tool-drop-zone');
             if (dropZone) {
-                const actionBtnText = getToolActionButton(toolType);
-                const specificControls = getToolSpecificControls(toolType);
+                const specificControls = getToolSpecificControls(toolType, file.name, fileSizeKB);
                 const promptBox = dropZone.querySelector('.upload-prompt');
                 if (promptBox) promptBox.style.display = 'none';
                 
@@ -596,13 +640,16 @@ document.addEventListener('change', function(e) {
                 
                 previewContainer.setAttribute('data-img-src', event.target.result);
                 
+                // ఇమేజ్ కింద డీటెయిల్స్, ఆపై సరిగ్గా నీకు చూపించిన ఇమేజ్ లాగా "Download" బటన్ ఉంటుంది
                 previewContainer.innerHTML = `
                     <img src="${event.target.result}" alt="Preview" class="max-h-40 mx-auto rounded-xl shadow-md object-contain">
-                    <p class="text-xs font-semibold text-gray-700">${file.name}</p>
                     ${specificControls}
-                    <div class="flex justify-center gap-3 pt-2">
-                        <button type="button" class="action-btn px-5 py-2.5 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-semibold rounded-xl shadow-sm transition" data-tool="${toolType}">${actionBtnText}</button>
-                        <button type="button" class="change-img-btn px-4 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-700 text-xs font-semibold rounded-xl transition">Change Image</button>
+                    <div class="flex flex-col gap-2 pt-2">
+                        <button type="button" class="action-btn w-full py-3 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-extrabold rounded-xl shadow-md transition flex items-center justify-center gap-2" data-tool="${toolType}">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            Download Processed File
+                        </button>
+                        <button type="button" class="change-img-btn w-full py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 text-xs font-semibold rounded-xl transition">Change Image</button>
                     </div>
                 `;
                 previewContainer.style.display = 'block';
@@ -614,17 +661,15 @@ document.addEventListener('change', function(e) {
 });
 
 /* ==========================================================
-   5. CLICK EVENTS & IMAGE PROCESSING LOGIC (ఇమేజ్ ప్రాసెసింగ్ లాజిక్)
+   4. CLICK EVENTS & PROCESSING LOGIC
    ================================================---------- */
 document.addEventListener('click', function(e) {
-    // 5.1 అప్లోడ్ ప్రాంప్ట్ క్లిక్
     if (e.target.closest('.upload-prompt')) {
         const dropZone = e.target.closest('.tool-drop-zone');
         const fileInput = dropZone.querySelector('.file-input');
         if (fileInput) fileInput.click();
     }
     
-    // 5.2 చేంజ్ ఇమేజ్ బటన్
     if (e.target && e.target.classList.contains('change-img-btn')) {
         const dropZone = e.target.closest('.tool-drop-zone');
         const fileInput = dropZone.querySelector('.file-input');
@@ -634,7 +679,6 @@ document.addEventListener('click', function(e) {
         }
     }
     
-    // 5.3 ఫార్మాట్ కన్వర్టర్ బటన్స్ సెలెక్షన్
     if (e.target && e.target.classList.contains('fmt-btn')) {
         const parent = e.target.closest('.format-buttons');
         parent.querySelectorAll('.fmt-btn').forEach(btn => {
@@ -643,16 +687,13 @@ document.addEventListener('click', function(e) {
         });
         e.target.classList.remove('bg-white', 'border', 'border-gray-300', 'text-gray-700');
         e.target.classList.add('bg-[#7C3AED]', 'text-white', 'shadow-sm');
-        parent.setAttribute('data-selected-format', e.target.getAttribute('data-format'));
     }
 
-    // 5.4 వాటర్‌మార్క్ ట్యాబ్స్ స్విచ్చింగ్ లాజిక్ (Add vs Remove AI)
     if (e.target && e.target.classList.contains('wm-tab')) {
         const mode = e.target.getAttribute('data-mode');
         const parent = e.target.closest('.bg-gray-50');
         const addSec = parent.querySelector('#watermark-add-section');
         const removeSec = parent.querySelector('#watermark-remove-section');
-        const actionBtn = parent.closest('.preview-container').querySelector('.action-btn');
 
         parent.querySelectorAll('.wm-tab').forEach(tab => {
             tab.classList.remove('bg-[#7C3AED]', 'text-white', 'shadow-sm');
@@ -664,19 +705,13 @@ document.addEventListener('click', function(e) {
         if (mode === 'add') {
             addSec.classList.remove('hidden');
             removeSec.classList.add('hidden');
-            if(actionBtn) actionBtn.innerText = 'Add Watermark Now';
-            actionBtn.setAttribute('data-wm-mode', 'add');
         } else {
             addSec.classList.add('hidden');
             removeSec.classList.remove('hidden');
-            if(actionBtn) actionBtn.innerText = 'Remove Watermark Now';
-            actionBtn.setAttribute('data-wm-mode', 'remove');
         }
     }
 
-    /* ======================================================
-       5.5 MAIN ACTION BUTTONS PROCESSING (టూల్స్ వర్కింగ్ లాజిక్)
-       ====================================================== */
+    // MAIN DOWNLOAD & PROCESSING
     if (e.target && e.target.classList.contains('action-btn')) {
         const toolType = e.target.getAttribute('data-tool');
         const previewContainer = e.target.closest('.preview-container');
@@ -684,41 +719,16 @@ document.addEventListener('click', function(e) {
 
         if (!imgSrc) return;
 
-        // A. BACKGROUND REMOVER (API KEY PLACEHOLDER)
+        // API Key placeholders
         if (toolType === 'background') {
-            /* ==================================================
-               📌 [API KEY PLACEMENT FOR BACKGROUND REMOVER]
-               ఇక్కడ రిమూవ్.బిజి లేదా క్లౌడినరీ ఏపీఐ కీ పేస్ట్ చేసుకోవచ్చు
-               ================================================== */
-            const BACKGROUND_REMOVER_API_KEY = "YOUR_BACKGROUND_API_KEY_HERE"; 
-            
-            if (BACKGROUND_REMOVER_API_KEY === "YOUR_BACKGROUND_API_KEY_HERE") {
-                alert("Please add your Background Remover API Key in the JavaScript code!");
+            const BG_API_KEY = "YOUR_BACKGROUND_API_KEY_HERE";
+            if (BG_API_KEY === "YOUR_BACKGROUND_API_KEY_HERE") {
+                alert("Please add your Background Remover API Key in the JS code!");
                 return;
             }
             return;
         }
 
-        // B. WATERMARK TOOL (ADD vs REMOVE AI)
-        if (toolType === 'watermark') {
-            const wmMode = e.target.getAttribute('data-wm-mode') || 'add';
-            
-            if (wmMode === 'remove') {
-                /* ==================================================
-                   📌 [API KEY PLACEMENT FOR WATERMARK REMOVER AI]
-                   ఇక్కడ వాటర్ మార్క్ రిమూవర్ ఏపీఐ కీ పేస్ట్ చేసుకోవచ్చు
-                   ================================================== */
-                const WATERMARK_REMOVER_API_KEY = "YOUR_WATERMARK_API_KEY_HERE"; 
-                
-                if (WATERMARK_REMOVER_API_KEY === "YOUR_WATERMARK_API_KEY_HERE") {
-                    alert("Please add your Watermark Remover AI API Key in the JavaScript code!");
-                    return;
-                }
-                return;
-            }
-        }
-
-        // C. LOCAL FREE TOOLS PROCESSING (Compressor, Resizer, Converter, Add Watermark)
         const img = new Image();
         img.src = imgSrc;
 
@@ -727,18 +737,19 @@ document.addEventListener('click', function(e) {
             const ctx = canvas.getContext('2d');
             let outputFormat = 'image/jpeg';
             let quality = 0.8;
-            let filename = 'processed-image.jpg';
+            let filename = 'pixiepic-image.jpg';
 
-            // 1. COMPRESSOR LOGIC
             if (toolType === 'compressor') {
                 const slider = previewContainer.querySelector('#compress-quality');
-                quality = slider ? slider.value / 100 : 0.8;
+                quality = slider ? slider.value / 100 : 0.75;
+                const activeFmt = previewContainer.querySelector('.fmt-btn.bg\\[\\#7C3AED\\]');
+                outputFormat = activeFmt ? activeFmt.getAttribute('data-format') : 'image/jpeg';
+                
                 canvas.width = img.width;
                 canvas.height = img.height;
                 ctx.drawImage(img, 0, 0);
-                filename = 'compressed-image.jpg';
+                filename = outputFormat === 'image/webp' ? 'compressed.webp' : 'compressed.jpg';
             }
-            // 2. RESIZER LOGIC
             else if (toolType === 'resizer') {
                 const wInput = previewContainer.querySelector('#resize-width');
                 const hInput = previewContainer.querySelector('#resize-height');
@@ -750,19 +761,17 @@ document.addEventListener('click', function(e) {
                 ctx.drawImage(img, 0, 0, targetW, targetH);
                 filename = 'resized-image.jpg';
             }
-            // 3. FORMAT CONVERTER LOGIC
             else if (toolType === 'converter') {
-                const activeFmtBtn = previewContainer.querySelector('.fmt-btn.bg\\[\\#7C3AED\\]');
-                outputFormat = activeFmtBtn ? activeFmtBtn.getAttribute('data-format') : 'image/jpeg';
+                const activeFmt = previewContainer.querySelector('.fmt-btn.bg\\[\\#7C3AED\\]');
+                outputFormat = activeFmt ? activeFmt.getAttribute('data-format') : 'image/jpeg';
                 canvas.width = img.width;
                 canvas.height = img.height;
                 ctx.drawImage(img, 0, 0);
                 
-                if (outputFormat === 'image/png') filename = 'converted-image.png';
-                else if (outputFormat === 'image/webp') filename = 'converted-image.webp';
-                else filename = 'converted-image.jpg';
+                if (outputFormat === 'image/png') filename = 'converted.png';
+                else if (outputFormat === 'image/webp') filename = 'converted.webp';
+                else filename = 'converted.jpg';
             }
-            // 4. ADD WATERMARK LOGIC (Local)
             else if (toolType === 'watermark') {
                 canvas.width = img.width;
                 canvas.height = img.height;
@@ -770,13 +779,12 @@ document.addEventListener('click', function(e) {
                 
                 const wmText = previewContainer.querySelector('#watermark-text').value || 'PixiePic';
                 ctx.font = 'bold ' + Math.max(20, img.width / 20) + 'px Arial';
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
                 ctx.textAlign = 'right';
                 ctx.fillText(wmText, img.width - 30, img.height - 30);
-                filename = 'watermarked-image.jpg';
+                filename = 'watermarked.jpg';
             }
 
-            // CANVAS నుండి ఇమేజ్‌ని డౌన్‌లోడ్ చేయడం
             canvas.toBlob(function(blob) {
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
