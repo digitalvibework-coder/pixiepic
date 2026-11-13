@@ -108,12 +108,35 @@
 
             <input type="file" id="fileInput" accept="image/*" class="hidden">
 
-            <!-- Default Drag & Drop Box -->
-            <div id="dropZone" onclick="document.getElementById('fileInput').click()" class="border-2 border-dashed border-[#7C3AED]/50 hover:border-[#7C3AED] bg-purple-50/30 rounded-2xl p-12 text-center cursor-pointer transition flex flex-col items-center justify-center">
-                <div class="w-16 h-16 bg-purple-100 text-[#7C3AED] rounded-2xl flex items-center justify-center mb-4 shadow-sm text-2xl">📁</div>
-                <p class="text-lg font-bold text-gray-800 mb-1">Drag & Drop your image here</p>
-                <p class="text-xs text-gray-400 mb-6">or click to browse from your device (JPG, PNG, WEBP)</p>
-                <button type="button" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold px-8 py-3 rounded-xl shadow-md transition text-sm">Browse Image</button>
+            <!-- MAIN WORKSPACE BOX: INTEGRATED DEFAULT BEFORE/AFTER PREVIEW FOR BG REMOVER -->
+            <div id="dropZone" class="border-2 border-dashed border-[#7C3AED]/50 hover:border-[#7C3AED] bg-purple-50/30 rounded-2xl p-6 text-center transition flex flex-col items-center justify-center">
+                
+                <!-- Live Interactive Before/After Preview Example inside the tool box -->
+                <div id="defaultDemoContainer" class="w-full mb-6">
+                    <div class="text-center mb-2">
+                        <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Interactive Live Preview Example</span>
+                    </div>
+                    <div class="bg-gray-900 rounded-xl border border-gray-800 p-3 flex items-center justify-center relative overflow-hidden shadow-inner">
+                        <div class="ba-slider" id="defaultBaSlider">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="Before">
+                            <div class="ba-after" id="defaultBaAfter">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="After" style="filter: brightness(1.1) contrast(1.05);">
+                            </div>
+                            <div class="ba-resizer" id="defaultBaResizer">
+                                <div class="ba-handle">↔</div>
+                            </div>
+                            <span class="absolute top-2 left-2 bg-black/70 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow">BEFORE</span>
+                            <span class="absolute top-2 right-2 bg-purple-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow">AFTER</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div onclick="document.getElementById('fileInput').click()" class="cursor-pointer w-full flex flex-col items-center">
+                    <div class="w-12 h-12 bg-purple-100 text-[#7C3AED] rounded-2xl flex items-center justify-center mb-2 shadow-sm text-xl">📁</div>
+                    <p class="text-base font-bold text-gray-800 mb-1">Drag & Drop your image here</p>
+                    <p class="text-xs text-gray-400 mb-4">or click to browse from your device (JPG, PNG, WEBP)</p>
+                    <button type="button" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold px-8 py-3 rounded-xl shadow-md transition text-sm">Browse Image</button>
+                </div>
             </div>
 
             <!-- Workspace Area (Hidden by default until image is uploaded) -->
@@ -130,26 +153,6 @@
                         Change Image
                     </button>
                     <div id="mainActionContainer" class="flex-grow"></div>
-                </div>
-            </div>
-
-            <!-- DEFAULT DEMO BEFORE/AFTER PREVIEW FOR BACKGROUND REMOVER (Shown on page load) -->
-            <div id="defaultDemoContainer" class="mt-6">
-                <div class="text-center mb-3">
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Live Interactive Preview Example</span>
-                </div>
-                <div class="bg-gray-900 rounded-2xl border border-gray-800 p-4 flex items-center justify-center min-h-[260px] relative overflow-hidden shadow-inner">
-                    <div class="ba-slider" id="defaultBaSlider">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="Before">
-                        <div class="ba-after" id="defaultBaAfter">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="After" style="filter: brightness(1.1) contrast(1.05);">
-                        </div>
-                        <div class="ba-resizer" id="defaultBaResizer">
-                            <div class="ba-handle">↔</div>
-                        </div>
-                        <span class="absolute top-3 left-3 bg-black/70 text-white text-[10px] font-bold px-2 py-1 rounded shadow">BEFORE</span>
-                        <span class="absolute top-3 right-3 bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow">AFTER</span>
-                    </div>
                 </div>
             </div>
         </main>
@@ -305,20 +308,11 @@
         let activeFile = null;
         let originalImgObj = new Image();
 
-        // Helper: Retain original uploaded MIME type & extension
         function getOriginalFormatInfo() {
             if (!activeFile) return { mime: 'image/png', ext: 'png' };
             const mime = activeFile.type || 'image/png';
-            const extMap = {
-                'image/jpeg': 'jpg',
-                'image/jpg': 'jpg',
-                'image/png': 'png',
-                'image/webp': 'webp',
-                'image/avif': 'avif',
-                'image/bmp': 'bmp'
-            };
-            const ext = extMap[mime] || 'png';
-            return { mime: mime, ext: ext };
+            const extMap = { 'image/jpeg': 'jpg', 'image/jpg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/avif': 'avif', 'image/bmp': 'bmp' };
+            return { mime: mime, ext: extMap[mime] || 'png' };
         }
 
         const toolMetadata = {
@@ -427,15 +421,18 @@
                         document.getElementById('resizeHeight').value = originalImgObj.height;
                     }
                     
-                    document.getElementById('previewContainer').innerHTML = `
-                        <span id="loadingSpinner" class="hidden absolute inset-0 bg-gray-900/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-white text-sm font-bold gap-2">Processing Image... Please wait</span>
-                        <img id="previewImage" src="${e.target.result}" class="max-h-80 mx-auto rounded-lg shadow-lg object-contain" alt="Preview">
+                    document.getElementById('workspaceArea').innerHTML = `
+                        <div id="previewContainer" class="bg-gray-900 rounded-2xl border border-gray-800 p-4 flex items-center justify-center min-h-[300px] mb-6 relative overflow-hidden shadow-inner">
+                            <span id="loadingSpinner" class="hidden absolute inset-0 bg-gray-900/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-white text-sm font-bold gap-2">Processing Image... Please wait</span>
+                            <img id="previewImage" src="${e.target.result}" class="max-h-80 mx-auto rounded-lg shadow-lg object-contain" alt="Preview">
+                        </div>
+                        <div class="flex items-center justify-between gap-4">
+                            <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-5 py-3.5 rounded-xl text-xs transition flex items-center gap-2">Change Image</button>
+                            <div id="mainActionContainer" class="flex-grow"></div>
+                        </div>
                     `;
 
                     document.getElementById('dropZone').classList.add('hidden');
-                    const defaultDemo = document.getElementById('defaultDemoContainer');
-                    if(defaultDemo) defaultDemo.classList.add('hidden');
-
                     document.getElementById('workspaceArea').classList.remove('hidden');
                     document.getElementById('infoFileName').innerText = file.name;
                     document.getElementById('infoOrigSize').innerText = formatBytes(file.size);
