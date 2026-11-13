@@ -107,6 +107,7 @@
 
             <input type="file" id="fileInput" accept="image/*" class="hidden">
 
+            <!-- Default Drag & Drop Box -->
             <div id="dropZone" onclick="document.getElementById('fileInput').click()" class="border-2 border-dashed border-[#7C3AED]/50 hover:border-[#7C3AED] bg-purple-50/30 rounded-2xl p-12 text-center cursor-pointer transition flex flex-col items-center justify-center">
                 <div class="w-16 h-16 bg-purple-100 text-[#7C3AED] rounded-2xl flex items-center justify-center mb-4 shadow-sm text-2xl">📁</div>
                 <p class="text-lg font-bold text-gray-800 mb-1">Drag & Drop your image here</p>
@@ -114,8 +115,8 @@
                 <button type="button" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold px-8 py-3 rounded-xl shadow-md transition text-sm">Browse Image</button>
             </div>
 
+            <!-- Workspace Area (Hidden by default until image is uploaded, or shows default demo preview for BG Remover) -->
             <div id="workspaceArea" class="hidden">
-                <!-- Workspace Preview Container (Supports Before/After Comparison for Background Remover) -->
                 <div id="previewContainer" class="bg-gray-900 rounded-2xl border border-gray-800 p-4 flex items-center justify-center min-h-[300px] mb-6 relative overflow-hidden shadow-inner">
                     <span id="loadingSpinner" class="hidden absolute inset-0 bg-gray-900/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-white text-sm font-bold gap-2">
                         Processing Image... Please wait
@@ -128,6 +129,28 @@
                         Change Image
                     </button>
                     <div id="mainActionContainer" class="flex-grow"></div>
+                </div>
+            </div>
+
+            <!-- DEFAULT DEMO BEFORE/AFTER PREVIEW FOR BACKGROUND REMOVER (Shown on page load) -->
+            <div id="defaultDemoContainer" class="mt-6">
+                <div class="text-center mb-3">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Live Interactive Preview Example</span>
+                </div>
+                <div class="bg-gray-900 rounded-2xl border border-gray-800 p-4 flex items-center justify-center min-h-[260px] relative overflow-hidden shadow-inner">
+                    <div class="ba-slider" id="defaultBaSlider">
+                        <!-- Default Sample Before Image -->
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="Before">
+                        <!-- Default Sample After Image (Simulated transparent/cutout view) -->
+                        <div class="ba-after" id="defaultBaAfter">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="After" style="filter: brightness(1.1) contrast(1.05);">
+                        </div>
+                        <div class="ba-resizer" id="defaultBaResizer">
+                            <div class="ba-handle">↔</div>
+                        </div>
+                        <span class="absolute top-3 left-3 bg-black/70 text-white text-[10px] font-bold px-2 py-1 rounded shadow">BEFORE</span>
+                        <span class="absolute top-3 right-3 bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow">AFTER</span>
+                    </div>
                 </div>
             </div>
         </main>
@@ -326,8 +349,20 @@
             const settingsGroup = document.getElementById('settings-' + toolId);
             if (settingsGroup) settingsGroup.classList.remove('hidden');
 
-            document.getElementById('dropZone').classList.remove('hidden');
-            document.getElementById('workspaceArea').classList.add('hidden');
+            const dropZone = document.getElementById('dropZone');
+            const workspaceArea = document.getElementById('workspaceArea');
+            const defaultDemo = document.getElementById('defaultDemoContainer');
+
+            if (toolId === 'bg-remover') {
+                dropZone.classList.remove('hidden');
+                workspaceArea.classList.add('hidden');
+                if(defaultDemo) defaultDemo.classList.remove('hidden');
+                initDefaultSlider();
+            } else {
+                dropZone.classList.remove('hidden');
+                workspaceArea.classList.add('hidden');
+                if(defaultDemo) defaultDemo.classList.add('hidden');
+            }
             
             const compRow = document.getElementById('compSizeRow');
             if(toolId === 'compressor') { compRow.classList.remove('hidden'); }
@@ -384,20 +419,15 @@
                         document.getElementById('resizeHeight').value = originalImgObj.height;
                     }
                     
-                    // Default preview display
-                    if (currentTool === 'bg-remover') {
-                        document.getElementById('previewContainer').innerHTML = `
-                            <span id="loadingSpinner" class="hidden absolute inset-0 bg-gray-900/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-white text-sm font-bold gap-2">Processing Image... Please wait</span>
-                            <img id="previewImage" src="${e.target.result}" class="max-h-80 mx-auto rounded-lg shadow-lg object-contain" alt="Preview">
-                        `;
-                    } else {
-                        document.getElementById('previewContainer').innerHTML = `
-                            <span id="loadingSpinner" class="hidden absolute inset-0 bg-gray-900/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-white text-sm font-bold gap-2">Processing Image... Please wait</span>
-                            <img id="previewImage" src="${e.target.result}" class="max-h-80 mx-auto rounded-lg shadow-lg object-contain" alt="Preview">
-                        `;
-                    }
+                    document.getElementById('previewContainer').innerHTML = `
+                        <span id="loadingSpinner" class="hidden absolute inset-0 bg-gray-900/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-white text-sm font-bold gap-2">Processing Image... Please wait</span>
+                        <img id="previewImage" src="${e.target.result}" class="max-h-80 mx-auto rounded-lg shadow-lg object-contain" alt="Preview">
+                    `;
 
                     document.getElementById('dropZone').classList.add('hidden');
+                    const defaultDemo = document.getElementById('defaultDemoContainer');
+                    if(defaultDemo) defaultDemo.classList.add('hidden');
+
                     document.getElementById('workspaceArea').classList.remove('hidden');
                     document.getElementById('infoFileName').innerText = file.name;
                     document.getElementById('infoOrigSize').innerText = formatBytes(file.size);
@@ -425,7 +455,6 @@
             const url = URL.createObjectURL(blob);
             
             if (currentTool === 'bg-remover') {
-                // Render Interactive Before/After Comparison Slider in Workspace
                 const origSrc = originalImgObj.src;
                 const container = document.getElementById('previewContainer');
                 container.innerHTML = `
@@ -441,7 +470,7 @@
                         <span class="absolute top-3 right-3 bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow">AFTER</span>
                     </div>
                 `;
-                initBeforeAfterSlider();
+                initBeforeAfterSlider('baSliderContainer', 'baAfterLayer', 'baResizerBar');
             } else {
                 document.getElementById('previewImage').src = url;
             }
@@ -460,11 +489,16 @@
             dlBtn.className = "block w-full text-center bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3 rounded-xl shadow-lg transition text-xs uppercase tracking-wider cursor-pointer";
         }
 
+        // Initialize Default Demo Slider on Page Load
+        function initDefaultSlider() {
+            initBeforeAfterSlider('defaultBaSlider', 'defaultBaAfter', 'defaultBaResizer');
+        }
+
         // Interactive Before/After Slider Logic
-        function initBeforeAfterSlider() {
-            const slider = document.getElementById('baSliderContainer');
-            const afterLayer = document.getElementById('baAfterLayer');
-            const resizer = document.getElementById('baResizerBar');
+        function initBeforeAfterSlider(sliderId, afterLayerId, resizerId) {
+            const slider = document.getElementById(sliderId);
+            const afterLayer = document.getElementById(afterLayerId);
+            const resizer = document.getElementById(resizerId);
             if (!slider || !afterLayer || !resizer) return;
 
             let isDragging = false;
@@ -490,6 +524,11 @@
                 updateSliderPos(e.clientX);
             });
         }
+
+        // Run default slider on window load
+        window.onload = function() {
+            initDefaultSlider();
+        };
 
         function processCurrentTool() {
             if (!activeFile) return alert("Please upload an image first!");
@@ -705,7 +744,7 @@
         }
 
         function processWatermark() {
-            const { mime, ext } = getOriginalFormatInfo();
+            The { mime, ext } = getOriginalFormatInfo();
             const canvas = document.createElement('canvas');
             canvas.width = originalImgObj.width; canvas.height = originalImgObj.height;
             const ctx = canvas.getContext('2d');
