@@ -41,8 +41,14 @@
             </div>
             
             <div class="flex flex-col gap-2" id="sidebarMenu">
+                <!-- Background Remover with Professional SVG Icon -->
                 <button onclick="switchTool('bg-remover')" id="btn-bg-remover" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-semibold text-sm bg-[#7C3AED] text-white shadow-md transition">
-                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-white/15">🪄</div><div class="text-left"><div>Background Remover</div><div class="text-[10px] opacity-80 font-normal">Instant Subject Cutout</div></div></div>
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded-lg bg-white/15 text-white">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <div class="text-left"><div>Background Remover</div><div class="text-[10px] opacity-80 font-normal">Instant Subject Cutout</div></div>
+                    </div>
                     <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded font-bold">Popular</span>
                 </button>
 
@@ -55,11 +61,11 @@
                 </button>
 
                 <button onclick="switchTool('converter')" id="btn-converter" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
-                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🔄</div><div class="text-left"><div>Format Converter</div><div class="text-[10px] text-gray-400 font-normal">PNG, JPG, WEBP</div></div></div>
+                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">🔄</div><div class="text-left"><div>Format Converter</div><div class="text-[10px] text-gray-400 font-normal">Multiple Formats</div></div></div>
                 </button>
 
                 <button onclick="switchTool('textwatermark')" id="btn-textwatermark" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
-                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">✍️</div><div class="text-left"><div>Text Watermark</div><div class="text-[10px] text-gray-400 font-normal">Live Preview & Opacity</div></div></div>
+                    <div class="flex items-center gap-3"><div class="p-2 rounded-lg bg-purple-50 text-[#7C3AED]">✍️</div><div class="text-left"><div>Add Watermark</div><div class="text-[10px] text-gray-400 font-normal">Custom Text & Opacity</div></div></div>
                 </button>
 
                 <button onclick="switchTool('cropper')" id="btn-cropper" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-medium text-sm text-gray-700 hover:bg-purple-50 hover:text-[#7C3AED] transition">
@@ -145,7 +151,6 @@
                     </div>
                 </div>
 
-                <!-- Fully Restored Image Resizer Settings with Scale Ratios & Social Presets -->
                 <div id="settings-resizer" class="tool-settings-group hidden space-y-4 text-xs">
                     <div>
                         <label class="block font-semibold text-gray-600 mb-1.5">Scale Ratio</label>
@@ -182,50 +187,57 @@
                     </div>
                 </div>
 
+                <!-- Format Converter with Extended Formats (AVIF, BMP, ICO included) -->
                 <div id="settings-converter" class="tool-settings-group hidden space-y-4 text-xs">
                     <label class="block font-semibold text-gray-600 mb-1">Target Format</label>
                     <select id="targetFormat" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800">
-                        <option value="image/png">PNG</option>
-                        <option value="image/jpeg">JPG</option>
-                        <option value="image/webp">WEBP</option>
+                        <option value="image/png">PNG (Lossless & Transparent)</option>
+                        <option value="image/jpeg">JPG / JPEG (Standard Photo)</option>
+                        <option value="image/webp">WEBP (Next-Gen Web Optimized)</option>
+                        <option value="image/avif">AVIF (Modern Compressed)</option>
+                        <option value="image/bmp">BMP (Bitmap Uncompressed)</option>
+                        <option value="image/x-icon">ICO (Favicon Format)</option>
                     </select>
                 </div>
 
-                <!-- Text Watermark Live Settings with Opacity Slider -->
+                <!-- Add Watermark Settings (No auto-apply on load) -->
                 <div id="settings-textwatermark" class="tool-settings-group hidden space-y-3 text-xs">
                     <div>
                         <label class="block font-semibold text-gray-600 mb-1">Watermark Text</label>
-                        <input type="text" id="watermarkText" value="© PixiePic" oninput="liveUpdateTextWatermark()" class="w-full border border-gray-300 rounded-lg px-3 py-2 font-semibold text-gray-800">
+                        <input type="text" id="watermarkText" value="© PixiePic" class="w-full border border-gray-300 rounded-lg px-3 py-2 font-semibold text-gray-800 focus:outline-none focus:border-[#7C3AED]">
                     </div>
                     <div>
                         <div class="flex justify-between font-semibold text-gray-600 mb-1"><span>Opacity / Darkness:</span><span id="opacityVal" class="text-[#7C3AED]">70%</span></div>
-                        <input type="range" id="opacitySlider" min="10" max="100" value="70" oninput="updateWatermarkOpacity(this.value)" class="w-full accent-[#7C3AED]">
+                        <input type="range" id="opacitySlider" min="10" max="100" value="70" oninput="document.getElementById('opacityVal').innerText = this.value + '%'" class="w-full accent-[#7C3AED]">
                     </div>
                 </div>
 
-                <!-- Interactive Cropper Settings -->
+                <!-- Image Cropper Settings (Extended Ratios & No auto-crop) -->
                 <div id="settings-cropper" class="tool-settings-group hidden space-y-3 text-xs">
                     <label class="block font-semibold text-gray-600 mb-1">Crop Aspect Ratio</label>
-                    <select id="cropRatio" onchange="liveUpdateCropper()" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800">
+                    <select id="cropRatio" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800 focus:outline-none focus:border-[#7C3AED]">
+                        <option value="1.0">Original Ratio (1:1 Fit)</option>
                         <option value="0.8">Square (1:1)</option>
-                        <option value="0.6">Standard Box (4:3)</option>
-                        <option value="0.5">Wide Banner (16:9)</option>
+                        <option value="0.75">Standard (4:3)</option>
+                        <option value="0.5625">Widescreen (16:9)</option>
+                        <option value="0.5">Portrait Story (9:16)</option>
                     </select>
                 </div>
 
+                <!-- Color Filters Settings (No auto-apply on load) -->
                 <div id="settings-grayscale" class="tool-settings-group hidden space-y-3 text-xs">
                     <label class="block font-semibold text-gray-600 mb-1">Filter Effect</label>
-                    <select id="filterType" onchange="liveUpdateGrayscale()" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800">
+                    <select id="filterType" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800 focus:outline-none focus:border-[#7C3AED]">
                         <option value="grayscale(100%)">Classic Black & White</option>
                         <option value="sepia(100%)">Vintage Sepia</option>
                         <option value="invert(100%)">Inverted Colors</option>
                     </select>
                 </div>
 
-                <!-- Advanced Rotator & Flipper Settings -->
+                <!-- Rotator & Flipper Settings (No auto-apply on load) -->
                 <div id="settings-rotator" class="tool-settings-group hidden space-y-3 text-xs">
                     <label class="block font-semibold text-gray-600 mb-1">Rotation Angle</label>
-                    <select id="rotateAngle" onchange="liveUpdateRotator()" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800">
+                    <select id="rotateAngle" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800 focus:outline-none focus:border-[#7C3AED]">
                         <option value="0">Normal (0°)</option>
                         <option value="90">Rotate 90° Clockwise</option>
                         <option value="180">Rotate 180°</option>
@@ -237,11 +249,11 @@
                     <p class="text-gray-500">Applies smart contrast & pixel smoothing.</p>
                 </div>
 
-                <!-- Summary Info -->
+                <!-- Summary Info (Cleaned up compressed size for relevant tools only) -->
                 <div class="mt-6 pt-4 border-t border-gray-100 space-y-2 text-xs">
                     <div class="flex justify-between"><span class="text-gray-400">Source File:</span><span id="infoFileName" class="font-bold text-gray-700 truncate max-w-[120px]">No image yet</span></div>
                     <div class="flex justify-between"><span class="text-gray-400">Original Size:</span><span id="infoOrigSize" class="font-bold text-gray-700">-</span></div>
-                    <div class="flex justify-between"><span class="text-gray-400">Compressed Size:</span><span id="infoCompSize" class="font-bold text-[#7C3AED]">-</span></div>
+                    <div id="compSizeRow" class="flex justify-between hidden"><span class="text-gray-400">Compressed Size:</span><span id="infoCompSize" class="font-bold text-[#7C3AED]">-</span></div>
                     <div class="flex justify-between"><span class="text-gray-400">Output Size:</span><span id="infoOutSize" class="font-bold text-[#10B981]">Pending...</span></div>
                 </div>
 
@@ -271,8 +283,8 @@
             'bg-remover': { title: 'Remove Image Background in <span class="text-[#7C3AED]">Seconds</span>', desc: '100% Automatic AI Background Removal.' },
             'compressor': { title: 'Compress Image <span class="text-[#7C3AED]">Size</span>', desc: 'Reduce file weight instantly in your browser.' },
             'resizer':    { title: 'Resize Image <span class="text-[#7C3AED]">Dimensions</span>', desc: 'Change width and height accurately with presets.' },
-            'converter':  { title: 'Convert Image <span class="text-[#7C3AED]">Format</span>', desc: 'Seamlessly switch between PNG, JPG, and WEBP.' },
-            'textwatermark': { title: 'Add Custom <span class="text-[#7C3AED]">Text Watermark</span>', desc: 'Stamp brand text with live preview & opacity.' },
+            'converter':  { title: 'Convert Image <span class="text-[#7C3AED]">Format</span>', desc: 'Seamlessly switch between multiple formats.' },
+            'textwatermark': { title: 'Add Custom <span class="text-[#7C3AED]">Watermark</span>', desc: 'Stamp brand text with custom opacity.' },
             'cropper':    { title: 'Crop Image <span class="text-[#7C3AED]">Precision</span>', desc: 'Trim and frame your pictures cleanly.' },
             'grayscale':  { title: 'Color Filters & <span class="text-[#7C3AED]">B&W</span>', desc: 'Transform colored images to monochrome or sepia.' },
             'rotator':    { title: 'Rotate & Flip <span class="text-[#7C3AED]">Image</span>', desc: 'Rotate angles or flip orientation.' },
@@ -301,6 +313,12 @@
 
             document.getElementById('dropZone').classList.remove('hidden');
             document.getElementById('workspaceArea').classList.add('hidden');
+            
+            // Toggle compressed size row visibility
+            const compRow = document.getElementById('compSizeRow');
+            if(toolId === 'compressor') { compRow.classList.remove('hidden'); }
+            else { compRow.classList.add('hidden'); }
+
             resetDownloadButton();
         }
 
@@ -323,9 +341,9 @@
             else if(currentTool === 'compressor') { btnText = "🗜️ Compress Image Now"; }
             else if(currentTool === 'resizer') { btnText = "📐 Resize Image Now"; }
             else if(currentTool === 'converter') { btnText = "🔄 Convert Format Now"; }
-            else if(currentTool === 'textwatermark') { btnText = "✍️ Apply Text Watermark"; }
+            else if(currentTool === 'textwatermark') { btnText = "✍️ Apply Watermark Now"; }
             else if(currentTool === 'cropper') { btnText = "✂️ Crop Image Now"; }
-            else if(currentTool === 'grayscale') { btnText = "🎨 Apply Color Filter"; }
+            else if(currentTool === 'grayscale') { btnText = "🎨 Apply Color Filter Now"; }
             else if(currentTool === 'rotator') { btnText = "🔃 Apply Rotation Now"; }
             else if(currentTool === 'watermark') { btnText = "🧼 Clean Watermark Now"; }
 
@@ -357,11 +375,6 @@
                     document.getElementById('infoFileName').innerText = file.name;
                     document.getElementById('infoOrigSize').innerText = formatBytes(file.size);
 
-                    if(currentTool === 'textwatermark') { liveUpdateTextWatermark(); }
-                    else if(currentTool === 'grayscale') { liveUpdateGrayscale(); }
-                    else if(currentTool === 'cropper') { liveUpdateCropper(); }
-                    else if(currentTool === 'rotator') { liveUpdateRotator(); }
-
                     renderActionButton();
                 };
                 originalImgObj.src = e.target.result;
@@ -381,6 +394,12 @@
             document.getElementById('previewImage').src = url;
             document.getElementById('infoOutSize').innerText = formatBytes(blob.size);
             
+            if (currentTool === 'compressor' && activeFile) {
+                const diff = activeFile.size - blob.size;
+                const percent = Math.round((diff / activeFile.size) * 100);
+                document.getElementById('infoCompSize').innerText = formatBytes(blob.size) + (percent > 0 ? ` (-${percent}%)` : '');
+            }
+
             const dlBtn = document.getElementById('downloadBtn');
             dlBtn.href = url;
             dlBtn.download = filename;
@@ -400,8 +419,7 @@
             else if(currentTool === 'watermark') { processWatermark(); }
         }
 
-        // Live Preview: Text Watermark
-        function liveUpdateTextWatermark() {
+        function processTextWatermark() {
             if (!activeFile) return;
             const text = document.getElementById('watermarkText').value || 'PixiePic';
             const opacity = document.getElementById('opacitySlider').value / 100;
@@ -416,16 +434,10 @@
             ctx.textAlign = 'right';
             ctx.fillText(text, canvas.width - 40, canvas.height - 40);
             
-            document.getElementById('previewImage').src = canvas.toDataURL('image/png');
             canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-watermarked.png'), 'image/png');
         }
-        function updateWatermarkOpacity(val) {
-            document.getElementById('opacityVal').innerText = val + '%';
-            liveUpdateTextWatermark();
-        }
 
-        // Live Preview: Grayscale & Filters
-        function liveUpdateGrayscale() {
+        function processGrayscale() {
             if (!activeFile) return;
             const filterVal = document.getElementById('filterType').value;
             const canvas = document.createElement('canvas');
@@ -434,27 +446,23 @@
             ctx.filter = filterVal;
             ctx.drawImage(originalImgObj, 0, 0);
             
-            document.getElementById('previewImage').src = canvas.toDataURL('image/png');
             canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-filtered.png'), 'image/png');
         }
 
-        // Live Preview: Interactive Cropper
-        function liveUpdateCropper() {
+        function processCropper() {
             if (!activeFile) return;
             const factor = parseFloat(document.getElementById('cropRatio').value);
             const canvas = document.createElement('canvas');
-            const cropW = originalImgObj.width * factor;
-            const cropH = originalImgObj.height * factor;
+            const cropW = originalImgObj.width * (factor === 1.0 ? 1.0 : factor);
+            const cropH = originalImgObj.height * (factor === 1.0 ? 1.0 : factor);
             canvas.width = cropW; canvas.height = cropH;
             const ctx = canvas.getContext('2d');
             ctx.drawImage(originalImgObj, (originalImgObj.width - cropW)/2, (originalImgObj.height - cropH)/2, cropW, cropH, 0, 0, cropW, cropH);
             
-            document.getElementById('previewImage').src = canvas.toDataURL('image/png');
             canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-cropped.png'), 'image/png');
         }
 
-        // Live Preview: Advanced Rotator
-        function liveUpdateRotator() {
+        function processRotator() {
             if (!activeFile) return;
             const angle = parseInt(document.getElementById('rotateAngle').value);
             const canvas = document.createElement('canvas');
@@ -472,7 +480,6 @@
             ctx.rotate(angle * Math.PI / 180);
             ctx.drawImage(originalImgObj, -originalImgObj.width / 2, -originalImgObj.height / 2);
 
-            document.getElementById('previewImage').src = canvas.toDataURL('image/png');
             canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-rotated.png'), 'image/png');
         }
 
@@ -519,19 +526,22 @@
 
         function processConverter() {
             const format = document.getElementById('targetFormat').value;
-            const ext = format.split('/')[1];
+            const extMap = {
+                'image/png': 'png',
+                'image/jpeg': 'jpg',
+                'image/webp': 'webp',
+                'image/avif': 'avif',
+                'image/bmp': 'bmp',
+                'image/x-icon': 'ico'
+            };
+            const ext = extMap[format] || 'png';
             const canvas = document.createElement('canvas');
             canvas.width = originalImgObj.width; canvas.height = originalImgObj.height;
             const ctx = canvas.getContext('2d');
-            if (format === 'image/jpeg') { ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, canvas.width, canvas.height); }
+            if (format === 'image/jpeg' || format === 'image/bmp') { ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, canvas.width, canvas.height); }
             ctx.drawImage(originalImgObj, 0, 0);
             canvas.toBlob((blob) => finalizeOutput(blob, `pixiepic-converted.${ext}`), format, 0.92);
         }
-
-        function processTextWatermark() { liveUpdateTextWatermark(); }
-        function processGrayscale() { liveUpdateGrayscale(); }
-        function processCropper() { liveUpdateCropper(); }
-        function processRotator() { liveUpdateRotator(); }
 
         function processWatermark() {
             const canvas = document.createElement('canvas');
