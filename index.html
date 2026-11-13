@@ -12,6 +12,13 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
         select:focus, input:focus { outline: none !important; box-shadow: none !important; }
+        /* Before/After Slider Container Styles */
+        .ba-slider { position: relative; overflow: hidden; width: 100%; max-height: 320px; border-radius: 0.5rem; user-select: none; }
+        .ba-slider img { display: block; width: 100%; height: auto; max-height: 320px; object-fit: contain; pointer-events: none; }
+        .ba-slider .ba-after { position: absolute; top: 0; left: 0; height: 100%; width: 50%; overflow: hidden; }
+        .ba-slider .ba-after img { position: absolute; top: 0; left: 0; height: 100%; max-width: none; }
+        .ba-slider .ba-resizer { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: #7C3AED; cursor: ew-resize; z-index: 20; }
+        .ba-slider .ba-handle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 32px; height: 32px; background: #7C3AED; border: 2px solid white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-purple-600 selection:text-white">
@@ -101,6 +108,7 @@
 
             <input type="file" id="fileInput" accept="image/*" class="hidden">
 
+            <!-- Default Drag & Drop Box -->
             <div id="dropZone" onclick="document.getElementById('fileInput').click()" class="border-2 border-dashed border-[#7C3AED]/50 hover:border-[#7C3AED] bg-purple-50/30 rounded-2xl p-12 text-center cursor-pointer transition flex flex-col items-center justify-center">
                 <div class="w-16 h-16 bg-purple-100 text-[#7C3AED] rounded-2xl flex items-center justify-center mb-4 shadow-sm text-2xl">📁</div>
                 <p class="text-lg font-bold text-gray-800 mb-1">Drag & Drop your image here</p>
@@ -108,8 +116,9 @@
                 <button type="button" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold px-8 py-3 rounded-xl shadow-md transition text-sm">Browse Image</button>
             </div>
 
+            <!-- Workspace Area (Hidden by default until image is uploaded) -->
             <div id="workspaceArea" class="hidden">
-                <div class="bg-gray-900 rounded-2xl border border-gray-800 p-4 flex items-center justify-center min-h-[300px] mb-6 relative overflow-hidden shadow-inner">
+                <div id="previewContainer" class="bg-gray-900 rounded-2xl border border-gray-800 p-4 flex items-center justify-center min-h-[300px] mb-6 relative overflow-hidden shadow-inner">
                     <span id="loadingSpinner" class="hidden absolute inset-0 bg-gray-900/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-white text-sm font-bold gap-2">
                         Processing Image... Please wait
                     </span>
@@ -123,6 +132,26 @@
                     <div id="mainActionContainer" class="flex-grow"></div>
                 </div>
             </div>
+
+            <!-- DEFAULT DEMO BEFORE/AFTER PREVIEW FOR BACKGROUND REMOVER (Shown on page load) -->
+            <div id="defaultDemoContainer" class="mt-6">
+                <div class="text-center mb-3">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Live Interactive Preview Example</span>
+                </div>
+                <div class="bg-gray-900 rounded-2xl border border-gray-800 p-4 flex items-center justify-center min-h-[260px] relative overflow-hidden shadow-inner">
+                    <div class="ba-slider" id="defaultBaSlider">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="Before">
+                        <div class="ba-after" id="defaultBaAfter">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="After" style="filter: brightness(1.1) contrast(1.05);">
+                        </div>
+                        <div class="ba-resizer" id="defaultBaResizer">
+                            <div class="ba-handle">↔</div>
+                        </div>
+                        <span class="absolute top-3 left-3 bg-black/70 text-white text-[10px] font-bold px-2 py-1 rounded shadow">BEFORE</span>
+                        <span class="absolute top-3 right-3 bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow">AFTER</span>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <!-- RIGHT SIDEBAR: TOOL SETTINGS & CONTROLS -->
@@ -134,7 +163,7 @@
                 </h3>
 
                 <div id="settings-bg-remover" class="tool-settings-group space-y-4 text-xs">
-                    <p class="text-gray-500">AI automatically detects the main subject and removes the background cleanly.</p>
+                    <p class="text-gray-500">AI automatically detects the main subject and removes the background cleanly with interactive Before/After preview.</p>
                 </div>
 
                 <div id="settings-compressor" class="tool-settings-group hidden space-y-4 text-xs">
@@ -293,7 +322,7 @@
         }
 
         const toolMetadata = {
-            'bg-remover': { title: 'Remove Image Background in <span class="text-[#7C3AED]">Seconds</span>', desc: '100% Automatic AI Background Removal.' },
+            'bg-remover': { title: 'Remove Image Background in <span class="text-[#7C3AED]">Seconds</span>', desc: '100% Automatic AI Background Removal with Before/After comparison.' },
             'compressor': { title: 'Compress Image <span class="text-[#7C3AED]">Size</span>', desc: 'Reduce file weight instantly in your browser.' },
             'resizer':    { title: 'Resize Image <span class="text-[#7C3AED]">Dimensions</span>', desc: 'Change width and height accurately with presets.' },
             'converter':  { title: 'Convert Image <span class="text-[#7C3AED]">Format</span>', desc: 'Seamlessly switch between multiple formats.' },
@@ -328,8 +357,20 @@
             const settingsGroup = document.getElementById('settings-' + toolId);
             if (settingsGroup) settingsGroup.classList.remove('hidden');
 
-            document.getElementById('dropZone').classList.remove('hidden');
-            document.getElementById('workspaceArea').classList.add('hidden');
+            const dropZone = document.getElementById('dropZone');
+            const workspaceArea = document.getElementById('workspaceArea');
+            const defaultDemo = document.getElementById('defaultDemoContainer');
+
+            if (toolId === 'bg-remover') {
+                dropZone.classList.remove('hidden');
+                workspaceArea.classList.add('hidden');
+                if(defaultDemo) defaultDemo.classList.remove('hidden');
+                initDefaultSlider();
+            } else {
+                dropZone.classList.remove('hidden');
+                workspaceArea.classList.add('hidden');
+                if(defaultDemo) defaultDemo.classList.add('hidden');
+            }
             
             const compRow = document.getElementById('compSizeRow');
             if(toolId === 'compressor') { compRow.classList.remove('hidden'); }
@@ -385,8 +426,16 @@
                         document.getElementById('resizeWidth').value = originalImgObj.width;
                         document.getElementById('resizeHeight').value = originalImgObj.height;
                     }
-                    document.getElementById('previewImage').src = e.target.result;
+                    
+                    document.getElementById('previewContainer').innerHTML = `
+                        <span id="loadingSpinner" class="hidden absolute inset-0 bg-gray-900/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-white text-sm font-bold gap-2">Processing Image... Please wait</span>
+                        <img id="previewImage" src="${e.target.result}" class="max-h-80 mx-auto rounded-lg shadow-lg object-contain" alt="Preview">
+                    `;
+
                     document.getElementById('dropZone').classList.add('hidden');
+                    const defaultDemo = document.getElementById('defaultDemoContainer');
+                    if(defaultDemo) defaultDemo.classList.add('hidden');
+
                     document.getElementById('workspaceArea').classList.remove('hidden');
                     document.getElementById('infoFileName').innerText = file.name;
                     document.getElementById('infoOrigSize').innerText = formatBytes(file.size);
@@ -412,7 +461,28 @@
 
         function finalizeOutput(blob, filename) {
             const url = URL.createObjectURL(blob);
-            document.getElementById('previewImage').src = url;
+            
+            if (currentTool === 'bg-remover') {
+                const origSrc = originalImgObj.src;
+                const container = document.getElementById('previewContainer');
+                container.innerHTML = `
+                    <div class="ba-slider" id="baSliderContainer">
+                        <img src="${origSrc}" alt="Before">
+                        <div class="ba-after" id="baAfterLayer">
+                            <img src="${url}" alt="After" id="baAfterImg">
+                        </div>
+                        <div class="ba-resizer" id="baResizerBar">
+                            <div class="ba-handle">↔</div>
+                        </div>
+                        <span class="absolute top-3 left-3 bg-black/70 text-white text-[10px] font-bold px-2 py-1 rounded shadow">BEFORE</span>
+                        <span class="absolute top-3 right-3 bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow">AFTER</span>
+                    </div>
+                `;
+                initBeforeAfterSlider('baSliderContainer', 'baAfterLayer', 'baResizerBar');
+            } else {
+                document.getElementById('previewImage').src = url;
+            }
+
             document.getElementById('infoOutSize').innerText = formatBytes(blob.size);
             
             if (currentTool === 'compressor' && activeFile) {
@@ -427,6 +497,44 @@
             dlBtn.className = "block w-full text-center bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3 rounded-xl shadow-lg transition text-xs uppercase tracking-wider cursor-pointer";
         }
 
+        function initDefaultSlider() {
+            initBeforeAfterSlider('defaultBaSlider', 'defaultBaAfter', 'defaultBaResizer');
+        }
+
+        function initBeforeAfterSlider(sliderId, afterLayerId, resizerId) {
+            const slider = document.getElementById(sliderId);
+            const afterLayer = document.getElementById(afterLayerId);
+            const resizer = document.getElementById(resizerId);
+            if (!slider || !afterLayer || !resizer) return;
+
+            let isDragging = false;
+
+            function updateSliderPos(xPos) {
+                const rect = slider.getBoundingClientRect();
+                let pos = xPos - rect.left;
+                if (pos < 0) pos = 0;
+                if (pos > rect.width) pos = rect.width;
+                const percent = (pos / rect.width) * 100;
+                afterLayer.style.width = percent + '%';
+                resizer.style.left = percent + '%';
+            }
+
+            resizer.addEventListener('mousedown', () => isDragging = true);
+            window.addEventListener('mouseup', () => isDragging = false);
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                updateSliderPos(e.clientX);
+            });
+
+            slider.addEventListener('click', (e) => {
+                updateSliderPos(e.clientX);
+            });
+        }
+
+        window.onload = function() {
+            initDefaultSlider();
+        };
+
         function processCurrentTool() {
             if (!activeFile) return alert("Please upload an image first!");
             if(currentTool === 'bg-remover') { processBgRemover(); }
@@ -440,7 +548,6 @@
             else if(currentTool === 'watermark') { processWatermark(); }
         }
 
-        // Add Watermark (Outputs in original format)
         function liveUpdateWatermarkText() {
             if (!activeFile) return;
             const text = document.getElementById('watermarkText').value || 'PixiePic';
@@ -475,7 +582,6 @@
             canvas.toBlob((blob) => finalizeOutput(blob, `pixiepic-watermarked.${ext}`), mime, 0.92);
         }
 
-        // Color Filters (Outputs in original format)
         function livePreviewFilter() {
             if (!activeFile) return;
             const filterVal = document.getElementById('filterType').value;
@@ -499,7 +605,6 @@
             canvas.toBlob((blob) => finalizeOutput(blob, `pixiepic-filtered.${ext}`), mime, 0.92);
         }
 
-        // Cropper (Outputs in original format)
         function livePreviewCropper() {
             if (!activeFile) return;
             const ratioType = document.getElementById('cropRatio').value;
@@ -552,7 +657,6 @@
             canvas.toBlob((blob) => finalizeOutput(blob, `pixiepic-cropped.${ext}`), mime, 0.92);
         }
 
-        // Rotator (Outputs in original format)
         function livePreviewRotation() {
             if (!activeFile) return;
             const angle = parseInt(document.getElementById('rotateAngle').value);
@@ -590,6 +694,9 @@
                 alert("దయచేసి మీ Remove.bg API Key ఎంటర్ చేయండి!");
                 return;
             }
+            const spinner = document.getElementById('loadingSpinner');
+            if (spinner) spinner.classList.remove('hidden');
+
             const formData = new FormData();
             formData.append('image_file', activeFile);
             formData.append('size', 'auto');
@@ -601,8 +708,10 @@
                 });
                 if (!response.ok) throw new Error('API Error');
                 const blob = await response.blob();
+                if (spinner) spinner.classList.add('hidden');
                 finalizeOutput(blob, 'pixiepic-no-bg.png');
             } catch (err) {
+                if (spinner) spinner.classList.add('hidden');
                 alert("Background removal failed. Check API key.");
             }
         }
@@ -616,7 +725,6 @@
             canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-compressed.jpg'), 'image/jpeg', quality);
         }
 
-        // Resizer (Outputs in original format)
         function processResizer() {
             const { mime, ext } = getOriginalFormatInfo();
             const w = parseInt(document.getElementById('resizeWidth').value);
@@ -630,14 +738,7 @@
 
         function processConverter() {
             const format = document.getElementById('targetFormat').value;
-            const extMap = {
-                'image/png': 'png',
-                'image/jpeg': 'jpg',
-                'image/webp': 'webp',
-                'image/avif': 'avif',
-                'image/bmp': 'bmp',
-                'image/x-icon': 'ico'
-            };
+            const extMap = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/avif': 'avif', 'image/bmp': 'bmp', 'image/x-icon': 'ico' };
             const ext = extMap[format] || 'png';
             const canvas = document.createElement('canvas');
             canvas.width = originalImgObj.width; canvas.height = originalImgObj.height;
@@ -647,7 +748,6 @@
             canvas.toBlob((blob) => finalizeOutput(blob, `pixiepic-converted.${ext}`), format, 0.92);
         }
 
-        // Smart Watermark Remover (Outputs in original format)
         function processWatermark() {
             const { mime, ext } = getOriginalFormatInfo();
             const canvas = document.createElement('canvas');
