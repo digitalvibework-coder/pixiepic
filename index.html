@@ -11,6 +11,8 @@
         body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: #0F172A; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        /* Remove default focus rings for clean UI */
+        select:focus, input:focus { outline: none !important; box-shadow: none !important; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-purple-600 selection:text-white">
@@ -41,7 +43,7 @@
             </div>
             
             <div class="flex flex-col gap-2" id="sidebarMenu">
-                <!-- Background Remover with Professional SVG Icon -->
+                <!-- Background Remover with Icon Restored -->
                 <button onclick="switchTool('bg-remover')" id="btn-bg-remover" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-semibold text-sm bg-[#7C3AED] text-white shadow-md transition">
                     <div class="flex items-center gap-3">
                         <div class="p-2 rounded-lg bg-white/15 text-white">
@@ -187,10 +189,9 @@
                     </div>
                 </div>
 
-                <!-- Format Converter with Extended Formats (AVIF, BMP, ICO included) -->
                 <div id="settings-converter" class="tool-settings-group hidden space-y-4 text-xs">
                     <label class="block font-semibold text-gray-600 mb-1">Target Format</label>
-                    <select id="targetFormat" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800">
+                    <select id="targetFormat" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800 focus:outline-none focus:ring-0">
                         <option value="image/png">PNG (Lossless & Transparent)</option>
                         <option value="image/jpeg">JPG / JPEG (Standard Photo)</option>
                         <option value="image/webp">WEBP (Next-Gen Web Optimized)</option>
@@ -200,44 +201,45 @@
                     </select>
                 </div>
 
-                <!-- Add Watermark Settings (No auto-apply on load) -->
+                <!-- Add Watermark Settings (Live Preview as user types) -->
                 <div id="settings-textwatermark" class="tool-settings-group hidden space-y-3 text-xs">
                     <div>
                         <label class="block font-semibold text-gray-600 mb-1">Watermark Text</label>
-                        <input type="text" id="watermarkText" value="© PixiePic" class="w-full border border-gray-300 rounded-lg px-3 py-2 font-semibold text-gray-800 focus:outline-none focus:border-[#7C3AED]">
+                        <input type="text" id="watermarkText" value="© PixiePic" oninput="liveUpdateWatermarkText()" class="w-full border border-gray-300 rounded-lg px-3 py-2 font-semibold text-gray-800">
                     </div>
                     <div>
                         <div class="flex justify-between font-semibold text-gray-600 mb-1"><span>Opacity / Darkness:</span><span id="opacityVal" class="text-[#7C3AED]">70%</span></div>
-                        <input type="range" id="opacitySlider" min="10" max="100" value="70" oninput="document.getElementById('opacityVal').innerText = this.value + '%'" class="w-full accent-[#7C3AED]">
+                        <input type="range" id="opacitySlider" min="10" max="100" value="70" oninput="updateWatermarkOpacity(this.value)" class="w-full accent-[#7C3AED]">
                     </div>
                 </div>
 
-                <!-- Image Cropper Settings (Extended Ratios & No auto-crop) -->
+                <!-- Image Cropper Settings (Aspect Ratios fixed) -->
                 <div id="settings-cropper" class="tool-settings-group hidden space-y-3 text-xs">
                     <label class="block font-semibold text-gray-600 mb-1">Crop Aspect Ratio</label>
-                    <select id="cropRatio" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800 focus:outline-none focus:border-[#7C3AED]">
-                        <option value="1.0">Original Ratio (1:1 Fit)</option>
-                        <option value="0.8">Square (1:1)</option>
-                        <option value="0.75">Standard (4:3)</option>
-                        <option value="0.5625">Widescreen (16:9)</option>
-                        <option value="0.5">Portrait Story (9:16)</option>
+                    <select id="cropRatio" onchange="livePreviewCropper()" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800 focus:outline-none focus:ring-0">
+                        <option value="1.0">Original Fit (1:1)</option>
+                        <option value="square">Square (1:1)</option>
+                        <option value="standard">Standard (4:3)</option>
+                        <option value="widescreen">Widescreen (16:9)</option>
+                        <option value="portrait">Portrait Story / Reel (9:16)</option>
                     </select>
                 </div>
 
-                <!-- Color Filters Settings (No auto-apply on load) -->
+                <!-- Color Filters Settings -->
                 <div id="settings-grayscale" class="tool-settings-group hidden space-y-3 text-xs">
                     <label class="block font-semibold text-gray-600 mb-1">Filter Effect</label>
-                    <select id="filterType" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800 focus:outline-none focus:border-[#7C3AED]">
+                    <select id="filterType" onchange="livePreviewFilter()" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800 focus:outline-none focus:ring-0">
+                        <option value="none">Select Filter...</option>
                         <option value="grayscale(100%)">Classic Black & White</option>
                         <option value="sepia(100%)">Vintage Sepia</option>
                         <option value="invert(100%)">Inverted Colors</option>
                     </select>
                 </div>
 
-                <!-- Rotator & Flipper Settings (No auto-apply on load) -->
+                <!-- Rotator & Flipper Settings -->
                 <div id="settings-rotator" class="tool-settings-group hidden space-y-3 text-xs">
                     <label class="block font-semibold text-gray-600 mb-1">Rotation Angle</label>
-                    <select id="rotateAngle" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800 focus:outline-none focus:border-[#7C3AED]">
+                    <select id="rotateAngle" onchange="livePreviewRotation()" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white font-semibold text-gray-800 focus:outline-none focus:ring-0">
                         <option value="0">Normal (0°)</option>
                         <option value="90">Rotate 90° Clockwise</option>
                         <option value="180">Rotate 180°</option>
@@ -249,7 +251,7 @@
                     <p class="text-gray-500">Applies smart contrast & pixel smoothing.</p>
                 </div>
 
-                <!-- Summary Info (Cleaned up compressed size for relevant tools only) -->
+                <!-- Summary Info -->
                 <div class="mt-6 pt-4 border-t border-gray-100 space-y-2 text-xs">
                     <div class="flex justify-between"><span class="text-gray-400">Source File:</span><span id="infoFileName" class="font-bold text-gray-700 truncate max-w-[120px]">No image yet</span></div>
                     <div class="flex justify-between"><span class="text-gray-400">Original Size:</span><span id="infoOrigSize" class="font-bold text-gray-700">-</span></div>
@@ -284,8 +286,8 @@
             'compressor': { title: 'Compress Image <span class="text-[#7C3AED]">Size</span>', desc: 'Reduce file weight instantly in your browser.' },
             'resizer':    { title: 'Resize Image <span class="text-[#7C3AED]">Dimensions</span>', desc: 'Change width and height accurately with presets.' },
             'converter':  { title: 'Convert Image <span class="text-[#7C3AED]">Format</span>', desc: 'Seamlessly switch between multiple formats.' },
-            'textwatermark': { title: 'Add Custom <span class="text-[#7C3AED]">Watermark</span>', desc: 'Stamp brand text with custom opacity.' },
-            'cropper':    { title: 'Crop Image <span class="text-[#7C3AED]">Precision</span>', desc: 'Trim and frame your pictures cleanly.' },
+            'textwatermark': { title: 'Add Custom <span class="text-[#7C3AED]">Watermark</span>', desc: 'Stamp brand text with live visual preview & opacity.' },
+            'cropper':    { title: 'Crop Image <span class="text-[#7C3AED]">Precision</span>', desc: 'Trim and frame your pictures cleanly without cutting faces.' },
             'grayscale':  { title: 'Color Filters & <span class="text-[#7C3AED]">B&W</span>', desc: 'Transform colored images to monochrome or sepia.' },
             'rotator':    { title: 'Rotate & Flip <span class="text-[#7C3AED]">Image</span>', desc: 'Rotate angles or flip orientation.' },
             'watermark':  { title: 'Smart <span class="text-[#7C3AED]">Watermark Remover</span>', desc: 'Clean light overlays and enhance clarity.' }
@@ -314,7 +316,6 @@
             document.getElementById('dropZone').classList.remove('hidden');
             document.getElementById('workspaceArea').classList.add('hidden');
             
-            // Toggle compressed size row visibility
             const compRow = document.getElementById('compSizeRow');
             if(toolId === 'compressor') { compRow.classList.remove('hidden'); }
             else { compRow.classList.add('hidden'); }
@@ -375,6 +376,12 @@
                     document.getElementById('infoFileName').innerText = file.name;
                     document.getElementById('infoOrigSize').innerText = formatBytes(file.size);
 
+                    // Initialize default states for live preview tools
+                    if(currentTool === 'textwatermark') { liveUpdateWatermarkText(); }
+                    else if(currentTool === 'grayscale') { document.getElementById('filterType').value = 'none'; }
+                    else if(currentTool === 'cropper') { document.getElementById('cropRatio').value = '1.0'; }
+                    else if(currentTool === 'rotator') { document.getElementById('rotateAngle').value = '0'; }
+
                     renderActionButton();
                 };
                 originalImgObj.src = e.target.result;
@@ -419,7 +426,8 @@
             else if(currentTool === 'watermark') { processWatermark(); }
         }
 
-        function processTextWatermark() {
+        // Live Preview: Add Watermark
+        function liveUpdateWatermarkText() {
             if (!activeFile) return;
             const text = document.getElementById('watermarkText').value || 'PixiePic';
             const opacity = document.getElementById('opacitySlider').value / 100;
@@ -434,52 +442,135 @@
             ctx.textAlign = 'right';
             ctx.fillText(text, canvas.width - 40, canvas.height - 40);
             
+            document.getElementById('previewImage').src = canvas.toDataURL('image/png');
+        }
+        function updateWatermarkOpacity(val) {
+            document.getElementById('opacityVal').innerText = val + '%';
+            liveUpdateWatermarkText();
+        }
+        function processTextWatermark() {
+            if (!activeFile) return;
+            const text = document.getElementById('watermarkText').value || 'PixiePic';
+            const opacity = document.getElementById('opacitySlider').value / 100;
+            const canvas = document.createElement('canvas');
+            canvas.width = originalImgObj.width; canvas.height = originalImgObj.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(originalImgObj, 0, 0);
+            ctx.font = 'bold 36px Inter, sans-serif';
+            ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+            ctx.textAlign = 'right';
+            ctx.fillText(text, canvas.width - 40, canvas.height - 40);
             canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-watermarked.png'), 'image/png');
         }
 
-        function processGrayscale() {
+        // Live Preview & Processing: Color Filters
+        function livePreviewFilter() {
             if (!activeFile) return;
             const filterVal = document.getElementById('filterType').value;
             const canvas = document.createElement('canvas');
             canvas.width = originalImgObj.width; canvas.height = originalImgObj.height;
             const ctx = canvas.getContext('2d');
+            if(filterVal !== 'none') { ctx.filter = filterVal; }
+            ctx.drawImage(originalImgObj, 0, 0);
+            document.getElementById('previewImage').src = canvas.toDataURL('image/png');
+        }
+        function processGrayscale() {
+            if (!activeFile) return;
+            const filterVal = document.getElementById('filterType').value;
+            if(filterVal === 'none') return alert("Please select a filter effect first!");
+            const canvas = document.createElement('canvas');
+            canvas.width = originalImgObj.width; canvas.height = originalImgObj.height;
+            const ctx = canvas.getContext('2d');
             ctx.filter = filterVal;
             ctx.drawImage(originalImgObj, 0, 0);
-            
             canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-filtered.png'), 'image/png');
         }
 
+        // Live Preview & Processing: Cropper (Fixed 9:16 portrait cutting issue)
+        function livePreviewCropper() {
+            if (!activeFile) return;
+            const ratioType = document.getElementById('cropRatio').value;
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            let w = originalImgObj.width, h = originalImgObj.height, x = 0, y = 0;
+
+            if (ratioType === 'square') {
+                let dim = Math.min(w, h);
+                w = dim; h = dim; x = (originalImgObj.width - dim)/2; y = (originalImgObj.height - dim)/2;
+            } else if (ratioType === 'standard') {
+                if (w / h > 4/3) { w = h * (4/3); x = (originalImgObj.width - w)/2; }
+                else { h = w / (4/3); y = (originalImgObj.height - h)/2; }
+            } else if (ratioType === 'widescreen') {
+                if (w / h > 16/9) { w = h * (16/9); x = (originalImgObj.width - w)/2; }
+                else { h = w / (16/9); y = (originalImgObj.height - h)/2; }
+            } else if (ratioType === 'portrait') {
+                // 9:16 vertical ratio centered safely without cutting off top faces abruptly
+                if (w / h > 9/16) { w = h * (9/16); x = (originalImgObj.width - w)/2; }
+                else { h = w / (9/16); y = Math.max(0, (originalImgObj.height - h)/4); } // adjusted offset for face protection
+            }
+
+            canvas.width = w; canvas.height = h;
+            ctx.drawImage(originalImgObj, x, y, w, h, 0, 0, w, h);
+            document.getElementById('previewImage').src = canvas.toDataURL('image/png');
+        }
         function processCropper() {
             if (!activeFile) return;
-            const factor = parseFloat(document.getElementById('cropRatio').value);
+            livePreviewCropper();
             const canvas = document.createElement('canvas');
-            const cropW = originalImgObj.width * (factor === 1.0 ? 1.0 : factor);
-            const cropH = originalImgObj.height * (factor === 1.0 ? 1.0 : factor);
-            canvas.width = cropW; canvas.height = cropH;
             const ctx = canvas.getContext('2d');
-            ctx.drawImage(originalImgObj, (originalImgObj.width - cropW)/2, (originalImgObj.height - cropH)/2, cropW, cropH, 0, 0, cropW, cropH);
-            
+            let ratioType = document.getElementById('cropRatio').value;
+            let w = originalImgObj.width, h = originalImgObj.height, x = 0, y = 0;
+
+            if (ratioType === 'square') {
+                let dim = Math.min(w, h);
+                w = dim; h = dim; x = (originalImgObj.width - dim)/2; y = (originalImgObj.height - dim)/2;
+            } else if (ratioType === 'standard') {
+                if (w / h > 4/3) { w = h * (4/3); x = (originalImgObj.width - w)/2; }
+                else { h = w / (4/3); y = (originalImgObj.height - h)/2; }
+            } else if (ratioType === 'widescreen') {
+                if (w / h > 16/9) { w = h * (16/9); x = (originalImgObj.width - w)/2; }
+                else { h = w / (16/9); y = (originalImgObj.height - h)/2; }
+            } else if (ratioType === 'portrait') {
+                if (w / h > 9/16) { w = h * (9/16); x = (originalImgObj.width - w)/2; }
+                else { h = w / (9/16); y = Math.max(0, (originalImgObj.height - h)/4); }
+            }
+
+            canvas.width = w; canvas.height = h;
+            ctx.drawImage(originalImgObj, x, y, w, h, 0, 0, w, h);
             canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-cropped.png'), 'image/png');
         }
 
-        function processRotator() {
+        // Live Preview & Processing: Rotator
+        function livePreviewRotation() {
             if (!activeFile) return;
             const angle = parseInt(document.getElementById('rotateAngle').value);
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
 
             if (angle === 90 || angle === 270) {
-                canvas.width = originalImgObj.height;
-                canvas.height = originalImgObj.width;
+                canvas.width = originalImgObj.height; canvas.height = originalImgObj.width;
             } else {
-                canvas.width = originalImgObj.width;
-                canvas.height = originalImgObj.height;
+                canvas.width = originalImgObj.width; canvas.height = originalImgObj.height;
             }
-
             ctx.translate(canvas.width / 2, canvas.height / 2);
             ctx.rotate(angle * Math.PI / 180);
             ctx.drawImage(originalImgObj, -originalImgObj.width / 2, -originalImgObj.height / 2);
-
+            document.getElementById('previewImage').src = canvas.toDataURL('image/png');
+        }
+        function processRotator() {
+            if (!activeFile) return;
+            livePreviewRotation();
+            const angle = parseInt(document.getElementById('rotateAngle').value);
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            if (angle === 90 || angle === 270) {
+                canvas.width = originalImgObj.height; canvas.height = originalImgObj.width;
+            } else {
+                canvas.width = originalImgObj.width; canvas.height = originalImgObj.height;
+            }
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate(angle * Math.PI / 180);
+            ctx.drawImage(originalImgObj, -originalImgObj.width / 2, -originalImgObj.height / 2);
             canvas.toBlob((blob) => finalizeOutput(blob, 'pixiepic-rotated.png'), 'image/png');
         }
 
