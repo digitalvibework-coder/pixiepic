@@ -12,11 +12,12 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
         select:focus, input:focus { outline: none !important; box-shadow: none !important; }
-        /* Before/After Slider Container Styles */
-        .ba-slider { position: relative; overflow: hidden; width: 100%; height: 280px; border-radius: 0.5rem; user-select: none; }
-        .ba-slider img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; display: block; }
+        
+        /* Before/After Full Cover Slider Styles */
+        .ba-slider { position: relative; overflow: hidden; width: 100%; height: 320px; border-radius: 0.5rem; user-select: none; }
+        .ba-slider img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; display: block; }
         .ba-slider .ba-after { position: absolute; top: 0; left: 0; height: 100%; width: 50%; overflow: hidden; }
-        .ba-slider .ba-after img { position: absolute; top: 0; left: 0; max-width: none; height: 100%; width: 100%; object-fit: contain; }
+        .ba-slider .ba-after img { position: absolute; top: 0; left: 0; max-width: none; height: 100vw; width: 100%; object-fit: cover; }
         .ba-slider .ba-resizer { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: #7C3AED; cursor: ew-resize; z-index: 20; }
         .ba-slider .ba-handle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 32px; height: 32px; background: #7C3AED; border: 2px solid white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
     </style>
@@ -49,7 +50,6 @@
             </div>
             
             <div class="flex flex-col gap-2" id="sidebarMenu">
-                <!-- Tool 1: Background Remover (Permanent SVG Icon Fixed) -->
                 <button onclick="switchTool('bg-remover')" id="btn-bg-remover" class="tool-tab flex items-center justify-between w-full px-4 py-3 rounded-xl font-semibold text-sm bg-[#7C3AED] text-white shadow-md transition">
                     <div class="flex items-center gap-3">
                         <div class="tool-icon-box p-2 rounded-lg bg-white/15 text-white">
@@ -108,16 +108,15 @@
 
             <input type="file" id="fileInput" accept="image/*" class="hidden">
 
-            <!-- MAIN WORKSPACE BOX: INTEGRATED DEFAULT BEFORE/AFTER PREVIEW FOR BG REMOVER -->
+            <!-- MAIN WORKSPACE BOX: FULL COVER BEFORE/AFTER PREVIEW FOR BG REMOVER -->
             <div id="dropZone" class="border-2 border-dashed border-[#7C3AED]/50 bg-purple-50/30 rounded-2xl p-6 text-center transition flex flex-col items-center justify-center">
                 
-                <!-- Live Interactive Before/After Preview Example with New Professional Model -->
                 <div id="defaultDemoContainer" class="w-full mb-6">
-                    <div class="bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] bg-gray-900 rounded-xl border border-gray-800 p-3 flex items-center justify-center relative overflow-hidden shadow-inner">
+                    <div class="bg-gray-900 rounded-xl border border-gray-800 p-2 flex items-center justify-center relative overflow-hidden shadow-inner">
                         <div class="ba-slider" id="defaultBaSlider">
-                            <!-- Before Image (Original with background - Professional Model) -->
+                            <!-- Before Image (Original with background covering full box) -->
                             <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80" alt="Before">
-                            <!-- After Image (Transparent / Cutout view with checkerboard background) -->
+                            <!-- After Image (Transparent checkered background + subject covering full box) -->
                             <div class="ba-after" id="defaultBaAfter">
                                 <div class="absolute inset-0 bg-[linear-gradient(45deg,#ccc_25%,transparent_25%),linear-gradient(-45deg,#ccc_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#ccc_75%)] bg-[size:20px_20px] bg-[position:0_0,0_10px,10px_-10px,-10px_0px]"></div>
                                 <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80" alt="After" class="relative z-10" style="filter: brightness(1.05) contrast(1.05);">
@@ -131,7 +130,6 @@
                     </div>
                 </div>
 
-                <!-- Browse Action Only on Button Click -->
                 <div class="w-full flex flex-col items-center">
                     <p class="text-sm font-bold text-gray-800 mb-1">Drag & Drop your image here</p>
                     <p class="text-xs text-gray-400 mb-4">or click to browse from your device (JPG, PNG, WEBP)</p>
@@ -463,7 +461,7 @@
                         <img src="${origSrc}" alt="Before">
                         <div class="ba-after" id="baAfterLayer">
                             <div class="absolute inset-0 bg-[linear-gradient(45deg,#ccc_25%,transparent_25%),linear-gradient(-45deg,#ccc_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#ccc_75%)] bg-[size:20px_20px] bg-[position:0_0,0_10px,10px_-10px,-10px_0px]"></div>
-                            <img src="${url}" alt="After" id="baAfterImg" class="relative z-10">
+                            <img src="${url}" alt="After" id="baAfterImg" class="relative z-10" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <div class="ba-resizer" id="baResizerBar">
                             <div class="ba-handle">↔</div>
@@ -753,6 +751,7 @@
         }
 
         function setCompressorPreset(val, btn) {
+            document.getElementById('qualitySlider').value, val;
             document.getElementById('qualitySlider').value = val;
             document.getElementById('qualityVal').innerText = val + '%';
             document.querySelectorAll('#compressorPresets .preset-btn').forEach(b => {
