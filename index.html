@@ -13,10 +13,10 @@
         ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
         select:focus, input:focus { outline: none !important; box-shadow: none !important; }
         /* Before/After Slider Container Styles */
-        .ba-slider { position: relative; overflow: hidden; width: 100%; max-height: 320px; border-radius: 0.5rem; user-select: none; }
-        .ba-slider img { display: block; width: 100%; height: auto; max-height: 320px; object-fit: contain; pointer-events: none; }
+        .ba-slider { position: relative; overflow: hidden; width: 100%; height: 280px; border-radius: 0.5rem; user-select: none; }
+        .ba-slider img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; display: block; }
         .ba-slider .ba-after { position: absolute; top: 0; left: 0; height: 100%; width: 50%; overflow: hidden; }
-        .ba-slider .ba-after img { position: absolute; top: 0; left: 0; height: 100%; max-width: none; }
+        .ba-slider .ba-after img { position: absolute; top: 0; left: 0; max-width: none; height: 100%; width: 100%; object-fit: contain; }
         .ba-slider .ba-resizer { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: #7C3AED; cursor: ew-resize; z-index: 20; }
         .ba-slider .ba-handle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 32px; height: 32px; background: #7C3AED; border: 2px solid white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
     </style>
@@ -109,33 +109,33 @@
             <input type="file" id="fileInput" accept="image/*" class="hidden">
 
             <!-- MAIN WORKSPACE BOX: INTEGRATED DEFAULT BEFORE/AFTER PREVIEW FOR BG REMOVER -->
-            <div id="dropZone" class="border-2 border-dashed border-[#7C3AED]/50 hover:border-[#7C3AED] bg-purple-50/30 rounded-2xl p-6 text-center transition flex flex-col items-center justify-center">
+            <div id="dropZone" class="border-2 border-dashed border-[#7C3AED]/50 bg-purple-50/30 rounded-2xl p-6 text-center transition flex flex-col items-center justify-center">
                 
-                <!-- Live Interactive Before/After Preview Example inside the tool box -->
+                <!-- Live Interactive Before/After Preview Example with Professional Black Suit Model -->
                 <div id="defaultDemoContainer" class="w-full mb-6">
-                    <div class="text-center mb-2">
-                        <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Interactive Live Preview Example</span>
-                    </div>
-                    <div class="bg-gray-900 rounded-xl border border-gray-800 p-3 flex items-center justify-center relative overflow-hidden shadow-inner">
+                    <div class="bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] bg-gray-900 rounded-xl border border-gray-800 p-3 flex items-center justify-center relative overflow-hidden shadow-inner">
                         <div class="ba-slider" id="defaultBaSlider">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="Before">
+                            <!-- Before Image (Original with background) -->
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80" alt="Before">
+                            <!-- After Image (Transparent / Cutout view with checkerboard background) -->
                             <div class="ba-after" id="defaultBaAfter">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="After" style="filter: brightness(1.1) contrast(1.05);">
+                                <div class="absolute inset-0 bg-[linear-gradient(45deg,#ccc_25%,transparent_25%),linear-gradient(-45deg,#ccc_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#ccc_75%),linear-gradient(-45deg,transparent_75%,#ccc_75%)] bg-[size:20px_20px] bg-[position:0_0,0_10px,10px_-10px,-10px_0px]"></div>
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80" alt="After" class="relative z-10" style="filter: brightness(1.05) contrast(1.05);">
                             </div>
                             <div class="ba-resizer" id="defaultBaResizer">
                                 <div class="ba-handle">↔</div>
                             </div>
-                            <span class="absolute top-2 left-2 bg-black/70 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow">BEFORE</span>
-                            <span class="absolute top-2 right-2 bg-purple-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow">AFTER</span>
+                            <span class="absolute top-2 left-2 bg-black/70 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow z-30">BEFORE</span>
+                            <span class="absolute top-2 right-2 bg-purple-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow z-30">AFTER</span>
                         </div>
                     </div>
                 </div>
 
-                <div onclick="document.getElementById('fileInput').click()" class="cursor-pointer w-full flex flex-col items-center">
-                    <div class="w-12 h-12 bg-purple-100 text-[#7C3AED] rounded-2xl flex items-center justify-center mb-2 shadow-sm text-xl">📁</div>
-                    <p class="text-base font-bold text-gray-800 mb-1">Drag & Drop your image here</p>
+                <!-- Browse Action Only on Button Click -->
+                <div class="w-full flex flex-col items-center">
+                    <p class="text-sm font-bold text-gray-800 mb-1">Drag & Drop your image here</p>
                     <p class="text-xs text-gray-400 mb-4">or click to browse from your device (JPG, PNG, WEBP)</p>
-                    <button type="button" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold px-8 py-3 rounded-xl shadow-md transition text-sm">Browse Image</button>
+                    <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold px-8 py-3 rounded-xl shadow-md transition text-sm cursor-pointer">Browse Image</button>
                 </div>
             </div>
 
@@ -149,7 +149,7 @@
                 </div>
 
                 <div class="flex items-center justify-between gap-4">
-                    <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-5 py-3.5 rounded-xl text-xs transition flex items-center gap-2">
+                    <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-5 py-3.5 rounded-xl text-xs transition flex items-center gap-2 cursor-pointer">
                         Change Image
                     </button>
                     <div id="mainActionContainer" class="flex-grow"></div>
@@ -398,15 +398,11 @@
             else if(currentTool === 'rotator') { btnText = "🔃 Apply Rotation Now"; }
             else if(currentTool === 'watermark') { btnText = "🧼 Clean Watermark Now"; }
 
-            container.innerHTML = `<button type="button" onclick="${actionFunc}" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm">${btnText}</button>`;
+            container.innerHTML = `<button type="button" onclick="${actionFunc}" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition text-sm cursor-pointer">${btnText}</button>`;
         }
 
         const fileInput = document.getElementById('fileInput');
-        const dropZone = document.getElementById('dropZone');
-
         fileInput.addEventListener('change', (e) => { if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]); });
-        dropZone.addEventListener('dragover', (e) => e.preventDefault());
-        dropZone.addEventListener('drop', (e) => { e.preventDefault(); if (e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
 
         function handleFile(file) {
             activeFile = file;
@@ -427,7 +423,7 @@
                             <img id="previewImage" src="${e.target.result}" class="max-h-80 mx-auto rounded-lg shadow-lg object-contain" alt="Preview">
                         </div>
                         <div class="flex items-center justify-between gap-4">
-                            <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-5 py-3.5 rounded-xl text-xs transition flex items-center gap-2">Change Image</button>
+                            <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-5 py-3.5 rounded-xl text-xs transition flex items-center gap-2 cursor-pointer">Change Image</button>
                             <div id="mainActionContainer" class="flex-grow"></div>
                         </div>
                     `;
@@ -466,13 +462,14 @@
                     <div class="ba-slider" id="baSliderContainer">
                         <img src="${origSrc}" alt="Before">
                         <div class="ba-after" id="baAfterLayer">
-                            <img src="${url}" alt="After" id="baAfterImg">
+                            <div class="absolute inset-0 bg-[linear-gradient(45deg,#ccc_25%,transparent_25%),linear-gradient(-45deg,#ccc_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#ccc_75%)] bg-[size:20px_20px] bg-[position:0_0,0_10px,10px_-10px,-10px_0px]"></div>
+                            <img src="${url}" alt="After" id="baAfterImg" class="relative z-10">
                         </div>
                         <div class="ba-resizer" id="baResizerBar">
                             <div class="ba-handle">↔</div>
                         </div>
-                        <span class="absolute top-3 left-3 bg-black/70 text-white text-[10px] font-bold px-2 py-1 rounded shadow">BEFORE</span>
-                        <span class="absolute top-3 right-3 bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow">AFTER</span>
+                        <span class="absolute top-3 left-3 bg-black/70 text-white text-[10px] font-bold px-2 py-1 rounded shadow z-30">BEFORE</span>
+                        <span class="absolute top-3 right-3 bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow z-30">AFTER</span>
                     </div>
                 `;
                 initBeforeAfterSlider('baSliderContainer', 'baAfterLayer', 'baResizerBar');
